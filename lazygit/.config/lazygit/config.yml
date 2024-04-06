@@ -1,0 +1,9 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/jesseduffield/lazygit/master/schema/config.json
+
+gui:
+  theme:
+    selectedLineBgColor:
+      - black
+    selectedRangeBgColor:
+      - black
+  nerdFontsVersion: "3"
