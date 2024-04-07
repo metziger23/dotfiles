@@ -5,7 +5,6 @@ return {
 		"nvim-lua/plenary.nvim",
 		{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 		"nvim-tree/nvim-web-devicons",
-		"nvim-telescope/telescope-file-browser.nvim",
 	},
 	config = function()
 		local telescope = require("telescope")
@@ -21,19 +20,12 @@ return {
 					},
 				},
 			},
-			extensions = {
-				file_browser = {
-					hijack_netrw = true, -- disables netrw and use telescope-file-browser in its place
-          cwd_to_path = true
-				},
-			},
 		})
 
 		telescope.load_extension("fzf")
-		telescope.load_extension("file_browser")
 
 		local builtin = require("telescope.builtin")
-    local keymap = vim.keymap -- for conciseness
+		local keymap = vim.keymap -- for conciseness
 
 		keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Find Files" })
 		keymap.set("n", "<leader>fF", builtin.current_buffer_fuzzy_find, { desc = "Current Buffer Fuzzy Find" })
@@ -54,13 +46,5 @@ return {
 		keymap.set("n", "<leader>fr", builtin.registers, { desc = "Registers" })
 		keymap.set("n", "<leader>fp", builtin.resume, { desc = "Previous Picker's Results" })
 		keymap.set("n", "<leader>fP", builtin.pickers, { desc = "List Previous Pickers" })
-
-		local opts = { noremap = true }
-		opts.desc = "Open Explorer"
-		vim.api.nvim_set_keymap("n", "<space>ee", ":Telescope file_browser<CR>", opts)
-
-		-- open file_browser with the path of the current buffer
-		opts.desc = "Open Explorer On Current Buffer"
-		vim.api.nvim_set_keymap("n", "<space>ec", ":Telescope file_browser path=%:p:h select_buffer=true<CR>", opts)
 	end,
 }
