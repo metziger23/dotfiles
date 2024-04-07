@@ -1,18 +1,6 @@
 return {
 	"hrsh7th/nvim-cmp",
 	event = "InsertEnter",
-	opts = {
-		window = {
-			completion = {
-				border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
-				winhighlight = "Normal:CmpPmenu,FloatBorder:CmpBorder,CursorLine:PmenuSel,Search:None",
-			},
-			documentation = {
-				border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
-				winhighlight = "Normal:CmpPmenu,FloatBorder:CmpBorder,CursorLine:PmenuSel,Search:None",
-			},
-		},
-	},
 	dependencies = {
 		"hrsh7th/cmp-buffer", -- source for text in buffer
 		"hrsh7th/cmp-path", -- source for file system paths
@@ -21,6 +9,7 @@ return {
 		"rafamadriz/friendly-snippets", -- useful snippets
 		"onsails/lspkind.nvim", -- vs-code like pictograms
 		"hrsh7th/cmp-cmdline",
+		"hrsh7th/cmp-nvim-lsp-signature-help",
 	},
 	config = function()
 
@@ -116,6 +105,7 @@ return {
 				{ name = "luasnip" }, -- snippets
 				{ name = "buffer" }, -- text within current buffer
 				{ name = "path" }, -- file system paths
+        { name = 'nvim_lsp_signature_help' }
 			}),
 			-- configure lspkind for vs-code like pictograms in completion menu
 			formatting = {
