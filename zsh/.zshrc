@@ -121,5 +121,12 @@ alias lt='ls --tree'
 # Add starship
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
+
+
+
 # Set up fzf key bindings and fuzzy completion
-eval "$(fzf --zsh)"
+if [[ "$(fzf --version)" == *"brew"* ]]; then
+  eval "$(fzf --zsh)"
+else
+  echo "it's not brew!"
+fi
