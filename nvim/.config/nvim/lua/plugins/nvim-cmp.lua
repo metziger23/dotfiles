@@ -26,9 +26,30 @@ return {
 		-- loads vscode style snippets from installed plugins (e.g. friendly-snippets)
 		require("luasnip.loaders.from_vscode").lazy_load()
 
+    local mapping_preset_cmdline = cmp.mapping.preset.cmdline({
+      ['<C-k>'] = {
+        c = function()
+          if cmp.visible() then
+            cmp.select_prev_item()
+          else
+            cmp.complete()
+          end
+        end,
+      },
+      ['<C-j>'] = {
+        c = function()
+          if cmp.visible() then
+            cmp.select_next_item()
+          else
+            cmp.complete()
+          end
+        end,
+      },
+    })
+
 		-- `/` cmdline setup.
 		cmp.setup.cmdline("/", {
-			mapping = cmp.mapping.preset.cmdline(),
+			mapping = mapping_preset_cmdline,
 			sources = {
 				{ name = "buffer" },
 			},
@@ -36,7 +57,7 @@ return {
 
 		-- `:` cmdline setup.
 		cmp.setup.cmdline(":", {
-			mapping = cmp.mapping.preset.cmdline(),
+			mapping = mapping_preset_cmdline,
 			sources = cmp.config.sources({
 				{ name = "path" },
 			}, {
