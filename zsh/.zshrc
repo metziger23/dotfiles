@@ -125,8 +125,9 @@ eval "$(zoxide init zsh)"
 
 
 # Set up fzf key bindings and fuzzy completion
-if [[ "$(fzf --version)" == *"brew"* ]]; then
+
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+  [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+elif [[ "$OSTYPE" == "darwin"* ]]; then
   eval "$(fzf --zsh)"
-else
-  echo "it's not brew!"
 fi
