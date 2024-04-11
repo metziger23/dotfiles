@@ -55,6 +55,15 @@ return {
 			},
 		})
 
+		-- `?` cmdline setup.
+		cmp.setup.cmdline("?", {
+			mapping = mapping_preset_cmdline,
+			sources = {
+				{ name = "buffer" },
+			},
+		})
+
+
 		-- `:` cmdline setup.
 		cmp.setup.cmdline(":", {
 			mapping = mapping_preset_cmdline,
