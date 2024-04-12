@@ -121,5 +121,13 @@ alias lt='ls --tree'
 # Add starship
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
+
+
+
 # Set up fzf key bindings and fuzzy completion
-eval "$(fzf --zsh)"
+
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+  [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+  eval "$(fzf --zsh)"
+fi
