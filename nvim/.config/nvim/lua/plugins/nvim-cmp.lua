@@ -12,19 +12,40 @@ return {
 		"hrsh7th/cmp-nvim-lsp-signature-help",
 	},
 	config = function()
+		local cmp = require("cmp")
+		local luasnip = require("luasnip")
+		local lspkind = require("lspkind")
+
+		-- loads vscode style snippets from installed plugins (e.g. friendly-snippets)
+		require("luasnip.loaders.from_vscode").lazy_load()
 
     local check_backspace = function()
       local col = vim.fn.col "." - 1
       return col == 0 or vim.fn.getline("."):sub(col, col):match "%s"
     end
-		local cmp = require("cmp")
 
-		local luasnip = require("luasnip")
+    local format_fn = function(_, item)
+          item.menu = ""
+          local fixed_width = 40
+          local content = item.abbr
 
-		local lspkind = require("lspkind")
+      if fixed_width then
+        vim.o.pumwidth = fixed_width
+      end
 
-		-- loads vscode style snippets from installed plugins (e.g. friendly-snippets)
-		require("luasnip.loaders.from_vscode").lazy_load()
+      local win_width = vim.api.nvim_win_get_width(0)
+
+      local max_content_width = fixed_width and fixed_width - 10 or math.floor(win_width * 0.2)
+
+      if #content > max_content_width then
+        item.abbr = vim.fn.strcharpart(content, 0, max_content_width - 3) .. "..."
+      else
+        item.abbr = content .. (" "):rep(max_content_width - #content)
+      end
+
+      return item
+    end
+
 
 		-- `/` cmdline setup.
 		cmp.setup.cmdline("/", {
@@ -107,13 +128,15 @@ return {
 				{ name = "path" }, -- file system paths
         { name = 'nvim_lsp_signature_help' }
 			}),
-			-- configure lspkind for vs-code like pictograms in completion menu
-			formatting = {
-				format = lspkind.cmp_format({
-					maxwidth = 50,
-					ellipsis_char = "...",
-				}),
-			},
+
+      formatting = {
+        fields = { "abbr", "kind" },
+        format = lspkind.cmp_format({
+          maxwidth = 40,
+          ellipsis_char = "...",
+          before = format_fn,
+        }),
+      },
 		})
 	end,
 }
