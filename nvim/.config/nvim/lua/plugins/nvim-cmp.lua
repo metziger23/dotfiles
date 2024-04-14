@@ -9,7 +9,6 @@ return {
 		"rafamadriz/friendly-snippets", -- useful snippets
 		"onsails/lspkind.nvim", -- vs-code like pictograms
 		"hrsh7th/cmp-cmdline",
-		"hrsh7th/cmp-nvim-lsp-signature-help",
 	},
 	config = function()
 		local cmp = require("cmp")
@@ -126,7 +125,6 @@ return {
 				{ name = "luasnip" }, -- snippets
 				{ name = "buffer" }, -- text within current buffer
 				{ name = "path" }, -- file system paths
-        { name = 'nvim_lsp_signature_help' }
 			}),
 
       formatting = {
