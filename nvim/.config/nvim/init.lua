@@ -17,6 +17,9 @@ local lazy_opts = {
   ui = {
     border = "rounded",
   },
+  change_detection = {
+    notify = false
+  }
 }
 
 require("lazy").setup({ { import = 'plugins' }, { import = 'plugins.lspconfig' } }, lazy_opts)
