@@ -6,6 +6,7 @@ return {
 		{ "antosha417/nvim-lsp-file-operations", config = true },
     "mason.nvim",
     "williamboman/mason-lspconfig.nvim",
+    "ray-x/lsp_signature.nvim"
 	},
 	config = function()
 		-- Decorate floating windows
@@ -98,13 +99,6 @@ return {
 			opts.desc = "Hover information"
 			keymap.set("n", "K", function()
 				vim.lsp.buf.hover()
-			end, opts)
-			opts.desc = "Signature help"
-			keymap.set("n", "gK", function()
-				vim.lsp.buf.signature_help()
-			end, opts)
-			keymap.set("i", "<c-k>", function()
-				vim.lsp.buf.signature_help()
 			end, opts)
 
 			opts.desc = "Go to next diagnostic"
