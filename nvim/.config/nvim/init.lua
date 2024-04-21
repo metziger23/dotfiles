@@ -22,7 +22,7 @@ local lazy_opts = {
   }
 }
 
-require("lazy").setup({ { import = 'plugins' }, { import = 'plugins.lspconfig' } }, lazy_opts)
+require("lazy").setup({ { import = 'plugins' } }, lazy_opts)
 
 
 

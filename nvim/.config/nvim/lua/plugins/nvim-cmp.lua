@@ -1,6 +1,6 @@
 return {
 	"hrsh7th/nvim-cmp",
-	event = "InsertEnter",
+	event = { "InsertEnter", "CmdlineEnter" },
 	dependencies = {
 		"hrsh7th/cmp-buffer", -- source for text in buffer
 		"hrsh7th/cmp-path", -- source for file system paths
@@ -46,17 +46,47 @@ return {
     end
 
 
+    local mapping_preset_cmdline = cmp.mapping.preset.cmdline({
+      ['<C-k>'] = {
+        c = function()
+          if cmp.visible() then
+            cmp.select_prev_item()
+          else
+            cmp.complete()
+          end
+        end,
+      },
+      ['<C-j>'] = {
+        c = function()
+          if cmp.visible() then
+            cmp.select_next_item()
+          else
+            cmp.complete()
+          end
+        end,
+      },
+    })
+
 		-- `/` cmdline setup.
 		cmp.setup.cmdline("/", {
-			mapping = cmp.mapping.preset.cmdline(),
+			mapping = mapping_preset_cmdline,
 			sources = {
 				{ name = "buffer" },
 			},
 		})
 
+		-- `?` cmdline setup.
+		cmp.setup.cmdline("?", {
+			mapping = mapping_preset_cmdline,
+			sources = {
+				{ name = "buffer" },
+			},
+		})
+
+
 		-- `:` cmdline setup.
 		cmp.setup.cmdline(":", {
-			mapping = cmp.mapping.preset.cmdline(),
+			mapping = mapping_preset_cmdline,
 			sources = cmp.config.sources({
 				{ name = "path" },
 			}, {
