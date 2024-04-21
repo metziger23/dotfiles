@@ -28,6 +28,16 @@ return {
 		{ "<leader>fr", builtin.registers, desc = "Registers" },
 		{ "<leader>fp", builtin.resume, desc = "Previous Picker's Results" },
 		{ "<leader>fP", builtin.pickers, desc = "List Previous Pickers" },
+
+    -- telescope git pickers
+    { "<leader>gc", function() builtin.git_bcommits() end,  desc = "Git commits (current buffer)" },
+    { "<leader>gC", function() builtin.git_commits() end,  desc = "Git commits (current directory)" },
+    { "<leader>gC", function() builtin.git_bommits_range() end,  desc = "Git commits (range)", mode = "v" },
+    { "<leader>gb", function() builtin.git_branches() end,  desc = "Git branches" },
+    { "<leader>gs", function() builtin.git_status() end,  desc = "Git status" },
+    { "<leader>gS", function() builtin.git_stash() end,  desc = "Git stash" },
+    { "<leader>gf", function() builtin.git_files() end,  desc = "Git files" },
+
 	},
 	config = function()
 		local telescope = require("telescope")
