@@ -110,7 +110,7 @@ export LANG=en_US.UTF-8
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #
 alias n="nvim"
-alias r="ranger"
+alias lg="lazygit"
 
 
 # Add starship
