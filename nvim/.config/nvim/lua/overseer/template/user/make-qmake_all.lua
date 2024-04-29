@@ -7,7 +7,7 @@ return {
 		return {
 			cmd = { make },
 			args = { "qmake_all" },
-			components = { { "on_output_quickfix", open = true }, "default" },
+			components = { { "on_output_quickfix", open = false }, "default" },
 		}
 	end,
 	condition = {

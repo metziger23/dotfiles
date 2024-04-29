@@ -5,7 +5,7 @@ return {
         local target = make_utils.get_target_from_Makefile()
 		return {
 			cmd = {"./" .. target},
-			components = { { "on_output_quickfix", open = true }, "default" },
+			components = { { "on_output_quickfix", open = false }, "default" },
 		}
 	end,
 }
