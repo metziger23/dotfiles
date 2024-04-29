@@ -26,12 +26,6 @@ return {
 		{ "<P", "<Plug>(YankyPutIndentBeforeShiftLeft)", desc = "Put before and indent left" },
 		{ "<leader>p", "<Plug>(YankyPutAfterFilter)", desc = "Put after applying a filter" },
 		{ "<leader>P", "<Plug>(YankyPutBeforeFilter)", desc = "Put before applying a filter" },
-		{
-			"lp",
-			mode = { "o", "x" },
-			function() require("yanky.textobj").last_put() end,
-			desc = "Yanky Text Object",
-		},
 	},
 	config = function()
 		local utils = require("yanky.utils")
@@ -41,7 +35,7 @@ return {
 				storage = "sqlite",
 			},
 			textobj = {
-				enabled = true,
+				enabled = false,
 			},
 			highlight = {
 				on_put = false,
