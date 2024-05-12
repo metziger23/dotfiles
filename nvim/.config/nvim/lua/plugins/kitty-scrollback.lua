@@ -12,6 +12,7 @@ return {
         paste_window = {
           yank_register_enabled = false,
         },
+        keymaps_enabled = false,
       },
     })
 	end,
