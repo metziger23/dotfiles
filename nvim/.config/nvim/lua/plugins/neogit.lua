@@ -9,5 +9,14 @@ return {
 	keys = {
 		{ "<leader>gg", "<cmd>Neogit<cr>", desc = "Neogit" },
 	},
-	config = true,
+  config = function ()
+    require("neogit").setup({
+      mappings = {
+        finder = {
+          ["<c-k>"] = "Previous",
+          ["<c-j>"] = "Next",
+        },
+      },
+    })
+  end
 }
