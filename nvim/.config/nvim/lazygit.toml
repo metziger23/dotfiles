@@ -1,0 +1,13 @@
+os: 
+  editPreset: nvim-remote
+# os:
+#   editCommand: 'nvim --server $NVIM_SERVER'
+#   editCommandTemplate: "{{editor}} --remote-send '<C-\\><C-n>:5ToggleTerm<CR>:lua Edit({{filename}}, {{line}})<CR>'"
+
+gui:
+  theme:
+    selectedLineBgColor:
+      - black
+    selectedRangeBgColor:
+      - black
+  nerdFontsVersion: "3"
