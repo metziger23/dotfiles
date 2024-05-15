@@ -6,6 +6,10 @@ return {
 	config = function()
 		local illuminate = require("illuminate")
 		illuminate.configure({
+      providers = {
+        "lsp",
+        "treesitter",
+      },
 			delay = 250,
       filetypes_denylist = {
         "mason",
