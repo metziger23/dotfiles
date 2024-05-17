@@ -1,0 +1,27 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/jesseduffield/lazygit/master/schema/config.json
+
+
+# move this config to:
+# Linux: ~/.config/lazygit/config.yml
+# MacOS: ~/Library/Application\ Support/lazygit/config.yml
+# Windows: %LOCALAPPDATA%\lazygit\config.yml (default location, but it will also be found in %APPDATA%\lazygit\config.yml
+
+
+# os:
+#   editPreset: 'nvim-remote'
+#   edit: "nvr --remote-send '<CR><CMD>q<CR><CMD>lua local root = vim.fn.trim(vim.fn.system(\"git rev-parse --show-toplevel\")); vim.cmd(\"e \" .. root .. \"/\" .. {{filename}})<CR>'"
+#   editAtLine: "nvr --remote-send '<CR><CMD>q<CR><CMD>lua local root = vim.fn.trim(vim.fn.system(\"git rev-parse --show-toplevel\")); vim.cmd(\"e \" .. root .. \"/\" .. {{filename}})<CR>:{{line}}<CR>'"
+
+
+os:
+  editPreset: 'nvim-remote'
+  edit: "nvr --remote-send '<CR><CMD>q<CR><CMD>lua vim.cmd(\"e \" .. {{filename}})<CR>'"
+  open: "nvr --remote-send '<CR><CMD>q<CR><CMD>lua print(\"e \" .. {{filename}})<CR><CMD>lua vim.cmd(\"e \" .. {{filename}})<CR>'"
+  editAtLine: "nvr --remote-send '<CR><CMD>q<CR><CMD>lua vim.cmd(\"e \" .. {{filename}})<CR><CMD>{{line}}<CR>'"
+gui:
+  theme:
+    selectedLineBgColor:
+      - black
+    selectedRangeBgColor:
+      - black
+  nerdFontsVersion: "3"
