@@ -3,9 +3,9 @@ local lazygit = "lazygit -ucf " .. lazygit_config_path
 local lazygit_params = "--opener=edit --titleposition=center --height=0.9 --width=0.9"
 
 return {
-  {
-    "voldikss/vim-floaterm",
-    cmd = { "FloatermNew", "FloatermToggle", "FloatermNext", "FloatermPrev", "FloatermLast", "FloatermFirst" },
+	{
+		"voldikss/vim-floaterm",
+		cmd = { "FloatermNew", "FloatermToggle", "FloatermNext", "FloatermPrev", "FloatermLast", "FloatermFirst" },
     --stylua: ignore
     keys = {
       { "<leader>gg", "<cmd>FloatermNew --name=lazygitroot " .. lazygit_params .. " --cwd=<root> " .. lazygit .. "<CR>", desc = "Lazygit (root dir)" },
@@ -24,21 +24,21 @@ return {
       { "<leader>fts", "<cmd>FloatermNew --name=splitroot --opener=edit --titleposition=center --height=0.35 --wintype=split --cwd=<root><cr>", desc = "Split (root dir)" },
       { "<leader>ftS", "<cmd>FloatermNew --name=splitbuffer --opener=edit --titleposition=center --height=0.35 --wintype=split --cwd=<buffer><cr>", desc = "Split (cwd)" },
     },
-    config = function ()
-      vim.g.floaterm_borderchars =  "─│─│╭╮╯╰"
-    end
-  },
-  {
-    "dawsers/telescope-floaterm.nvim",
-    dependencies = {
-      "nvim-telescope/telescope.nvim",
-      "voldikss/vim-floaterm",
-    },
-    config = function()
-      require("telescope").load_extension("floaterm")
-    end,
-    keys = {
-      { [[<A-\>]], "<cmd>Telescope floaterm<cr>", desc = "Terminals" },
-    },
-  },
- }
+		config = function()
+			vim.g.floaterm_borderchars = "─│─│╭╮╯╰"
+		end,
+	},
+	{
+		"dawsers/telescope-floaterm.nvim",
+		dependencies = {
+			"nvim-telescope/telescope.nvim",
+			"voldikss/vim-floaterm",
+		},
+		config = function()
+			require("telescope").load_extension("floaterm")
+		end,
+		keys = {
+			{ [[<A-\>]], "<cmd>Telescope floaterm<cr>", desc = "Terminals" },
+		},
+	},
+}
