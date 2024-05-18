@@ -30,6 +30,10 @@ return {
   },
   {
     "dawsers/telescope-floaterm.nvim",
+    dependencies = {
+      "nvim-telescope/telescope.nvim",
+      "voldikss/vim-floaterm",
+    },
     config = function()
       require("telescope").load_extension("floaterm")
     end,
