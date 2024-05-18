@@ -41,18 +41,4 @@ return {
       { [[<A-\>]], "<cmd>Telescope floaterm<cr>", desc = "Terminals" },
     },
   },
-  {
-    "folke/edgy.nvim",
-    optional = true,
-    opts = function(_, opts)
-      table.insert(opts.bottom, {
-        ft = "floaterm",
-        title = "Floaterm",
-        size = { height = 0.4 },
-        filter = function(buf, win)
-          return vim.api.nvim_win_get_config(win).relative == ""
-        end,
-      })
-    end,
-  },
  }
