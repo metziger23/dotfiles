@@ -20,10 +20,10 @@ return {
       { "<A-Right>", "<Esc><Esc><cmd>FloatermLast<CR>", mode = { "t" }, desc = "Last Terminal" },
       { "<A-Left>", "<Esc><Esc><cmd>FloatermFirst<CR>", mode = { "t" }, desc = "First Terminal" },
       { [[<c-\>]], "<cmd>FloatermToggle<cr>", mode = { "n", "t" }, desc = "Toggle Terminal" },
-      { "<leader>ftf", "<cmd>FloatermNew --name=floatroot " .. float_params .. " --cwd=<root><cr>", desc = "Floating (root dir)" },
-      { "<leader>ftF", "<cmd>FloatermNew --name=floatbuffer " .. float_params .. " --cwd=<buffer><cr>", desc = "Floating (cwd)" },
-      { "<leader>fts", "<cmd>FloatermNew --name=splitroot " .. split_params .. " --cwd=<root><cr>", desc = "Split (root dir)" },
-      { "<leader>ftS", "<cmd>FloatermNew --name=splitbuffer " .. split_params .. " --cwd=<buffer><cr>", desc = "Split (cwd)" },
+      { "<leader>tf", "<cmd>FloatermNew --name=floatroot " .. float_params .. " --cwd=<root><cr>", desc = "Floaterm Open Floating (root dir)" },
+      { "<leader>tF", "<cmd>FloatermNew --name=floatbuffer " .. float_params .. " --cwd=<buffer><cr>", desc = "Floaterm Open Floating (cwd)" },
+      { "<leader>ts", "<cmd>FloatermNew --name=splitroot " .. split_params .. " --cwd=<root><cr>", desc = "Floaterm Open Split (root dir)" },
+      { "<leader>tS", "<cmd>FloatermNew --name=splitbuffer " .. split_params .. " --cwd=<buffer><cr>", desc = "Floaterm Open Split (cwd)" },
     },
 		config = function()
 			vim.g.floaterm_borderchars = "─│─│╭╮╯╰"
