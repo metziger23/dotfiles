@@ -32,9 +32,6 @@ return {
     "dawsers/telescope-floaterm.nvim",
     config = function()
       require("telescope").load_extension("floaterm")
-      -- LazyVim.on_load("telescope.nvim", function()
-      --   require("telescope").load_extension("floaterm")
-      -- end)
     end,
     keys = {
       { [[<A-\>]], "<cmd>Telescope floaterm<cr>", desc = "Terminals" },
