@@ -10,10 +10,10 @@ return {
     keys = {
       { "<leader>gg", "<cmd>FloatermNew --name=lazygitroot " .. lazygit_params .. " --cwd=<root> " .. lazygit .. "<CR>", desc = "Lazygit (root dir)" },
       { "<leader>gG", "<cmd>FloatermNew --name=lazygitbuffer " .. lazygit_params .. " --cwd=<buffer> " .. lazygit .. "<CR>", desc = "Lazygit (cwd)" },
-      { "<leader>gF", function()
+      { "<leader>gh", function()
         local git_path = vim.api.nvim_buf_get_name(0)
         vim.api.nvim_command("FloatermNew --name=lazygitroot " .. lazygit_params .. " " .. lazygit .. " -f " .. vim.trim(git_path))
-      end, desc = "File History (LazyGit)" },
+      end, desc = "LazyGit File History (LazyGit)" },
       { "<S-Right>", "<Esc><Esc><cmd>FloatermNext<CR>", mode = { "t" }, desc = "Next Terminal" },
       { "<S-Left>", "<Esc><Esc><cmd>FloatermPrev<CR>", mode = { "t" }, desc = "Prev Terminal" },
       { "<A-Right>", "<Esc><Esc><cmd>FloatermLast<CR>", mode = { "t" }, desc = "Last Terminal" },
