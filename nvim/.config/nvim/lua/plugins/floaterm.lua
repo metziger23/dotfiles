@@ -15,10 +15,8 @@ return {
         local git_path = vim.api.nvim_buf_get_name(0)
         vim.api.nvim_command("FloatermNew --name=lazygitroot " .. float_params .. " " .. lazygit .. " -f " .. vim.trim(git_path))
       end, desc = "LazyGit File History (LazyGit)" },
-      { "<S-Right>", "<Esc><Esc><cmd>FloatermNext<CR>", mode = { "t" }, desc = "Next Terminal" },
-      { "<S-Left>", "<Esc><Esc><cmd>FloatermPrev<CR>", mode = { "t" }, desc = "Prev Terminal" },
-      { "<A-Right>", "<Esc><Esc><cmd>FloatermLast<CR>", mode = { "t" }, desc = "Last Terminal" },
-      { "<A-Left>", "<Esc><Esc><cmd>FloatermFirst<CR>", mode = { "t" }, desc = "First Terminal" },
+      { "<A-S-l>", "<Esc><Esc><cmd>FloatermNext<CR>", mode = { "t" }, desc = "Next Terminal" },
+      { "<A-S-h>", "<Esc><Esc><cmd>FloatermPrev<CR>", mode = { "t" }, desc = "Prev Terminal" },
       { [[<c-\>]], "<cmd>FloatermToggle<cr>", mode = { "n", "t" }, desc = "Toggle Terminal" },
       { "<leader>tf", "<cmd>FloatermNew --name=floatroot " .. float_params .. " --cwd=<root><cr>", desc = "Floaterm Open Floating (root dir)" },
       { "<leader>tF", "<cmd>FloatermNew --name=floatbuffer " .. float_params .. " --cwd=<buffer><cr>", desc = "Floaterm Open Floating (cwd)" },
