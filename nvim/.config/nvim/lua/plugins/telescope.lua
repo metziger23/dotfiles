@@ -47,6 +47,9 @@ return {
 
 		telescope.setup({
 			defaults = {
+        cache_picker = {
+          num_pickers = 100,
+        },
 				path_display = { "truncate " },
 				mappings = {
 					i = {
