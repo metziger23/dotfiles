@@ -1,3 +1,7 @@
+local function get_cwd()
+  return vim.fn.fnamemodify(vim.fn.getcwd(), ":~")
+end
+
 return {
 	"nvim-lualine/lualine.nvim",
 	event = "VeryLazy",
@@ -6,11 +10,13 @@ return {
 		require("lualine").setup({
 			options = {
 				theme = "catppuccin",
-        globalstatus = true,
+				globalstatus = true,
 				component_separators = { left = "│", right = "│" },
 				section_separators = { left = "█", right = "█" },
+			},
+			sections = {
+        lualine_c = {'filename', get_cwd},
 			},
 		})
 	end,
 }
-
