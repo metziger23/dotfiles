@@ -1,5 +1,5 @@
 local function get_cwd()
-  return vim.fn.fnamemodify(vim.fn.getcwd(), ":~")
+	return vim.fn.fnamemodify(vim.fn.getcwd(), ":~")
 end
 
 return {
@@ -15,7 +15,7 @@ return {
 				section_separators = { left = "█", right = "█" },
 			},
 			sections = {
-        lualine_c = {'filename', get_cwd},
+				lualine_x = { get_cwd, "encoding", "fileformat", "filetype" },
 			},
 		})
 	end,
