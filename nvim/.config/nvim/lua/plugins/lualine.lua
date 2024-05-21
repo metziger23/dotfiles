@@ -15,6 +15,7 @@ return {
 				section_separators = { left = "█", right = "█" },
 			},
 			sections = {
+        lualine_c = { "filename", "overseer" },
 				lualine_x = { get_cwd, "encoding", "fileformat", "filetype" },
 			},
 		})
