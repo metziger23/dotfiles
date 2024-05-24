@@ -11,6 +11,7 @@ if [[ -f "/opt/homebrew/bin/brew" ]] then
 fi
 
 [ -f "${ZDOTDIR}/aliasrc" ] && source "${ZDOTDIR}/aliasrc"
+[ -f "${ZDOTDIR}/optionrc" ] && source "${ZDOTDIR}/optionrc"
 
 # history
 HISTSIZE=110000
