@@ -12,6 +12,7 @@ fi
 
 [ -f "${ZDOTDIR}/aliasrc" ] && source "${ZDOTDIR}/aliasrc"
 [ -f "${ZDOTDIR}/optionrc" ] && source "${ZDOTDIR}/optionrc"
+[ -f "${ZDOTDIR}/pluginrc" ] && source "${ZDOTDIR}/pluginrc"
 
 # history
 HISTSIZE=110000
@@ -23,8 +24,6 @@ zstyle :compinstall ~/.config/zsh/.zshrc
 
 autoload -Uz compinit
 compinit
-
-source $ZDOTDIR/plugins/powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
 [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
