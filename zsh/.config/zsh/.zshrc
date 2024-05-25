@@ -29,3 +29,4 @@ compinit
 [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
 
 export PATH="$HOME/.local/bin":$PATH
+eval "$(zoxide init zsh)"
