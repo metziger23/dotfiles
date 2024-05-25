@@ -40,9 +40,9 @@ zinit cdreplay -q
 # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
 [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
 
-[ -f "${ZDOTDIR}/aliases" ] && source "${ZDOTDIR}/aliases"
-[ -f "${ZDOTDIR}/history-config" ] && source "${ZDOTDIR}/history-config"
-[ -f "${ZDOTDIR}/fzf-config" ] && source "${ZDOTDIR}/fzf-config"
+[ -f "${ZDOTDIR}/aliases.sh" ] && source "${ZDOTDIR}/aliases.sh"
+[ -f "${ZDOTDIR}/history-config.sh" ] && source "${ZDOTDIR}/history-config.sh"
+[ -f "${ZDOTDIR}/fzf-config.sh" ] && source "${ZDOTDIR}/fzf-config.sh"
 
 # ----- Bat (better cat) -----
 export BAT_THEME="Catppuccin Mocha"
