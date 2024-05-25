@@ -52,6 +52,8 @@ zstyle ':completion:*' menu no
 # preview directory's content with eza when completing cd
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
 zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'eza -1 --color=always $realpath'
+# remove fzf-tab-mappings and use default fzf mappings
+zstyle ':fzf-tab:*' fzf-flags --bind "tab:toggle,btab:ignore,ctrl-space:ignore"
 
 # ----- Bat (better cat) -----
 export BAT_THEME="Catppuccin Mocha"
