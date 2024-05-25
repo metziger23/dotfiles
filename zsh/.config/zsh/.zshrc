@@ -42,6 +42,10 @@ zinit cdreplay -q
 
 [ -f "${ZDOTDIR}/aliases" ] && source "${ZDOTDIR}/aliases"
 [ -f "${ZDOTDIR}/history-config" ] && source "${ZDOTDIR}/history-config"
+[ -f "${ZDOTDIR}/fzf-config" ] && source "${ZDOTDIR}/fzf-config"
+
+# ----- Bat (better cat) -----
+export BAT_THEME="Catppuccin Mocha"
 
 export PATH="$HOME/.local/bin":$PATH
 eval "$(zoxide init zsh)"
