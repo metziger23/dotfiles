@@ -10,14 +10,10 @@ if [[ -f "/opt/homebrew/bin/brew" ]] then
   eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
-[ -f "${ZDOTDIR}/aliasrc" ] && source "${ZDOTDIR}/aliasrc"
-[ -f "${ZDOTDIR}/optionrc" ] && source "${ZDOTDIR}/optionrc"
-[ -f "${ZDOTDIR}/pluginrc" ] && source "${ZDOTDIR}/pluginrc"
+[ -f "${ZDOTDIR}/aliases" ] && source "${ZDOTDIR}/aliases"
+[ -f "${ZDOTDIR}/history-config" ] && source "${ZDOTDIR}/history-config"
 
-# history
-HISTSIZE=110000
-SAVEHIST=100000
-HISTFILE=~/.histfile
+[ -f "${ZDOTDIR}/pluginrc" ] && source "${ZDOTDIR}/pluginrc"
 
 # completion
 zstyle :compinstall ~/.config/zsh/.zshrc
