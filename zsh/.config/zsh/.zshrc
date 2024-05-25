@@ -47,5 +47,15 @@ zinit cdreplay -q
 # ----- Bat (better cat) -----
 export BAT_THEME="Catppuccin Mocha"
 
+# You may need to manually set your language environment
+export LANG=en_US.UTF-8
+
+# use neovim as a default editor
+export EDITOR=nvim
+VISUAL=nvim; export VISUAL EDITOR=nvim; export EDITOR
+
+### "nvim" as manpager
+export MANPAGER="nvim +Man!"
+
 export PATH="$HOME/.local/bin":$PATH
 eval "$(zoxide init zsh)"
