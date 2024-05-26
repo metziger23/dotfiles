@@ -31,6 +31,9 @@ zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
 zinit snippet https://github.com/lincheney/fzf-tab-completion/blob/master/zsh/fzf-zsh-completion.sh
+zinit snippet https://github.com/junegunn/fzf-git.sh/blob/main/fzf-git.sh
+zinit snippet OMZP::fzf
+zinit snippet OMZP::git
 
 # Load completions
 autoload -Uz compinit && compinit

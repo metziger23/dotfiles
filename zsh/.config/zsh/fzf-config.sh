@@ -1,12 +1,4 @@
-# Set up fzf key bindings and fuzzy completion
-if [[ -f "/opt/homebrew/bin/brew" ]] then
-  eval "$(fzf --zsh)"
-else
-  [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-fi
-
 # -- Use fd instead of fzf --
-
 export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="fd --type=d --hidden --strip-cwd-prefix --exclude .git"
@@ -22,8 +14,6 @@ _fzf_compgen_path() {
 _fzf_compgen_dir() {
   fd --type=d --hidden --exclude .git . "$1"
 }
-
-source ~/fzf-git.sh/fzf-git.sh
 
 show_file_or_dir_preview="if [ -d {} ]; then eza --tree --color=always {} | head -200; else bat -n --color=always --line-range :500 {}; fi"
 
