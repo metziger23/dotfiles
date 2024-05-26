@@ -62,4 +62,4 @@ export MANPAGER="nvim +Man!"
 
 export PATH="$HOME/.local/bin":$PATH
 eval "$(zoxide init zsh)"
-bindkey -s '\el' 'ls -l\n'                               # [Esc-l] - run command: ls
+bindkey -s '\el' 'll -l\n'                               
