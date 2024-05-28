@@ -5,6 +5,7 @@ local split_params = "--opener=edit --titleposition=center --height=0.35 --winty
 
 return {
 	{
+    enabled = false,
 		"voldikss/vim-floaterm",
 		cmd = { "FloatermNew", "FloatermToggle", "FloatermNext", "FloatermPrev", "FloatermLast", "FloatermFirst" },
     --stylua: ignore
@@ -28,6 +29,7 @@ return {
 		end,
 	},
 	{
+    enabled = false,
 		"dawsers/telescope-floaterm.nvim",
 		dependencies = {
 			"nvim-telescope/telescope.nvim",
