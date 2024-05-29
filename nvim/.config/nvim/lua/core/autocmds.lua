@@ -15,3 +15,5 @@ vim.api.nvim_create_autocmd({ "TextYankPost" }, {
 		vim.highlight.on_yank({ higroup = "Visual" })
 	end,
 })
+
+vim.api.nvim_create_autocmd({ "TermClose", "TermLeave" }, { command = "checktime" })
