@@ -41,5 +41,8 @@ return {
 	event = { "BufReadPre", "BufNewFile" },
 	opts = {
 		on_attach = on_attach,
+    preview_config = {
+      border = 'rounded',
+    },
 	},
 }
