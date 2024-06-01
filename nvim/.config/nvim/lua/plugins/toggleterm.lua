@@ -4,16 +4,7 @@ local lazygit_cmd = "lazygit -ucf " .. lazygit_config_path
 return {
 	"akinsho/toggleterm.nvim",
 	event = "VeryLazy",
-	opts = {
-		-- open_mapping = [[<c-\>]],
-		-- shade_filetypes = {},
-		-- direction = "horizontal",
-		-- autochdir = true,
-		-- persist_mode = true,
-		-- insert_mappings = false,
-		-- start_in_insert = true,
-    -- persist_size = true,
-	},
+	opts = {},
 	config = function(_, opts)
 		require("toggleterm").setup(opts)
 
@@ -22,14 +13,14 @@ return {
 		local lazygit = Terminal:new({
 			cmd = lazygit_cmd,
 			dir = "git_dir",
-			-- hidden = true,
 			direction = "float",
+      float_opts = {
+        border = "curved"
+      },
 		})
 
 		vim.keymap.set({ "n", "t", "x" }, "<A-g><A-g>", function()
 			lazygit:toggle()
-		end, {
-			desc = "toggleterm: toggle lazygit",
-		})
+		end, { desc = "toggleterm: toggle lazygit" })
 	end,
 }
