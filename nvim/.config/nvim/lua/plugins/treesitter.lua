@@ -6,7 +6,7 @@ return {
 	config = function()
 		local treesitter = require("nvim-treesitter.configs")
 		treesitter.setup({
-			ensure_installed = { "lua", "c", "cpp", "bash", "vim", "markdown" },
+			ensure_installed = { "lua", "c", "cpp", "bash", "vim", "vimdoc", "markdown" },
 			highlight = { enable = true },
 			indent = { enable = true },
 			incremental_selection = {
