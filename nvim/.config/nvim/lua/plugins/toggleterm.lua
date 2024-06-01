@@ -26,7 +26,7 @@ return {
 			direction = "float",
 		})
 
-		vim.keymap.set({ "n", "t", "x" }, "<A-g>", function()
+		vim.keymap.set({ "n", "t", "x" }, "<A-g><A-g>", function()
 			lazygit:toggle()
 		end, {
 			desc = "toggleterm: toggle lazygit",
