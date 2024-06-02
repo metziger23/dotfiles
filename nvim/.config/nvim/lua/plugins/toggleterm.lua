@@ -23,6 +23,7 @@ return {
 		local lazygit_filter_cur_buf = Terminal:new(lazygit_opts)
 
 		local function lazygit_toggle()
+      lazygit.cmd = lazygit_cmd
 			local dot_git_path = vim.fn.finddir(".git", vim.fn.getcwd() .. ";")
 			lazygit.dir = vim.fn.fnamemodify(dot_git_path, ":h")
 			lazygit:toggle()
@@ -31,12 +32,13 @@ return {
 		vim.keymap.set(modes, "<A-g><A-g>", lazygit_toggle, { desc = "Toggle lazygit" })
 
 		local function lazygit_cur_buf_toggle()
+      lazygit_cur_buf.cmd = lazygit_cmd
 			local dot_git_path = vim.fn.finddir(".git", vim.fn.expand("%:h") .. ";")
 			lazygit_cur_buf.dir = vim.fn.fnamemodify(dot_git_path, ":h")
 			lazygit_cur_buf:toggle()
 		end
 
-		vim.keymap.set(modes, "<A-g><A-c>", lazygit_cur_buf_toggle, { desc = "Toggle lazygit (current buffer)" })
+		vim.keymap.set(modes, "<A-g><A-b>", lazygit_cur_buf_toggle, { desc = "Toggle lazygit (current buffer)" })
 
 		local function lazygit_filter_cur_buf_toggle()
 			lazygit_filter_cur_buf.cmd = lazygit_cmd .. " --filter " .. vim.fn.expand("%:p")
