@@ -1,20 +1,11 @@
 return {
 	{
-		"catppuccin/nvim",
+		"bluz71/vim-moonfly-colors",
 		lazy = false,
-		name = "catppuccin",
+		name = "moonfly",
 		priority = 1000,
 		config = function()
-			require("catppuccin").setup({
-				floating_border = "on",
-				integrations = {
-					illuminate = {
-						enabled = false,
-						lsp = false,
-					},
-				},
-			})
-			vim.cmd.colorscheme("catppuccin")
+			vim.cmd.colorscheme("moonfly")
 		end,
 	},
 }
