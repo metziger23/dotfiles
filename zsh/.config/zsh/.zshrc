@@ -54,7 +54,7 @@ zstyle ':completion:*' menu no # force zsh not to show completion menu, which al
 zstyle ':fzf-tab:*' fzf-flags --bind "tab:toggle+down,btab:toggle+up,ctrl-space:ignore,bspace:backward-delete-char,ctrl-h:backward-delete-char"
 
 # ----- Bat (better cat) -----
-export BAT_THEME="Catppuccin Mocha"
+export BAT_THEME="fly16"
 
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
