@@ -30,8 +30,8 @@ zinit ice depth=1; zinit light romkatv/powerlevel10k
 zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
-zinit snippet https://github.com/lincheney/fzf-tab-completion/blob/master/zsh/fzf-zsh-completion.sh
 zinit snippet https://github.com/junegunn/fzf-git.sh/blob/main/fzf-git.sh
+zinit light Aloxaf/fzf-tab
 zinit snippet OMZP::fzf
 zinit snippet OMZP::git
 
@@ -46,6 +46,12 @@ zinit cdreplay -q
 [ -f "${ZDOTDIR}/aliases.sh" ] && source "${ZDOTDIR}/aliases.sh"
 [ -f "${ZDOTDIR}/history-config.sh" ] && source "${ZDOTDIR}/history-config.sh"
 [ -f "${ZDOTDIR}/fzf-config.sh" ] && source "${ZDOTDIR}/fzf-config.sh"
+
+# Completion styling
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}" # set list-colors to enable filename colorizing
+zstyle ':completion:*' menu no # force zsh not to show completion menu, which allows fzf-tab to capture the unambiguous prefix
+zstyle ':fzf-tab:*' fzf-flags --bind "tab:toggle+down,btab:toggle+up,ctrl-space:ignore,bspace:backward-delete-char,ctrl-h:backward-delete-char"
 
 # ----- Bat (better cat) -----
 export BAT_THEME="Catppuccin Mocha"
