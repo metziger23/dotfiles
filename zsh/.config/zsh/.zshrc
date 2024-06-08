@@ -59,7 +59,9 @@ zstyle ':fzf-tab:*' fzf-flags --bind "tab:toggle+down,btab:toggle+up,ctrl-space:
 zstyle ':fzf-tab:complete:*:*' fzf-preview $(cat << 'EOF'
 if [ -d $realpath ]; 
 then eza --tree --color=always $realpath | head -200;
-else bat -n --color=always --line-range :500 $realpath; fi
+elif [ -f $realpath ];
+then bat -n --color=always --line-range :500 $realpath;
+fi
 EOF
 )
 # '[[ -d $realpath ]] && eza -1 --color=always $realpath'
