@@ -53,6 +53,18 @@ zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}" # set list-colors to ena
 zstyle ':completion:*' menu no # force zsh not to show completion menu, which allows fzf-tab to capture the unambiguous prefix
 zstyle ':fzf-tab:*' fzf-flags --bind "tab:toggle+down,btab:toggle+up,ctrl-space:ignore,bspace:backward-delete-char,ctrl-h:backward-delete-char"
 
+# zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
+# zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
+
+zstyle_fzf_tab_preview=$(cat << 'EOF'
+if [ -d $realpath ]; then eza --tree --color=always $realpath | head -200; else bat -n --color=always --line-range :500 $realpath; fi
+EOF
+)
+
+zstyle ':fzf-tab:complete:*:*' fzf-preview "$zstyle_fzf_tab_preview"
+# '[[ -d $realpath ]] && eza -1 --color=always $realpath'
+
+
 # ----- Bat (better cat) -----
 export BAT_THEME="Catppuccin Mocha"
 
