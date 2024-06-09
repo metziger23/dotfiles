@@ -69,3 +69,9 @@ export MANPAGER="nvim +Man!"
 export PATH="$HOME/.local/bin":$PATH
 eval "$(zoxide init zsh)"
 bindkey -s '\el' 'll -l\n'                               
+
+# Edit the current command line in $EDITOR
+autoload -U edit-command-line
+zle -N edit-command-line
+bindkey '\C-x\C-e' edit-command-line
+
