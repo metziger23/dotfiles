@@ -36,7 +36,6 @@ zinit snippet https://github.com/junegunn/fzf-git.sh/blob/main/fzf-git.sh
 zinit light Aloxaf/fzf-tab
 zinit snippet OMZP::fzf
 zinit snippet OMZP::git
-zinit cdreplay -q
 
 [ -f "${ZDOTDIR}/aliases.sh" ] && source "${ZDOTDIR}/aliases.sh"
 [ -f "${ZDOTDIR}/history-config.sh" ] && source "${ZDOTDIR}/history-config.sh"
