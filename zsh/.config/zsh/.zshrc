@@ -25,29 +25,27 @@ zinit ice as"command" from"gh-r" \
   atpull"%atclone" src"init.zsh"
   zinit light starship/starship
 
-# Add in zsh plugins
-zinit light zsh-users/zsh-syntax-highlighting
-zinit light zsh-users/zsh-completions
-zinit light zsh-users/zsh-autosuggestions
-zinit snippet https://github.com/junegunn/fzf-git.sh/blob/main/fzf-git.sh
-zinit light Aloxaf/fzf-tab
-zinit snippet OMZP::fzf
-zinit snippet OMZP::git
-
-# Load completions
-autoload -Uz compinit && compinit
-
-zinit cdreplay -q
-
-[ -f "${ZDOTDIR}/aliases.sh" ] && source "${ZDOTDIR}/aliases.sh"
-[ -f "${ZDOTDIR}/history-config.sh" ] && source "${ZDOTDIR}/history-config.sh"
-[ -f "${ZDOTDIR}/fzf-config.sh" ] && source "${ZDOTDIR}/fzf-config.sh"
-
 # Completion styling
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}" # set list-colors to enable filename colorizing
 zstyle ':completion:*' menu no # force zsh not to show completion menu, which allows fzf-tab to capture the unambiguous prefix
 zstyle ':fzf-tab:*' fzf-flags --bind "tab:toggle+down,btab:toggle+up,ctrl-space:ignore,bspace:backward-delete-char,ctrl-h:backward-delete-char"
+
+zinit snippet https://github.com/junegunn/fzf-git.sh/blob/main/fzf-git.sh
+zinit snippet OMZP::fzf
+zinit snippet OMZP::git
+zinit light zsh-users/zsh-completions
+
+zpcompinit; zpcdreplay
+
+zinit light Aloxaf/fzf-tab
+
+zinit light zdharma/fast-syntax-highlighting
+zinit light zsh-users/zsh-autosuggestions
+
+[ -f "${ZDOTDIR}/aliases.sh" ] && source "${ZDOTDIR}/aliases.sh"
+[ -f "${ZDOTDIR}/history-config.sh" ] && source "${ZDOTDIR}/history-config.sh"
+[ -f "${ZDOTDIR}/fzf-config.sh" ] && source "${ZDOTDIR}/fzf-config.sh"
 
 # ----- Bat (better cat) -----
 export BAT_THEME="Catppuccin Mocha"
