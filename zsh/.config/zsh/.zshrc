@@ -16,6 +16,9 @@ fi
 # Source/Load zinit
 source "${ZINIT_HOME}/zinit.zsh"
 
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
+
 # Load starship theme
 # line 1: `starship` binary as command, from github release
 # line 2: starship setup at clone(create init.zsh, completion)
@@ -33,10 +36,6 @@ zinit snippet https://github.com/junegunn/fzf-git.sh/blob/main/fzf-git.sh
 zinit light Aloxaf/fzf-tab
 zinit snippet OMZP::fzf
 zinit snippet OMZP::git
-
-# Load completions
-autoload -Uz compinit && compinit
-
 zinit cdreplay -q
 
 [ -f "${ZDOTDIR}/aliases.sh" ] && source "${ZDOTDIR}/aliases.sh"
