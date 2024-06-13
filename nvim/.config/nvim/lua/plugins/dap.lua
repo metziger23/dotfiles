@@ -48,8 +48,10 @@ return {
       },
     }
     dap.configurations.c = dap.configurations.cpp
+    require("overseer").enable_dap(true)
   end,
   dependencies = {
+    "stevearc/overseer.nvim",
     {
       "rcarriga/nvim-dap-ui",
       dependencies = {
