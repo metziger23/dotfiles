@@ -1,9 +1,19 @@
 return {
 	"stevearc/overseer.nvim",
+	dependencies = { "akinsho/toggleterm.nvim" },
 	config = function()
 		require("overseer").setup({
       dap = false,
 			templates = { "builtin", "user.run-qmake", "user.make-qmake_all", "user.run-make", "user.run-target" },
+			strategy = {
+				"toggleterm",
+				direction = "float",
+				on_create = function(term)
+					vim.keymap.set({ "n", "t", "x" }, "<A-o>", function()
+						term:toggle()
+					end, { desc = "toggleterm: toggle overseer" })
+				end,
+			},
 		})
 	end,
 	keys = {
