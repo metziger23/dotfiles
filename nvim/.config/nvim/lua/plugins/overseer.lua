@@ -2,6 +2,7 @@ return {
 	"stevearc/overseer.nvim",
 	dependencies = { "akinsho/toggleterm.nvim" },
 	config = function()
+		vim.keymap.set({ "n", "t", "x" }, "<A-o>", function() end)
 		require("overseer").setup({
       dap = false,
 			templates = { "builtin", "user.run-qmake", "user.make-qmake_all", "user.run-make", "user.run-target" },
