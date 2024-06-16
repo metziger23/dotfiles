@@ -13,7 +13,11 @@ local lazygit_opts = {
 return {
 	"akinsho/toggleterm.nvim",
 	event = "VeryLazy",
-	opts = {},
+	opts = {
+    float_opts = {
+      border = "curved",
+    }
+  },
 	config = function(_, opts)
 		require("toggleterm").setup(opts)
 		local modes = { "n", "t", "x" }
