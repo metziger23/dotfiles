@@ -4,12 +4,18 @@ return {
 	config = function()
 		vim.keymap.set({ "n", "t", "x" }, "<A-o>", function() end)
 		require("overseer").setup({
-      dap = false,
-			templates = { "builtin", "user.run-qmake", "user.make-qmake_all", "user.run-make", "user.run-target" },
+			dap = false,
+			templates = {},
 			strategy = {
 				"toggleterm",
 				direction = "float",
+				hidden = true,
+				open_on_start = false,
 				on_create = function(term)
+					term.on_open = function(_)
+						vim.cmd.stopinsert()
+						vim.cmd("set number")
+					end
 					vim.keymap.set({ "n", "t", "x" }, "<A-o>", function()
 						term:toggle()
 					end, { desc = "toggleterm: toggle overseer" })
