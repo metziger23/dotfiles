@@ -48,6 +48,3 @@ opt.shortmess:append({ I = true })
 opt.pumheight = 10
 
 opt.showmode = false
-
--- Directory-local tasks with exrc
-opt.exrc = true
