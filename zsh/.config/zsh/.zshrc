@@ -76,6 +76,7 @@ VISUAL=nvim; export VISUAL EDITOR=nvim; export EDITOR
 export MANPAGER="nvim +Man!"
 
 export PATH="$HOME/.local/bin":$PATH
+unalias zi
 eval "$(zoxide init zsh)"
 bindkey -s '\el' 'll -l\n'                               
 
