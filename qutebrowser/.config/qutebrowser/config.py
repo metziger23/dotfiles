@@ -13,3 +13,4 @@ for i in range (1, 10):
     alt = '<Alt-' + str(i) + '>'
     c.bindings.key_mappings[meta] = alt
 
+config.bind('<Ctrl-L>', 'search', mode='normal')
