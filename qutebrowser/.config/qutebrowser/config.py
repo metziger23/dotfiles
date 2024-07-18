@@ -8,9 +8,12 @@ c.url.searchengines = {
 
 config.bind("<Ctrl-K>", "completion-item-focus prev", mode="command")
 config.bind("<Ctrl-J>", "completion-item-focus next", mode="command")
+
 for i in range (1, 10):
     meta = '<Meta-' + str(i) + '>'
     alt = '<Alt-' + str(i) + '>'
     c.bindings.key_mappings[meta] = alt
 
 config.bind('<Ctrl-L>', 'search', mode='normal')
+
+c.colors.webpage.darkmode.enabled = True
