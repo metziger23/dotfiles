@@ -17,3 +17,6 @@ for i in range (1, 10):
 config.bind('<Ctrl-L>', 'search', mode='normal')
 
 c.colors.webpage.darkmode.enabled = True
+
+config.bind("<j>", "scroll-px 0 100", mode="normal")
+config.bind("<k>", "scroll-px 0 -100", mode="normal")
