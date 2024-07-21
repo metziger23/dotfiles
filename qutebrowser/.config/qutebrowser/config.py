@@ -17,3 +17,4 @@ for i in range (1, 10):
 config.bind('<Ctrl-L>', 'search', mode='normal')
 
 c.colors.webpage.darkmode.enabled = True
+c.content.javascript.clipboard = "access"
