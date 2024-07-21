@@ -18,3 +18,16 @@ config.bind('<Ctrl-L>', 'search', mode='normal')
 
 c.colors.webpage.darkmode.enabled = True
 c.content.javascript.clipboard = "access"
+
+config.bind("<Ctrl-W>", "fake-key <Ctrl-backspace>", mode="insert")
+config.bind("<Ctrl-H>", "fake-key <backspace>", mode="insert")
+config.bind("<Ctrl-P>", "fake-key <Up>", mode="insert")
+config.bind("<Ctrl-N>", "fake-key <Down>", mode="insert")
+config.bind("<Ctrl-J>", "fake-key <enter>", mode="insert")
+config.bind("<Ctrl-B>", "fake-key <Left>", mode="insert")
+config.bind("<Ctrl-F>", "fake-key <Right>", mode="insert")
+config.bind("<Ctrl-D>", "fake-key <Delete>", mode="insert")
+config.bind("<Ctrl-E>", "fake-key <End>", mode="insert")
+config.bind("<Ctrl-U>", "fake-key <Shift-Home>;; cmd-later 3 fake-key <Delete>", mode="insert")
+config.bind("<Ctrl-K>", "fake-key <Shift-End><Delete>", mode="insert")
+config.bind("<Ctrl-A>", "fake-key <Home>", mode="insert")
