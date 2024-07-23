@@ -1,5 +1,6 @@
 if status is-interactive
   set -g fish_greeting
+  set -U fish_prompt_pwd_dir_length 0
     # Commands to run in interactive sessions can go here
   if test -d /opt/homebrew
     # Homebrew is installed on MacOS
