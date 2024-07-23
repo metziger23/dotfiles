@@ -2,7 +2,7 @@ return {
 	"stevearc/overseer.nvim",
 	dependencies = { "akinsho/toggleterm.nvim" },
 	config = function()
-		vim.keymap.set({ "n", "t", "x" }, "<A-o>", function() end)
+		vim.keymap.set({ "n", "t", "x" }, "<A-r>", function() end)
 		require("overseer").setup({
 			dap = false,
 			templates = {},
@@ -16,7 +16,7 @@ return {
 						vim.cmd.stopinsert()
 						vim.cmd("set number")
 					end
-					vim.keymap.set({ "n", "t", "x" }, "<A-o>", function()
+					vim.keymap.set({ "n", "t", "x" }, "<A-r>", function()
 						term:toggle()
 					end, { desc = "toggleterm: toggle overseer" })
 				end,
