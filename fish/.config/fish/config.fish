@@ -5,6 +5,9 @@ if status is-interactive
     /opt/homebrew/bin/brew shellenv | source
   end
 
+  abbr -a lg lazygit
+  abbr -a n nvim
+
   set -x BAT_THEME "Catppuccin Mocha"
   set -x EDITOR nvim
   set -x VISUAL nvim
