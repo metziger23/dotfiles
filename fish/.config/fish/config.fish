@@ -5,6 +5,11 @@ if status is-interactive
     /opt/homebrew/bin/brew shellenv | source
   end
 
+  set -x BAT_THEME "Catppuccin Mocha"
+  set -x EDITOR nvim
+  set -x VISUAL nvim
+  set -x MANPAGER "nvim +Man!"
+
   fzf --fish | source # Set up fzf key bindings
   zoxide init fish | source
 end
