@@ -6,6 +6,7 @@ return {
 		"nvim-lua/plenary.nvim",
 		{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 		"nvim-tree/nvim-web-devicons",
+    'nvim-telescope/telescope-ui-select.nvim'
 	},
 	keys = {
 		{ "<leader>ff", function() require("telescope.builtin").find_files() end, desc = "Find Files" },
@@ -61,5 +62,6 @@ return {
 		})
 
 		telescope.load_extension("fzf")
+    telescope.load_extension("ui-select")
 	end,
 }
