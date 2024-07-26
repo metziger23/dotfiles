@@ -7,6 +7,10 @@ if status is-interactive
     /opt/homebrew/bin/brew shellenv | source
   end
 
+  if test -d ~/.local/bin
+    fish_add_path ~/.local/bin
+  end
+
   abbr -a lg lazygit
   abbr -a n nvim
 
