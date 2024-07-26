@@ -31,3 +31,6 @@ config.bind("<Ctrl-E>", "fake-key <End>", mode="insert")
 config.bind("<Ctrl-U>", "fake-key <Shift-Home>;; cmd-later 3 fake-key <Delete>", mode="insert")
 config.bind("<Ctrl-K>", "fake-key <Shift-End><Delete>", mode="insert")
 config.bind("<Ctrl-A>", "fake-key <Home>", mode="insert")
+
+c.qt.args = ['ignore-gpu-blocklist', 'enable-gpu-rasterization',
+             'enable-accelerated-video-decode', 'enable-quic', 'enable-zero-copy']
