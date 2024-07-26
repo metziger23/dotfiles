@@ -21,4 +21,5 @@ if status is-interactive
 
   fzf --fish | source # Set up fzf key bindings
   zoxide init fish | source
+  starship init fish | source
 end
