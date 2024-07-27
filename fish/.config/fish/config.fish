@@ -19,7 +19,6 @@ if status is-interactive
   set -x VISUAL nvim
   set -x MANPAGER "nvim +Man!"
 
-  fzf --fish | source # Set up fzf key bindings
   zoxide init fish | source
   starship init fish | source
 end
