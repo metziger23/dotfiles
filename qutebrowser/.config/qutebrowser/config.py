@@ -34,3 +34,7 @@ config.bind("<Ctrl-A>", "fake-key <Home>", mode="insert")
 
 c.qt.args = ['ignore-gpu-blocklist', 'enable-gpu-rasterization',
              'enable-accelerated-video-decode', 'enable-quic', 'enable-zero-copy']
+
+for mode in ["normal", "insert"]:
+    config.bind("<Ctrl-Shift-C>", "fake-key --global <Copy>", mode=mode)
+    config.bind("<Ctrl-Shift-V>", "fake-key --global <Paste>", mode=mode)
