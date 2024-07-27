@@ -34,3 +34,6 @@ config.bind("<Ctrl-A>", "fake-key <Home>", mode="insert")
 
 c.qt.args = ['ignore-gpu-blocklist', 'enable-gpu-rasterization',
              'enable-accelerated-video-decode', 'enable-quic', 'enable-zero-copy']
+
+config.bind("cp", "tab-only --prev", mode="normal")
+config.bind("cn", "tab-only --next", mode="normal")
