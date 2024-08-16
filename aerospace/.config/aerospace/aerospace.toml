@@ -11,13 +11,7 @@ enable-normalization-opposite-orientation-for-nested-containers = false
 on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 
 [mode.main.binding]
-# See: https://nikitabobko.github.io/AeroSpace/goodness#open-a-new-window-with-applescript
-alt-enter = '''exec-and-forget osascript -e '
-tell application "Terminal"
-    do script
-    activate
-end tell'
-'''
+alt-enter = 'exec-and-forget open -na /Applications/kitty.app --args --single-instance'
 
 alt-h = 'focus left'
 alt-j = 'focus down'
@@ -30,7 +24,7 @@ alt-shift-k = 'move up'
 alt-shift-l = 'move right'
 
 # Consider using 'join-with' command as a 'split' replacement if you want to enable normalizations
-# alt-h = 'split horizontal'
+alt-z = 'split horizontal'
 alt-v = 'split vertical'
 
 alt-f = 'fullscreen'
