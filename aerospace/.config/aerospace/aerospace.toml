@@ -1,3 +1,9 @@
+# Start AeroSpace at login
+start-at-login = true
+
+# Possible values: tiles|accordion
+default-root-container-layout = 'tiles'
+
 # Reference: https://github.com/i3/i3/blob/next/etc/config
 
 # i3 doesn't have "normalizations" feature that why we disable them here.
