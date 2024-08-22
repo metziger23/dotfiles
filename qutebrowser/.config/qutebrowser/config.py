@@ -37,3 +37,5 @@ c.qt.args = ['ignore-gpu-blocklist', 'enable-gpu-rasterization',
 
 config.bind("cp", "tab-only --prev", mode="normal")
 config.bind("cn", "tab-only --next", mode="normal")
+
+c.fonts.default_size = "16px"
