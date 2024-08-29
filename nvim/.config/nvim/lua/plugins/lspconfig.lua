@@ -4,9 +4,9 @@ return {
 	dependencies = {
 		"hrsh7th/cmp-nvim-lsp",
 		{ "antosha417/nvim-lsp-file-operations", config = true },
-    "mason.nvim",
-    "williamboman/mason-lspconfig.nvim",
-    "ray-x/lsp_signature.nvim"
+		"mason.nvim",
+		"williamboman/mason-lspconfig.nvim",
+		"ray-x/lsp_signature.nvim",
 	},
 	config = function()
 		-- Decorate floating windows
@@ -151,14 +151,14 @@ return {
 
 		-- configure clangd server
 		lspconfig["clangd"].setup({
-      cmd = {
-        "clangd",
-        "--background-index",
-        "--clang-tidy",
-        "--pch-storage=memory",
-        "--function-arg-placeholders",
-        "--compile-commands-dir=" .. vim.fn.getcwd()
-      },
+			cmd = {
+				"clangd",
+				"--background-index",
+				"--clang-tidy",
+				"--pch-storage=memory",
+				"--function-arg-placeholders",
+				"--compile-commands-dir=" .. vim.fn.getcwd(),
+			},
 			capabilities = capabilities,
 			on_attach = function(client, bufnr)
 				on_attach(client, bufnr)
@@ -188,6 +188,13 @@ return {
 					},
 				},
 			},
+		})
+
+		lspconfig["qmlls"].setup({
+			capabilities = capabilities,
+			on_attach = on_attach,
+			cmd = { "qmlls" },
+			filetypes = { "qmljs", "qml" },
 		})
 	end,
 }
