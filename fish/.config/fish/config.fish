@@ -1,4 +1,5 @@
 if status is-interactive
+  fish_config prompt choose astronaut
   set -g fish_greeting
   set -U fish_prompt_pwd_dir_length 0
     # Commands to run in interactive sessions can go here
@@ -20,5 +21,4 @@ if status is-interactive
   set -x MANPAGER "nvim +Man!"
 
   zoxide init fish | source
-  starship init fish | source
 end
