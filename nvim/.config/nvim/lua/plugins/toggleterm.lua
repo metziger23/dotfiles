@@ -10,6 +10,13 @@ local lazygit_opts = {
 	},
 }
 
+local default_toggleterm_opts = {
+  direction = "float",
+  float_opts = {
+    border = "curved",
+  },
+}
+
 return {
 	"akinsho/toggleterm.nvim",
 	event = "VeryLazy",
@@ -25,6 +32,12 @@ return {
 		local lazygit = Terminal:new(vim.deepcopy(lazygit_opts))
 		local lazygit_cur_buf = Terminal:new(vim.deepcopy(lazygit_opts))
 		local lazygit_filter_cur_buf = Terminal:new(vim.deepcopy(lazygit_opts))
+    local default_toggleterm = Terminal:new(vim.deepcopy(default_toggleterm_opts))
+
+    vim.keymap.set(modes, "<A-j>", function ()
+      default_toggleterm:toggle()
+    end, { desc = "Toggle default Toggleterm" })
+
 
 		local function lazygit_toggle()
 			local dot_git_path = vim.fn.finddir(".git", vim.fn.getcwd() .. ";")
