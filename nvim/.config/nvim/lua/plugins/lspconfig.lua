@@ -193,7 +193,7 @@ return {
 		lspconfig["qmlls"].setup({
 			capabilities = capabilities,
 			on_attach = on_attach,
-			cmd = { "qmlls" },
+			cmd = { vim.env.QMLLS_NEWEST},
 			filetypes = { "qmljs", "qml" },
 		})
 	end,
