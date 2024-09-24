@@ -1,8 +1,6 @@
 return {
 	"folke/which-key.nvim",
 	event = "VeryLazy",
-  -- fix for https://github.com/folke/which-key.nvim/issues/807
-  tag = "v3.4.0",
 	init = function()
 		vim.o.timeout = true
 		vim.o.timeoutlen = 500
