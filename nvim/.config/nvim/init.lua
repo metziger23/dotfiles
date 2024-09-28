@@ -24,5 +24,6 @@ local lazy_opts = {
 
 require("lazy").setup({ { import = 'plugins' } }, lazy_opts)
 
-
-
+-- code
+require('langmapper').automapping({ global = true, buffer = true })
+-- end of init.lua
