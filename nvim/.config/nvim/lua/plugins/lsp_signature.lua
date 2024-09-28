@@ -1,5 +1,4 @@
 return {
-  enabled = false,
 	"ray-x/lsp_signature.nvim",
   lazy = true,
 	opts = {
