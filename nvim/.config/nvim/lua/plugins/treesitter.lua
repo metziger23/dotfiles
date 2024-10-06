@@ -12,10 +12,10 @@ return {
 			incremental_selection = {
 				enable = true,
 				keymaps = {
-					init_selection = "<c-space>",
-					node_incremental = "<c-space>",
+					init_selection = "<c-'>",
+					node_incremental = "<c-'>",
 					scope_incremental = "<c-s>",
-					node_decremental = "<c-backspace>",
+					node_decremental = "<backspace>",
 				},
 			},
 			textobjects = {
