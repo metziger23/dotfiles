@@ -4,3 +4,6 @@ fish/.config/fish/fish_variables
 fish/.config/fish/functions
 fish/.config/fish/conf.d
 fish/.config/fish/completions
+tmux/.config/tmux/plugins/
+tmux/.config/tmux/tmux-*.log
+.DS_Store
