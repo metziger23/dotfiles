@@ -39,7 +39,8 @@ return {
     { "<leader>gs", function() require("telescope.builtin").git_status() end,  desc = "Git status" },
     { "<leader>gS", function() require("telescope.builtin").git_stash() end,  desc = "Git stash" },
     { "<leader>gf", function() require("telescope.builtin").git_files() end,  desc = "Git files" },
-
+    -- smart-open
+    { "<leader><leader>", function() require("telescope").extensions.smart_open.smart_open() end,  desc = "Telescope smart-open" },
 	},
 	config = function()
 		local telescope = require("telescope")
@@ -61,5 +62,6 @@ return {
 		})
 
 		telescope.load_extension("fzf")
+    telescope.load_extension("smart_open")
 	end,
 }
