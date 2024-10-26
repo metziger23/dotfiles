@@ -9,5 +9,6 @@ return {
 	keys = {
 		{ "<leader>gg", "<cmd>Neogit<cr>", desc = "Neogit" },
 	},
+  opts = { graph_style = "kitty" },
   config = true
 }
