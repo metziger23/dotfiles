@@ -14,6 +14,8 @@ if status is-interactive
 
   abbr -a lg lazygit
   abbr -a n nvim
+  abbr -a neogit nvim -c "Neogit"
+  abbr -a g nvim -c "Neogit"
 
   set -x BAT_THEME "Catppuccin Mocha"
   set -x EDITOR nvim
