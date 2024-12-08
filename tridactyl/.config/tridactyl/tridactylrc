@@ -1,0 +1,17 @@
+set keyboardlayoutforce true
+set hintchars tnseriaodhplgmfucbjvkwyxqz
+bind ctl tabclosealltoleft
+bind ctr tabclosealltoright
+
+" let me use normal things with ex pleaseee :(
+bind --mode=ex <ArrowDown> ex.next_completion
+bind --mode=ex <ArrowUp> ex.prev_completion
+ 
+unbind j
+unbind k
+unbind h
+unbind l
+unbind J
+unbind K
+unbind L
+unbind H
