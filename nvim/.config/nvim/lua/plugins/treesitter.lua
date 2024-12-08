@@ -12,8 +12,8 @@ return {
 			incremental_selection = {
 				enable = true,
 				keymaps = {
-					init_selection = "<CR>",
-					node_incremental = "<CR>",
+					init_selection = "<C-backspace>",
+					node_incremental = "<C-backspace>",
 					scope_incremental = "<c-s>",
 					node_decremental = "<backspace>",
 				},
