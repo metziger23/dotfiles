@@ -3,7 +3,12 @@ return {
 	dependencies = { "akinsho/toggleterm.nvim" },
 	config = function()
 		vim.keymap.set({ "n", "t", "x" }, "<A-r>", function() end)
+
+    local default_components = require("overseer.config").component_aliases.default
+    table.insert(default_components, "unique")
+
 		require("overseer").setup({
+      component_aliases = { default = default_components },
 			dap = false,
 			strategy = {
 				"toggleterm",
