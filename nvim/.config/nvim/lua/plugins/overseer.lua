@@ -5,7 +5,6 @@ return {
 		vim.keymap.set({ "n", "t", "x" }, "<A-r>", function() end)
 		require("overseer").setup({
 			dap = false,
-			templates = {},
 			strategy = {
 				"toggleterm",
 				direction = "float",
