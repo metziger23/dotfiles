@@ -4,8 +4,8 @@ local wezterm = require 'wezterm'
 -- This will hold the configuration.
 local config = wezterm.config_builder()
 
-config.initial_rows = 1000
-config.initial_cols = 1000
+config.initial_rows = 100
+config.initial_cols = 300
 
 -- For example, changing the color scheme:
 config.color_scheme = 'catppuccin-mocha'
