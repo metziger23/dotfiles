@@ -48,3 +48,6 @@ opt.shortmess:append({ I = true })
 opt.pumheight = 10
 
 opt.showmode = false
+
+-- global statusline
+opt.laststatus = 3
