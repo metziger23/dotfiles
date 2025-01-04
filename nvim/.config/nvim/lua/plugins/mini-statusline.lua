@@ -17,9 +17,9 @@ local function get_overseer_task_status(status)
 		return result
 	end
 
-	local string = string.format("%s%d", statuses[status].symbol, #tasks_by_status[status])
+	local str = string.format("%s%d", statuses[status].symbol, #tasks_by_status[status])
 	result.hl = statuses[status].hl
-	result.strings = { string }
+	result.strings = { str }
 	return result
 end
 
