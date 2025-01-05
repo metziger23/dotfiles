@@ -1,9 +1,5 @@
 local function get_graph_style()
-  local term = vim.env.TERM
-  if string.match(term, "kitty") then
-    return "kitty"
-  end
-  return "ascii"
+  return string.match(vim.env.TERM, "kitty") and "kitty" or "ascii"
 end
 
 return {
