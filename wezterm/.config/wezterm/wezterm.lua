@@ -45,7 +45,26 @@ local function move(key)
 	}
 end
 
-config.keys = { move("LeftArrow"), move("DownArrow"), move("UpArrow"), move("RightArrow"), }
+local function resize(key)
+  local modifiers = "META|CTRL|SHIFT"
+  local direction = string.gsub(key, "Arrow", "")
+  return {
+    key = key,
+    mods = modifiers,
+    action = wezterm.action_callback(function(win, pane)
+      if is_vim(pane) then
+        win:perform_action({ SendKey = { key = key, mods = modifiers }, }, pane)
+      else
+        win:perform_action({ AdjustPaneSize = { direction, 3 } }, pane)
+      end
+    end),
+  }
+end
+
+config.keys = {
+  move("LeftArrow"), move("DownArrow"), move("UpArrow"), move("RightArrow"),
+  resize("LeftArrow"), resize("DownArrow"), resize("UpArrow"), resize("RightArrow"),
+}
 
 -- and finally, return the configuration to wezterm
 return config
