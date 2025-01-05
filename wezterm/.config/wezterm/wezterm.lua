@@ -29,41 +29,33 @@ local function is_vim(pane)
 	return pane:get_user_vars().IS_NVIM == "true"
 end
 
-local function move(key)
-	local modifiers = "CTRL|SHIFT"
-  local direction = string.gsub(key, "Arrow", "")
+local function split_nav(resize_or_move, key)
+	local modifiers = resize_or_move == "resize" and "META|CTRL|SHIFT" or "CTRL|SHIFT"
+	local direction = string.gsub(key, "Arrow", "")
+	local act = resize_or_move == "resize" and { AdjustPaneSize = { direction, 3 } }
+		or { ActivatePaneDirection = direction }
 	return {
 		key = key,
 		mods = modifiers,
 		action = wezterm.action_callback(function(win, pane)
 			if is_vim(pane) then
-        win:perform_action({ SendKey = { key = key, mods = modifiers }, }, pane)
+				win:perform_action({ SendKey = { key = key, mods = modifiers } }, pane)
 			else
-        win:perform_action({ ActivatePaneDirection = direction }, pane)
+				win:perform_action(act, pane)
 			end
 		end),
 	}
 end
 
-local function resize(key)
-  local modifiers = "META|CTRL|SHIFT"
-  local direction = string.gsub(key, "Arrow", "")
-  return {
-    key = key,
-    mods = modifiers,
-    action = wezterm.action_callback(function(win, pane)
-      if is_vim(pane) then
-        win:perform_action({ SendKey = { key = key, mods = modifiers }, }, pane)
-      else
-        win:perform_action({ AdjustPaneSize = { direction, 3 } }, pane)
-      end
-    end),
-  }
-end
-
 config.keys = {
-  move("LeftArrow"), move("DownArrow"), move("UpArrow"), move("RightArrow"),
-  resize("LeftArrow"), resize("DownArrow"), resize("UpArrow"), resize("RightArrow"),
+	split_nav("move", "LeftArrow"),
+	split_nav("move", "DownArrow"),
+	split_nav("move", "UpArrow"),
+	split_nav("move", "RightArrow"),
+	split_nav("resize", "LeftArrow"),
+	split_nav("resize", "DownArrow"),
+	split_nav("resize", "UpArrow"),
+	split_nav("resize", "RightArrow"),
 }
 
 -- and finally, return the configuration to wezterm
