@@ -23,5 +23,29 @@ config.force_reverse_video_cursor = true
 
 config.window_padding = { left = 0, right = 0, top = 0, bottom = 0 }
 
+-- if you are *NOT* lazy-loading smart-splits.nvim (recommended)
+local function is_vim(pane)
+	-- this is set by the plugin, and unset on ExitPre in Neovim
+	return pane:get_user_vars().IS_NVIM == "true"
+end
+
+local function move(key)
+	local modifiers = "CTRL|SHIFT"
+  local direction = string.gsub(key, "Arrow", "")
+	return {
+		key = key,
+		mods = modifiers,
+		action = wezterm.action_callback(function(win, pane)
+			if is_vim(pane) then
+        win:perform_action({ SendKey = { key = key, mods = modifiers }, }, pane)
+			else
+        win:perform_action({ ActivatePaneDirection = direction }, pane)
+			end
+		end),
+	}
+end
+
+config.keys = { move("LeftArrow"), move("DownArrow"), move("UpArrow"), move("RightArrow"), }
+
 -- and finally, return the configuration to wezterm
 return config
