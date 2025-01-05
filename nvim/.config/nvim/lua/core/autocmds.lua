@@ -25,3 +25,8 @@ vim.api.nvim_create_user_command("DiagnosticToggle", function()
     signs = not vt,
   }
 end, { desc = "toggle diagnostic" })
+
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold" }, {
+  pattern = "*",
+  command = "silent! checktime",
+})
