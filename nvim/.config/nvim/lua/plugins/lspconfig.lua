@@ -7,6 +7,7 @@ return {
 		"mason.nvim",
 		"williamboman/mason-lspconfig.nvim",
 		"ray-x/lsp_signature.nvim",
+    "ibhagwan/fzf-lua",
 	},
 	config = function()
 		-- Decorate floating windows
@@ -31,48 +32,42 @@ return {
 		local opts = { noremap = true, silent = true }
 		local on_attach = function(client, bufnr)
 			opts.buffer = bufnr
-			local builtin = require("telescope.builtin")
+      local fzf_lua = require("fzf-lua")
 
 			opts.desc = "Go to declaration"
 			keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
 			opts.desc = "Goto definition"
-			keymap.set("n", "gd", builtin.lsp_definitions, opts)
+			keymap.set("n", "gd", fzf_lua.lsp_definitions, opts)
 			opts.desc = "Goto implementation"
-			keymap.set("n", "gI", builtin.lsp_implementations, opts)
+			keymap.set("n", "gI", fzf_lua.lsp_implementations, opts)
 			opts.desc = "Goto type"
-			keymap.set("n", "gy", builtin.lsp_type_definitions, opts)
+			keymap.set("n", "gy", fzf_lua.lsp_typedefs, opts)
 			opts.desc = "Goto References"
-			keymap.set("n", "gr", builtin.lsp_references, opts)
+			keymap.set("n", "gr", fzf_lua.lsp_references, opts)
 			opts.desc = "Goto Line diagnostics"
 			keymap.set("n", "gl", vim.diagnostic.open_float, opts)
 
 			opts.desc = "Lsp Implementations"
-			keymap.set("n", "<leader>li", builtin.lsp_implementations, opts)
+			keymap.set("n", "<leader>li", fzf_lua.lsp_implementations, opts)
 			opts.desc = "Lsp Document Symbols"
-			keymap.set("n", "<leader>ls", builtin.lsp_document_symbols, opts)
+			keymap.set("n", "<leader>ls", fzf_lua.lsp_document_symbols, opts)
 			opts.desc = "Lsp Workspace Symbols"
-			keymap.set("n", "<leader>lS", builtin.lsp_dynamic_workspace_symbols, opts)
-			opts.desc = "Lsp diagnostics"
-			keymap.set("n", "<leader>ld", function()
-				builtin.diagnostics({ bufnr = 0 })
-			end, opts)
-			opts.desc = "Lsp diagnostics in all buffers"
-			keymap.set("n", "<leader>lD", function()
-				builtin.diagnostics({ bufnr = nil })
-			end, opts)
+			keymap.set("n", "<leader>lw", fzf_lua.lsp_workspace_symbols, opts)
+      opts.desc = "Lsp Workspace Symbols (live query)"
+      keymap.set("n", "<leader>ll", fzf_lua.lsp_live_workspace_symbols, opts)
+			opts.desc = "Lsp Document Diagnostics"
+			keymap.set("n", "<leader>ld", fzf_lua.diagnostics_document, opts)
+			opts.desc = "Lsp Workspace Diagnostics"
+			keymap.set("n", "<leader>lD", fzf_lua.diagnostics_workspace, opts)
 
 			if client.supports_method("callHierarchy/incomingCalls") then
 				opts.desc = "Lsp incoming calls"
-				keymap.set("n", "<leader>lc", function()
-					builtin.lsp_incoming_calls()
-				end, opts)
+				keymap.set("n", "<leader>lc", fzf_lua.lsp_incoming_calls, opts)
 			end
 
 			if client.supports_method("callHierarchy/outgoingCalls") then
 				opts.desc = "Lsp outgoing calls"
-				keymap.set("n", "<leader>lC", function()
-					builtin.lsp_outgoing_calls()
-				end, opts)
+				keymap.set("n", "<leader>lC", fzf_lua.lsp_outgoing_calls, opts)
 			end
 
 			opts.desc = "Lsp rename"
