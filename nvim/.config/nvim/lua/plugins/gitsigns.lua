@@ -33,14 +33,6 @@ local function on_attach(buffer)
 	map("n", "<leader>td", gitsigns.toggle_deleted, "Toggle Git deleted")
     -- Text object
   map({'o', 'x'}, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
-
-  -- workaround for https://github.com/lewis6991/gitsigns.nvim/issues/1028
-  vim.api.nvim_create_autocmd({ "TermClose", "TermLeave" }, {
-  	callback = function()
-  		gitsigns.refresh()
-  	end,
-  })
-
 end
 
 return {
