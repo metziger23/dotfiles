@@ -15,7 +15,7 @@ return {
 					init_selection = "<C-space>",
 					node_incremental = "<C-space>",
 					scope_incremental = "<c-s>",
-					node_decremental = "<backspace>",
+					node_decremental = "<C-backspace>",
 				},
 			},
 			textobjects = {
