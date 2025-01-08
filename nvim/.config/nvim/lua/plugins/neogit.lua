@@ -13,7 +13,7 @@ return {
 		"ibhagwan/fzf-lua",
 	},
 	keys = {
-		{ "<leader>gg", "<cmd>Neogit<cr>", desc = "Neogit" },
+		{ "<leader>g", "<cmd>Neogit<cr>", desc = "Neogit" },
 	},
 	config = true,
 	opts = {
