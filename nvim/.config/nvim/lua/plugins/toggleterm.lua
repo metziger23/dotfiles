@@ -19,7 +19,7 @@ return {
 		local Terminal = require("toggleterm.terminal").Terminal
     local default_toggleterm = Terminal:new(vim.deepcopy(default_toggleterm_opts))
 
-    vim.keymap.set(modes, "<A-j>", function ()
+    vim.keymap.set(modes, "<M-C-t>", function ()
       default_toggleterm:toggle()
     end, { desc = "Toggle default Toggleterm" })
 	end,
