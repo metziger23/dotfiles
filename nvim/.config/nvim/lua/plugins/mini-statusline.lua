@@ -2,7 +2,7 @@ local statuses = {
 	["CANCELED"] = { symbol = " ", hl = "markdownH3" },
 	["FAILURE"] = { symbol = "󰅚 ", hl = "markdownH1" },
 	["SUCCESS"] = { symbol = "󰄴 ", hl = "markdownH4" },
-	["RUNNING"] = { symbol = "󰑮 ", hl = "markdownH1" },
+	["RUNNING"] = { symbol = "󰑮 ", hl = "markdownH2" },
 }
 
 local function get_overseer_task_status(status)
