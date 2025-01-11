@@ -9,6 +9,13 @@ return {
         -- You can always toggle when searching with `require("flash").toggle()`
         enabled = true,
       },
+			char = {
+        -- show jump labels
+        jump_labels = true,
+        -- When using jump labels, don't use these keys
+        -- This allows using those keys directly after the motion
+        label = { exclude = "neioardc" },
+			},
 		},
 	},
   -- stylua: ignore
