@@ -1,20 +1,21 @@
 return {
-  "ibhagwan/fzf-lua",
-  -- optional for icon support
-  dependencies = { "nvim-tree/nvim-web-devicons" },
-  -- or if using mini.icons/mini.nvim
-  -- dependencies = { "echasnovski/mini.icons" },
-  opts = {
-    oldfiles = {
-      include_current_session = true,
-    },
-    grep = {
-      rg_glob = true,
-    },
-    fzf_opts = {
-      ['--history'] = vim.fn.stdpath("data") .. '/fzf-lua-history',
-    },
-  },
+	"ibhagwan/fzf-lua",
+	-- optional for icon support
+	dependencies = { "nvim-tree/nvim-web-devicons" },
+	-- or if using mini.icons/mini.nvim
+	-- dependencies = { "echasnovski/mini.icons" },
+	opts = {
+		oldfiles = {
+			include_current_session = true,
+		},
+		grep = {
+			rg_glob = true,
+		},
+		fzf_opts = {
+			["--history"] = vim.fn.stdpath("data") .. "/fzf-lua-history",
+		},
+	},
+  -- stylua: ignore
   keys = {
     { "<BS>b", function() require("fzf-lua").buffers() end, desc = "Fzf buffers" },
     { "<BS>f", function() require("fzf-lua").files() end, desc = "Fzf files" },
@@ -53,16 +54,16 @@ return {
     { "<BS>gt", function() require("fzf-lua").git_tags() end, desc = "Fzf git tags" },
     { "<BS>gS", function() require("fzf-lua").git_stash() end, desc = "Fzf git stash" },
   },
-  init = function ()
-    require("fzf-lua").register_ui_select(function(_, items)
-      local min_h, max_h = 0.15, 0.70
-      local h = (#items + 4) / vim.o.lines
-      if h < min_h then
-        h = min_h
-      elseif h > max_h then
-        h = max_h
-      end
-      return { winopts = { height = h, width = 0.60, row = 0.40 } }
-    end)
-  end
+	init = function()
+		require("fzf-lua").register_ui_select(function(_, items)
+			local min_h, max_h = 0.15, 0.70
+			local h = (#items + 4) / vim.o.lines
+			if h < min_h then
+				h = min_h
+			elseif h > max_h then
+				h = max_h
+			end
+			return { winopts = { height = h, width = 0.60, row = 0.40 } }
+		end)
+	end,
 }
