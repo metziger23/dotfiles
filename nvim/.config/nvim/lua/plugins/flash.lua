@@ -1,12 +1,20 @@
 return {
 	"folke/flash.nvim",
 	event = "VeryLazy",
-	-- lua  plugins   flash.lua   return   modes   char   label   exclude
 	opts = {
-		labels = "asdfghjklqwertyuiopzxcvbnm",
+		labels = "tnseriaodhplgmfucbjvkwyxqz",
 		modes = {
+      search = {
+        -- when `true`, flash will be activated during regular search by default.
+        -- You can always toggle when searching with `require("flash").toggle()`
+        enabled = true,
+      },
 			char = {
-        label = { exclude = "hjkliardc" },
+        -- show jump labels
+        jump_labels = true,
+        -- When using jump labels, don't use these keys
+        -- This allows using those keys directly after the motion
+        label = { exclude = "neioardc" },
 			},
 		},
 	},
