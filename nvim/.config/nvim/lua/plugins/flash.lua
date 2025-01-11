@@ -1,7 +1,15 @@
 return {
 	"folke/flash.nvim",
 	event = "VeryLazy",
-	opts = {},
+	-- lua  plugins   flash.lua   return   modes   char   label   exclude
+	opts = {
+		labels = "asdfghjklqwertyuiopzxcvbnm",
+		modes = {
+			char = {
+        label = { exclude = "hjkliardc" },
+			},
+		},
+	},
   -- stylua: ignore
   keys = {
     { "h", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
