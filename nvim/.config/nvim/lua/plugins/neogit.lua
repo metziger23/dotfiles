@@ -14,6 +14,9 @@ return {
 	},
 	keys = {
 		{ "<leader>g", "<cmd>Neogit<cr>", desc = "Neogit" },
+    { "<leader>G", function ()
+      require("neogit").open({ cwd = vim.fn.expand('%:p:h') })
+    end, desc = "Neogit in current buffer directory" },
 	},
 	config = true,
 	opts = {
