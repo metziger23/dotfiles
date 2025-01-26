@@ -10,7 +10,6 @@ return {
 	dependencies = {
 		"nvim-lua/plenary.nvim", -- required
 		"sindrets/diffview.nvim", -- optional - Diff integration
-		"ibhagwan/fzf-lua",
 	},
 	keys = {
 		{ "<leader>g", "<cmd>Neogit<cr>", desc = "Neogit" },
