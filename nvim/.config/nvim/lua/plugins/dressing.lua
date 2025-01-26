@@ -5,6 +5,9 @@ return {
 		require("dressing").setup({
       input = {
         insert_only = false,
+      },
+      select = {
+        enabled = false
       }
     })
 	end,
