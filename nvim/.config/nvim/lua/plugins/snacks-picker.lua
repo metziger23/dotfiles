@@ -1,3 +1,9 @@
+local select_preset = {
+	layout = {
+		preset = "select",
+	},
+}
+
 return {
 	"folke/snacks.nvim",
 	opts = { picker = {} },
@@ -6,7 +12,7 @@ return {
     { "<BS>a", function() require("snacks").picker.autocmds() end, desc = "Autocmds" },
     { "<BS>b", function() require("snacks").picker.buffers() end, desc = "Buffers" },
     { "<BS>c", function() require("snacks").picker.cliphist() end, desc = "Clip History" },
-    { "<BS>h", function() require("snacks").picker.command_history() end, desc = "Command History" },
+    { "<BS>h", function() require("snacks").picker.command_history(select_preset) end, desc = "Command History" },
     { "<BS>C", function() require("snacks").picker.commands() end, desc = "Commands" },
     { "<BS>f", function() require("snacks").picker.files() end, desc = "Files" },
     { "<BS>gb", function() require("snacks").picker.git_branches() end, desc = "Git Branches" },
@@ -32,9 +38,9 @@ return {
     { "<BS>o", function() require("snacks").picker.recent() end, desc = "Old Files" },
     { "<BS>R", function() require("snacks").picker.registers() end, desc = "Registers" },
     { "<BS>r", function() require("snacks").picker.resume() end, desc = "Resume" },
-    { "<BS>/", function() require("snacks").picker.search_history() end, desc = "Search History" },
+    { "<BS>/", function() require("snacks").picker.search_history(select_preset) end, desc = "Search History" },
     { "<BS><tab>", function() require("snacks").picker.smart() end, desc = "Smart" },
-    { "<BS>s", function() require("snacks").picker.spelling() end, desc = "Spelling" },
+    { "<BS>s", function() require("snacks").picker.spelling(select_preset) end, desc = "Spelling" },
     { "<BS>u", function() require("snacks").picker.undo() end, desc = "Undo" },
     { "<BS>z", function() require("snacks").picker.zoxide() end, desc = "Zoxide" },
 	},
