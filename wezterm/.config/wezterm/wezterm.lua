@@ -4,11 +4,19 @@ local wezterm = require("wezterm")
 -- This will hold the configuration.
 local config = wezterm.config_builder()
 
+local catppuccin_black = wezterm.color.get_builtin_schemes()["Catppuccin Mocha"]
+catppuccin_black.background = "#000000"
+-- catppuccin_black.tab_bar.background = "#040404"
+-- catppuccin_black.tab_bar.inactive_tab.bg_color = "#0f0f0f"
+-- catppuccin_black.tab_bar.new_tab.bg_color = "#080808"
+
+config.color_schemes = { ["catppuccin_black"] = catppuccin_black, }
+config.color_scheme = "catppuccin_black"
+
 config.initial_rows = 100
 config.initial_cols = 300
 
 -- For example, changing the color scheme:
-config.color_scheme = "catppuccin-mocha"
 config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
 
 config.font_size = 16.5
