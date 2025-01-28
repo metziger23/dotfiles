@@ -6,7 +6,9 @@ local select_preset = {
 
 return {
 	"folke/snacks.nvim",
-	opts = { picker = {} },
+  -- NOTE: to be able to reuse window opened from oil
+  -- https://github.com/folke/snacks.nvim/issues/618
+	opts = { picker = { main = { current = true } } },
   event = "VeryLazy",
 	keys = {
     { "<BS>a", function() require("snacks").picker.autocmds() end, desc = "Autocmds" },
