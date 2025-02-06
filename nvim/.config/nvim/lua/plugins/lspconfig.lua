@@ -191,5 +191,13 @@ return {
 			cmd = { vim.env.QMLLS_NEWEST},
 			filetypes = { "qmljs", "qml" },
 		})
+
+    lspconfig["fish_lsp"].setup({
+      capabilities = capabilities,
+      on_attach = on_attach,
+      cmd = { "fish-lsp", "start" },
+      filetypes = { "fish" },
+      cmd_env = { fish_lsp_show_client_popups = false }
+    })
 	end,
 }
