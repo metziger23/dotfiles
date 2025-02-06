@@ -51,3 +51,5 @@ opt.showmode = false
 
 -- global statusline
 opt.laststatus = 3
+
+opt.langmap = "АБЦДЕФГЧИЙКЛМНОПЯРСТУВШХЫЗ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,абцдефгчийклмнопярстувшхыз;abcdefghijklmnopqrstuvwxyz"
