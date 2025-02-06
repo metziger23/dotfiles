@@ -8,7 +8,29 @@ return {
 	"folke/snacks.nvim",
   -- NOTE: to be able to reuse window opened from oil
   -- https://github.com/folke/snacks.nvim/issues/618
-	opts = { picker = { main = { current = true } } },
+	opts = {
+    picker = {
+      main = { current = true },
+      win = {
+        input = {
+          keys = {
+            ["<c-z><Left>"] = { "layout_left", mode = { "i", "n" } },
+            ["<c-z><Down>"] = { "layout_bottom", mode = { "i", "n" } },
+            ["<c-z><Up>"] = { "layout_top", mode = { "i", "n" } },
+            ["<c-z><Right>"] = { "layout_right", mode = { "i", "n" } },
+          }
+        },
+        list = {
+          keys = {
+            ["<c-z><Left>"] = { "layout_left", mode = { "i", "n" } },
+            ["<c-z><Down>"] = { "layout_bottom", mode = { "i", "n" } },
+            ["<c-z><Up>"] = { "layout_top", mode = { "i", "n" } },
+            ["<c-z><Right>"] = { "layout_right", mode = { "i", "n" } },
+          }
+        }
+      }
+    }
+  },
   event = "VeryLazy",
 	keys = {
     { "<BS>a", function() require("snacks").picker.autocmds() end, desc = "Autocmds" },
