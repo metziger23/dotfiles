@@ -37,6 +37,7 @@ return {
     { "<BS>b", function() require("snacks").picker.buffers() end, desc = "Buffers" },
     { "<BS>h", function() require("snacks").picker.command_history(select_preset) end, desc = "Command History" },
     { "<BS>c", function() require("snacks").picker.commands() end, desc = "Commands" },
+    { "<BS>e", function() require("snacks").picker.explorer() end, desc = "Explorer" },
     { "<BS>f", function() require("snacks").picker.files() end, desc = "Files" },
     { "<BS>gb", function() require("snacks").picker.git_branches() end, desc = "Git Branches" },
     { "<BS>gd", function() require("snacks").picker.git_diff() end, desc = "Git Diff" },
