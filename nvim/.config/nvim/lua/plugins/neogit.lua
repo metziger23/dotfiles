@@ -26,6 +26,8 @@ return {
       popup = {
         ["<M-m>"] = "RemotePopup",
         ["M"] = false,
+        ["l"] = false,
+        ["<M-l>"] = "LogPopup",
       },
       status = {
         ["1"]      = false,
