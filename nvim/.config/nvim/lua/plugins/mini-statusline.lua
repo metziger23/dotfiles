@@ -1,3 +1,11 @@
+local function override_hl()
+  local filename_hl = { bg = "#181825", fg = "#CDD6F5" }
+  local inactive_hl = { bg = "#181825", fg = "#89B4FB" }
+
+  vim.api.nvim_set_hl(0, "MiniStatuslineFilename", filename_hl)
+  vim.api.nvim_set_hl(0, "MiniStatuslineInactive", inactive_hl)
+end
+
 local statuses = {
 	["CANCELED"] = { symbol = " ", hl = "markdownH3" },
 	["FAILURE"] = { symbol = "󰅚 ", hl = "markdownH1" },
@@ -36,6 +44,11 @@ return {
 	version = "*",
 	config = function()
 		local MiniStatusline = require("mini.statusline")
+
+    if vim.g.colors_name == "catppuccin-mocha" then
+      override_hl()
+    end
+
 		MiniStatusline.setup({
 			content = {
 				-- Content for active window
