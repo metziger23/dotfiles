@@ -1,20 +1,27 @@
+local function linewise_jump()
+	vim.cmd("norm! V")
+	require("flash").jump({
+		search = { multi_window = false },
+	})
+end
+
 return {
 	"folke/flash.nvim",
 	event = "VeryLazy",
 	opts = {
 		labels = "tnseriaodhplgmfucbjvkwyxqz",
 		modes = {
-      search = {
-        -- when `true`, flash will be activated during regular search by default.
-        -- You can always toggle when searching with `require("flash").toggle()`
-        enabled = true,
-      },
+			search = {
+				-- when `true`, flash will be activated during regular search by default.
+				-- You can always toggle when searching with `require("flash").toggle()`
+				enabled = true,
+			},
 			char = {
-        -- show jump labels
-        jump_labels = true,
-        -- When using jump labels, don't use these keys
-        -- This allows using those keys directly after the motion
-        label = { exclude = "neioardc" },
+				-- show jump labels
+				jump_labels = true,
+				-- When using jump labels, don't use these keys
+				-- This allows using those keys directly after the motion
+				label = { exclude = "neioardc" },
 			},
 		},
 	},
@@ -25,5 +32,6 @@ return {
     { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
     { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
     { "<M-h>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+    { "l", mode = { "n", "x", "o" }, linewise_jump, desc = "Flash Linewise" },
   },
 }
