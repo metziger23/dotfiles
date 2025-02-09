@@ -1,6 +1,6 @@
-local function toggle_lazygit(open_lazygit_callback, open_lazygit_callback_opts)
-	open_lazygit_callback_opts = open_lazygit_callback_opts or {}
-	local float_term = open_lazygit_callback(open_lazygit_callback_opts)
+local function toggle_lazygit(callback, callback_opts)
+	callback_opts = callback_opts or {}
+	local float_term = callback(callback_opts)
 	local created_buffer = float_term.buf
 	local opts = { desc = "Toggle Lazygit" }
 
@@ -41,5 +41,21 @@ return {
 			end,
 			desc = "Lazygit current buffer git root",
 		},
+    {
+      "<leader>gl",
+      function()
+        local callback = require("snacks").lazygit.log_file
+        toggle_lazygit(callback)
+      end,
+      desc = "Lazygit log current file",
+    },
+    {
+      "<leader>gL",
+      function()
+        local callback = require("snacks").lazygit.log
+        toggle_lazygit(callback)
+      end,
+      desc = "Lazygit log",
+    }
 	},
 }
