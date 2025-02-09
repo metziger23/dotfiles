@@ -41,9 +41,15 @@ local function on_attach(bufnr)
 	map("n", "<leader>hp", gitsigns.preview_hunk, { desc = "Preview Hunk" })
 	map("n", "<leader>hi", gitsigns.preview_hunk_inline, { desc = "Preview Hunk Inline" })
 
+	map("n", "<leader>hI", gitsigns.reset_buffer_index, { desc = "Reset Buffer Index" })
+
 	map("n", "<leader>hb", function()
 		gitsigns.blame_line({ full = true })
 	end, { desc = "Blame Line" })
+
+	map("n", "<leader>hB", function()
+		gitsigns.blame()
+	end, { desc = "Blame" })
 
 	map("n", "<leader>hd", gitsigns.diffthis, { desc = "Git Diff" })
 
