@@ -18,29 +18,26 @@ local explorer_options = {
   },
 }
 
+local arrow_keymaps_for_pinning = {
+  ["<c-z><Left>"]  = { "layout_left",   mode = { "i", "n" } },
+  ["<c-z><Down>"]  = { "layout_bottom", mode = { "i", "n" } },
+  ["<c-z><Up>"]    = { "layout_top",    mode = { "i", "n" } },
+  ["<c-z><Right>"] = { "layout_right",  mode = { "i", "n" } },
+}
+
 return {
 	"folke/snacks.nvim",
-  -- NOTE: to be able to reuse window opened from oil
-  -- https://github.com/folke/snacks.nvim/issues/618
 	opts = {
     picker = {
+      -- NOTE: to be able to reuse window opened from oil
+      -- https://github.com/folke/snacks.nvim/issues/618
       main = { current = true },
       win = {
         input = {
-          keys = {
-            ["<c-z><Left>"] = { "layout_left", mode = { "i", "n" } },
-            ["<c-z><Down>"] = { "layout_bottom", mode = { "i", "n" } },
-            ["<c-z><Up>"] = { "layout_top", mode = { "i", "n" } },
-            ["<c-z><Right>"] = { "layout_right", mode = { "i", "n" } },
-          }
+          keys = arrow_keymaps_for_pinning
         },
         list = {
-          keys = {
-            ["<c-z><Left>"] = { "layout_left", mode = { "i", "n" } },
-            ["<c-z><Down>"] = { "layout_bottom", mode = { "i", "n" } },
-            ["<c-z><Up>"] = { "layout_top", mode = { "i", "n" } },
-            ["<c-z><Right>"] = { "layout_right", mode = { "i", "n" } },
-          }
+          keys = arrow_keymaps_for_pinning
         }
       }
     }
