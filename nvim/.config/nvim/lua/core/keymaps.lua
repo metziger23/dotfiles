@@ -1,4 +1,5 @@
 vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
 
 vim.keymap.set("t", [[<C-/>]], [[<C-\><C-n>]], { desc = "Escape terminal mode" })
 
