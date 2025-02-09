@@ -4,8 +4,10 @@ return {
 	config = true,
 	opts = {
 		keymaps = {
-			applyNext = { n = "<C-Down>" },
-			applyPrev = { n = "<C-Up>" },
+			openNextLocation = { n = "<C-Down>" },
+			openPrevLocation = { n = "<C-Up>" },
+			applyNext = { n = "<M-Down>" },
+			applyPrev = { n = "<M-Up>" },
 		},
 	},
 	keys = {
