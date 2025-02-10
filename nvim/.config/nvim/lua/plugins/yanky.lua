@@ -5,7 +5,7 @@ return {
 	},
 	keys = {
 		{ "<leader>y", "<cmd>YankyRingHistory<cr>", desc = "Open Yank History" },
-		-- { "y", "<Plug>(YankyYank)", mode = { "n", "x" }, desc = "Yank text" },
+		{ "y", "<Plug>(YankyYank)", mode = { "n", "x" }, desc = "Yank text" },
 		{ "p", "<Plug>(YankyPutAfter)", mode = { "n", "x" }, desc = "Put yanked text after cursor" },
 		{ "P", "<Plug>(YankyPutBefore)", mode = { "n", "x" }, desc = "Put yanked text before cursor" },
 		{ "gp", "<Plug>(YankyGPutAfter)", mode = { "n", "x" }, desc = "Put yanked text after selection" },
@@ -29,18 +29,24 @@ return {
 			ring = {
 				storage = "sqlite",
 			},
+      preserve_cursor_position = {
+        enabled = true,
+      },
 			textobj = {
-				enabled = false,
+				enabled = true,
 			},
 			highlight = {
 				on_put = false,
 				on_yank = false,
 			},
 			picker = {
-        select = {
-          action = require("yanky.picker").actions.set_register(utils.get_default_register())
-        },
+				select = {
+					action = require("yanky.picker").actions.set_register(utils.get_default_register()),
+				},
 			},
 		})
+		vim.keymap.set({ "o", "x" }, "<M-p>", function()
+			require("yanky.textobj").last_put()
+		end, {})
 	end,
 }
