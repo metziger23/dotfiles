@@ -12,6 +12,7 @@ return {
 			dap = false,
 			strategy = {
 				"toggleterm",
+        auto_scroll = false,
 				direction = "float",
 				hidden = true,
 				open_on_start = false,
