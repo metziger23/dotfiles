@@ -29,9 +29,9 @@ return {
 			ring = {
 				storage = "sqlite",
 			},
-      preserve_cursor_position = {
-        enabled = true,
-      },
+			preserve_cursor_position = {
+				enabled = true,
+			},
 			textobj = {
 				enabled = true,
 			},
@@ -47,6 +47,6 @@ return {
 		})
 		vim.keymap.set({ "o", "x" }, "<M-p>", function()
 			require("yanky.textobj").last_put()
-		end, {})
+		end, { desc = "Last Put Text Object" })
 	end,
 }
