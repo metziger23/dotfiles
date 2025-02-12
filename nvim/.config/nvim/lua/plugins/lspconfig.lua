@@ -7,7 +7,7 @@ return {
 		"mason.nvim",
 		"williamboman/mason-lspconfig.nvim",
 		"ray-x/lsp_signature.nvim",
-    "folke/snacks.nvim",
+		"folke/snacks.nvim",
 	},
 	config = function()
 		-- Decorate floating windows
@@ -32,18 +32,28 @@ return {
 		local opts = { noremap = true, silent = true }
 		local on_attach = function(client, bufnr)
 			opts.buffer = bufnr
-      local picker = require("snacks").picker
+			local picker = require("snacks").picker
 
 			opts.desc = "Lsp Decralations"
-			keymap.set("n", "gD", picker.lsp_declarations, opts)
+			keymap.set("n", "gD", function()
+				picker.lsp_declarations({ jump = { reuse_win = false } })
+			end, opts)
 			opts.desc = "Lsp Definitions"
-      keymap.set("n", "gd", picker.lsp_definitions, opts)
+			keymap.set("n", "gd", function()
+				picker.lsp_definitions({ jump = { reuse_win = false } })
+			end, opts)
 			opts.desc = "Lsp Implementations"
-			keymap.set("n", "gI", picker.lsp_implementations, opts)
+			keymap.set("n", "gI", function()
+				picker.lsp_implementations({ jump = { reuse_win = false } })
+			end, opts)
 			opts.desc = "Lsp Type Definitions"
-			keymap.set("n", "gy", picker.lsp_type_definitions, opts)
+			keymap.set("n", "gy", function()
+				picker.lsp_type_definitions({ jump = { reuse_win = false } })
+			end, opts)
 			opts.desc = "Lsp References"
-			keymap.set("n", "gr", picker.lsp_references, opts)
+			keymap.set("n", "gr", function()
+				picker.lsp_references({ jump = { reuse_win = false } })
+			end, opts)
 			opts.desc = "Goto Line Diagnostics"
 			keymap.set("n", "gl", vim.diagnostic.open_float, opts)
 
@@ -58,13 +68,13 @@ return {
 			opts.desc = "Lsp Diagnostics"
 			keymap.set("n", "<leader>lD", picker.diagnostics, opts)
 
-      -- NOTE: snacks picker doesn't support this yet
+			-- NOTE: snacks picker doesn't support this yet
 			-- if client.supports_method("callHierarchy/incomingCalls") then
 			-- 	opts.desc = "Lsp incoming calls"
 			-- 	keymap.set("n", "<leader>lc", picker.lsp_incoming_calls, opts)
 			-- end
 
-      -- NOTE: snacks picker doesn't support this yet
+			-- NOTE: snacks picker doesn't support this yet
 			-- if client.supports_method("callHierarchy/outgoingCalls") then
 			-- 	opts.desc = "Lsp outgoing calls"
 			-- 	keymap.set("n", "<leader>lC", picker.lsp_outgoing_calls, opts)
@@ -188,16 +198,16 @@ return {
 		lspconfig["qmlls"].setup({
 			capabilities = capabilities,
 			on_attach = on_attach,
-			cmd = { vim.env.QMLLS_NEWEST},
+			cmd = { vim.env.QMLLS_NEWEST },
 			filetypes = { "qmljs", "qml" },
 		})
 
-    lspconfig["fish_lsp"].setup({
-      capabilities = capabilities,
-      on_attach = on_attach,
-      cmd = { "fish-lsp", "start" },
-      filetypes = { "fish" },
-      cmd_env = { fish_lsp_show_client_popups = false }
-    })
+		lspconfig["fish_lsp"].setup({
+			capabilities = capabilities,
+			on_attach = on_attach,
+			cmd = { "fish-lsp", "start" },
+			filetypes = { "fish" },
+			cmd_env = { fish_lsp_show_client_popups = false },
+		})
 	end,
 }
