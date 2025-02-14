@@ -3,6 +3,7 @@ local wezterm = require("wezterm")
 
 -- This will hold the configuration.
 local config = wezterm.config_builder()
+local mux = wezterm.mux
 
 local catppuccin_black = wezterm.color.get_builtin_schemes()["Catppuccin Mocha"]
 catppuccin_black.background = "#000000"
@@ -13,8 +14,11 @@ catppuccin_black.background = "#000000"
 config.color_schemes = { ["catppuccin_black"] = catppuccin_black, }
 config.color_scheme = "catppuccin_black"
 
-config.initial_rows = 100
-config.initial_cols = 300
+
+wezterm.on('gui-startup', function(cmd)
+  local _, _, window = mux.spawn_window(cmd or {})
+  window:gui_window():maximize()
+end)
 
 -- For example, changing the color scheme:
 config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
