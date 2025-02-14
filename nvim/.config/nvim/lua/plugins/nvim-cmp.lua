@@ -9,7 +9,6 @@ return {
 		"rafamadriz/friendly-snippets", -- useful snippets
 		"onsails/lspkind.nvim", -- vs-code like pictograms
 		"hrsh7th/cmp-cmdline",
-    "chrisgrieser/cmp_yanky",
 	},
 	config = function()
 		local cmp = require("cmp")
@@ -155,7 +154,6 @@ return {
 				{ name = "luasnip" }, -- snippets
 				{ name = "buffer" }, -- text within current buffer
 				{ name = "path" }, -- file system paths
-        { name = "cmp_yanky", option = { minLength = 1 } }
 			}),
 
       formatting = {
