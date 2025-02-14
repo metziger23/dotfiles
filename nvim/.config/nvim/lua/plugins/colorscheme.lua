@@ -7,12 +7,7 @@ return {
 		config = function()
 			require("catppuccin").setup({
 				floating_border = "on",
-				integrations = {
-					illuminate = {
-						enabled = false,
-						lsp = false,
-					},
-				},
+				integrations = {},
         color_overrides = {
           mocha = {
             base = "#000000",
