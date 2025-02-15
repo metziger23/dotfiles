@@ -5,6 +5,14 @@ return {
 		presets = {
 			lsp_doc_border = true, -- add a border to hover docs and signature help
 		},
+		lsp = {
+			signature = {
+				enabled = true,
+				auto_open = {
+					enabled = false,
+				},
+			},
+		},
 	},
 	dependencies = {
 		-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries

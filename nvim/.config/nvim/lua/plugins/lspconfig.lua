@@ -34,6 +34,9 @@ return {
 			opts.buffer = bufnr
 			local picker = require("snacks").picker
 
+      opts.desc = "Signature Help"
+			keymap.set({ "n", "i", "s" }, "<c-s>", vim.lsp.buf.signature_help, opts)
+
 			opts.desc = "Lsp Decralations"
 			keymap.set("n", "gD", function()
 				picker.lsp_declarations({ jump = { reuse_win = false } })
