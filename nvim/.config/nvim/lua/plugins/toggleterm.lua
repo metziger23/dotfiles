@@ -16,6 +16,13 @@ local function setup_terminal(configuration)
 		vim.keymap.set("t", configuration.keymap, function()
 			term:toggle()
 		end, opts)
+
+		vim.api.nvim_create_autocmd({ "VimResized" }, {
+			buffer = term.bufnr,
+			callback = function()
+				vim.api.nvim_input([[<C-\><C-n>^i]])
+			end,
+		})
 	end
 
 	local term = require("toggleterm.terminal").Terminal:new(term_opts)
