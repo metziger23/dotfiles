@@ -27,5 +27,9 @@ return {
 				return "<c-b>"
 			end
 		end, { silent = true, expr = true })
+
+		vim.keymap.set("c", "<S-Enter>", function()
+			require("noice").redirect(vim.fn.getcmdline())
+		end, { desc = "Redirect Cmdline" })
 	end,
 }
