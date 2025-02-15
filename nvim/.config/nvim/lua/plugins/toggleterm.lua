@@ -1,14 +1,14 @@
 local lazygit_config_path = vim.fn.expand("$HOME/.config/lazygit/lazygit-nvim-remote-config.yml")
 local lazygit_cmd = "lazygit -ucf " .. lazygit_config_path
 
-local default_toggleterm_opts = {
+local main_toggleterm_opts = {
 	direction = "float",
 	float_opts = {
 		border = "curved",
 	},
 }
 
-local lazygit_opts = vim.tbl_deep_extend("force", default_toggleterm_opts, {
+local lazygit_opts = vim.tbl_deep_extend("force", main_toggleterm_opts, {
 	cmd = lazygit_cmd,
 	dir = "git_dir",
 	on_open = function(term)
@@ -35,11 +35,11 @@ return {
 		local lazygit = Terminal:new(vim.deepcopy(lazygit_opts))
 		local lazygit_cur_buf = Terminal:new(vim.deepcopy(lazygit_opts))
 		local lazygit_filter_cur_buf = Terminal:new(vim.deepcopy(lazygit_opts))
-		local default_toggleterm = Terminal:new(vim.deepcopy(default_toggleterm_opts))
+		local main_toggleterm = Terminal:new(vim.deepcopy(main_toggleterm_opts))
 
 		vim.keymap.set({ "n", "t", "x" }, "<M-C-t>", function()
-			default_toggleterm:toggle()
-		end, { desc = "Toggle default Toggleterm" })
+			main_toggleterm:toggle()
+		end, { desc = "Toggle main Toggleterm" })
 
 		local function lazygit_toggle()
 			local dot_git_path = vim.fn.finddir(".git", vim.fn.getcwd() .. ";")
