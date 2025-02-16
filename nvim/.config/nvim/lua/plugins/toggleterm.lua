@@ -11,6 +11,7 @@ local function setup_terminal(configuration)
 	end
 
 	term_opts.on_open = function(term)
+		vim.cmd.startinsert()
 		local opts = { buffer = term.bufnr, noremap = true, silent = true }
 		opts.desc = configuration.desc
 		vim.keymap.set("t", configuration.keymap, function()
@@ -54,6 +55,11 @@ return {
 		float_opts = {
 			border = "curved",
 		},
+    -- NOTE: workaround used to stop overseer toggleterm from opening in terminal mode
+		start_in_insert = false,
+		on_open = function(_)
+			vim.cmd.startinsert()
+		end,
 	},
 	config = function(_, opts)
 		require("toggleterm").setup(opts)
