@@ -16,3 +16,5 @@ vim.keymap.set("n", "<M-s>",   "<cmd>w<CR>",  { desc = "Save current buffer" })
 vim.keymap.set("n", "<M-C-s>", "<cmd>wa<CR>", { desc = "Save all buffers" })
 vim.keymap.set("n", "<M-e>",   "<cmd>q<CR>",  { desc = "Exit current buffer" })
 vim.keymap.set("n", "<M-C-e>", "<cmd>qa<CR>", { desc = "Exit all buffers" })
+
+vim.keymap.set("n", "<M-q>", "q:", { desc = "Open cmdline window" })
