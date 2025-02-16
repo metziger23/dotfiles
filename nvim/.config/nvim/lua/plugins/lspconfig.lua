@@ -34,7 +34,7 @@ return {
 			opts.buffer = bufnr
 			local picker = require("snacks").picker
 
-      opts.desc = "Signature Help"
+			opts.desc = "Signature Help"
 			keymap.set({ "n", "i", "s" }, "<c-s>", vim.lsp.buf.signature_help, opts)
 
 			opts.desc = "Lsp Decralations"
@@ -198,12 +198,28 @@ return {
 			},
 		})
 
-		lspconfig["qmlls"].setup({
+		local qmlls_diagnostics_enabled = true
+
+		local qmlls_config = {
 			capabilities = capabilities,
 			on_attach = on_attach,
 			cmd = { vim.env.QMLLS_NEWEST },
 			filetypes = { "qmljs", "qml" },
-		})
+			handlers = {
+				["textDocument/publishDiagnostics"] = function(err, method, params, client_id)
+					if qmlls_diagnostics_enabled then
+						vim.lsp.handlers["textDocument/publishDiagnostics"](err, method, params, client_id)
+					end
+				end,
+			},
+		}
+
+		lspconfig["qmlls"].setup(qmlls_config)
+
+		vim.api.nvim_create_user_command("QmlDiagnosticToggle", function()
+			qmlls_diagnostics_enabled = not qmlls_diagnostics_enabled
+			lspconfig["qmlls"].setup(qmlls_config)
+		end, { desc = "Qml Diagnostic Toggle" })
 
 		lspconfig["fish_lsp"].setup({
 			capabilities = capabilities,
