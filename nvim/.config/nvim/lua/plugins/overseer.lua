@@ -2,7 +2,7 @@ return {
 	"stevearc/overseer.nvim",
 	dependencies = { "akinsho/toggleterm.nvim" },
 	config = function()
-    local toggle_keymap = "<A-r>"
+		local toggle_keymap = "<A-r>"
 		vim.keymap.set("n", toggle_keymap, function() end)
 
 		local default_components = require("overseer.config").component_aliases.default
@@ -21,6 +21,7 @@ return {
 					local toggle_desc = "Toggleterm: Toggle Overseer"
 					local keymap_opts = { noremap = true, silent = true, desc = toggle_desc }
 					term.on_open = function(terminal)
+						require("../utils/utils").setup_new_tab_breakout_keymap(term.bufnr)
 						local on_open_keymap_opts = vim.deepcopy(keymap_opts)
 						on_open_keymap_opts.buffer = terminal.bufnr
 						vim.keymap.set("t", toggle_keymap, function()

@@ -1,3 +1,5 @@
+local utils = require("../utils/utils")
+
 local function setup_terminal(configuration)
 	local term_opts = {
 		direction = "float",
@@ -12,6 +14,7 @@ local function setup_terminal(configuration)
 
 	term_opts.on_open = function(term)
 		vim.cmd.startinsert()
+		utils.setup_new_tab_breakout_keymap(term.bufnr)
 		local opts = { buffer = term.bufnr, noremap = true, silent = true }
 		opts.desc = configuration.desc
 		vim.keymap.set("t", configuration.keymap, function()
@@ -55,10 +58,11 @@ return {
 		float_opts = {
 			border = "curved",
 		},
-    -- NOTE: workaround used to stop overseer toggleterm from opening in terminal mode
+		-- NOTE: workaround used to stop overseer toggleterm from opening in terminal mode
 		start_in_insert = false,
-		on_open = function(_)
+		on_open = function(term)
 			vim.cmd.startinsert()
+			utils.setup_new_tab_breakout_keymap(term.bufnr)
 		end,
 	},
 	config = function(_, opts)
