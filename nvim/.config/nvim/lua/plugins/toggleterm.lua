@@ -58,6 +58,7 @@ return {
 		float_opts = {
 			border = "curved",
 		},
+    autochdir = true,
 		-- NOTE: workaround used to stop overseer toggleterm from opening in terminal mode
 		start_in_insert = false,
 		on_open = function(term)
