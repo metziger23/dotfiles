@@ -100,8 +100,7 @@ return {
 			term_opts = lazygit_opts,
 			toggle_pre_hook = function(term)
 				term.cmd = lazygit_cmd .. " --filter " .. vim.fn.expand("%:p")
-				local dot_git_path = vim.fn.finddir(".git", ".;")
-				term.dir = vim.fn.fnamemodify(dot_git_path, ":h")
+        term.dir = require("snacks").git.get_root()
 			end,
 		}
 
