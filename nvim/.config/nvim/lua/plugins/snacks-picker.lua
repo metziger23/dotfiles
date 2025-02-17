@@ -19,10 +19,10 @@ local explorer_options = {
 }
 
 local arrow_keymaps_for_pinning = {
-  ["<c-z><Left>"]  = { "layout_left",   mode = { "i", "n" } },
-  ["<c-z><Down>"]  = { "layout_bottom", mode = { "i", "n" } },
-  ["<c-z><Up>"]    = { "layout_top",    mode = { "i", "n" } },
-  ["<c-z><Right>"] = { "layout_right",  mode = { "i", "n" } },
+	["<C-w><S-Left>"]  = "layout_left",
+	["<C-w><S-Down>"]  = "layout_bottom",
+	["<C-w><S-Up>"]    = "layout_top",
+	["<C-w><S-Right>"] = "layout_right",
 }
 
 return {
