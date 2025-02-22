@@ -198,28 +198,27 @@ return {
 			},
 		})
 
-		local qmlls_diagnostics_enabled = true
-
-		local qmlls_config = {
+		lspconfig["qmlls"].setup({
 			capabilities = capabilities,
 			on_attach = on_attach,
 			cmd = { vim.env.QMLLS_NEWEST },
 			filetypes = { "qmljs", "qml" },
 			handlers = {
 				["textDocument/publishDiagnostics"] = function(err, method, params, client_id)
-					if qmlls_diagnostics_enabled then
-						vim.lsp.handlers["textDocument/publishDiagnostics"](err, method, params, client_id)
-					end
+
+          local filtered_diagnostics = {}
+          for _, diagnostic in ipairs(method.diagnostics) do
+            if diagnostic.severity ~= vim.diagnostic.severity.WARN then
+              table.insert(filtered_diagnostics, diagnostic)
+            end
+          end
+
+          -- Update the diagnostics in the params to only include errors
+          method.diagnostics = filtered_diagnostics
+					vim.lsp.handlers["textDocument/publishDiagnostics"](err, method, params, client_id)
 				end,
 			},
-		}
-
-		lspconfig["qmlls"].setup(qmlls_config)
-
-		vim.api.nvim_create_user_command("QmlDiagnosticToggle", function()
-			qmlls_diagnostics_enabled = not qmlls_diagnostics_enabled
-			lspconfig["qmlls"].setup(qmlls_config)
-		end, { desc = "Qml Diagnostic Toggle" })
+		})
 
 		lspconfig["fish_lsp"].setup({
 			capabilities = capabilities,
