@@ -6,7 +6,6 @@ return {
 		{ "antosha417/nvim-lsp-file-operations", config = true },
 		"mason.nvim",
 		"williamboman/mason-lspconfig.nvim",
-		"ray-x/lsp_signature.nvim",
 		"folke/snacks.nvim",
 	},
 	config = function()
