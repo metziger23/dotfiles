@@ -8,7 +8,7 @@ gui:
       - black
   nerdFontsVersion: "3"
 
-  # Keybindings
+# Keybindings
 keybinding:
   universal:
     quit: q
