@@ -22,8 +22,8 @@ keybinding:
     nextItem-alt: <disabled>
     prevPage: <c-u>
     nextPage: <c-d>
-    scrollLeft: <disabled>
-    scrollRight: <disabled>
+    scrollLeft: <home>
+    scrollRight: <end>
     gotoTop: g
     gotoBottom: G
     toggleRangeSelect: v
