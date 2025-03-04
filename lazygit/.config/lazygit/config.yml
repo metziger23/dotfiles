@@ -24,8 +24,8 @@ keybinding:
     nextPage: <c-d>
     scrollLeft: <disabled>
     scrollRight: <disabled>
-    gotoTop: <
-    gotoBottom: '>'
+    gotoTop: g
+    gotoBottom: G
     toggleRangeSelect: v
     rangeSelectDown: <s-down>
     rangeSelectUp: <s-up>
