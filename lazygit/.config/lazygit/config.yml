@@ -58,8 +58,8 @@ keybinding:
     scrollDownMain: <pgdown>
     scrollUpMain-alt1: <disabled>
     scrollDownMain-alt1: <disabled>
-    scrollUpMain-alt2: <c-u>
-    scrollDownMain-alt2: <c-d>
+    scrollUpMain-alt2: <c-b>
+    scrollDownMain-alt2: <c-f>
     executeShellCommand: ':'
     createRebaseOptionsMenu: m
 
