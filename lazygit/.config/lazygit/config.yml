@@ -98,7 +98,7 @@ keybinding:
     commitChangesWithoutHook: w
     amendLastCommit: A
     commitChangesWithEditor: C
-    findBaseCommitForFixup: <c-f>
+    findBaseCommitForFixup: l
     confirmDiscard: x
     ignoreFile: i
     refreshFiles: r
@@ -109,7 +109,7 @@ keybinding:
     fetch: f
     toggleTreeView: '`'
     openMergeTool: M
-    openStatusFilter: <c-b>
+    openStatusFilter: h
     copyFileInfoToClipboard: "y"
     collapseAll: '-'
     expandAll: =
