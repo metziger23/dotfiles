@@ -20,8 +20,8 @@ keybinding:
     nextItem: <down>
     prevItem-alt: <disabled>
     nextItem-alt: <disabled>
-    prevPage: ','
-    nextPage: .
+    prevPage: <c-u>
+    nextPage: <c-d>
     scrollLeft: <disabled>
     scrollRight: <disabled>
     gotoTop: <
