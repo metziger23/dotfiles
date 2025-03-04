@@ -135,7 +135,7 @@ keybinding:
     squashDown: s
     renameCommit: r
     renameCommitWithEditor: R
-    viewResetOptions: g
+    viewResetOptions: k
     markCommitAsFixup: f
     createFixupCommit: F
     squashAboveCommits: S
@@ -161,7 +161,7 @@ keybinding:
     setAuthor: A
     addCoAuthor: c
   stash:
-    popStash: g
+    popStash: k
     renameStash: r
   commitFiles:
     checkoutCommitFile: c
