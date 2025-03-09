@@ -32,9 +32,6 @@ return {
 			preserve_cursor_position = {
 				enabled = true,
 			},
-			textobj = {
-				enabled = true,
-			},
 			highlight = {
 				on_put = false,
 				on_yank = false,
@@ -45,8 +42,5 @@ return {
 				},
 			},
 		})
-		vim.keymap.set({ "o", "x" }, "<M-p>", function()
-			require("yanky.textobj").last_put()
-		end, { desc = "Last Put Text Object" })
 	end,
 }
