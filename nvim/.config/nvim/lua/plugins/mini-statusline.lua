@@ -1,9 +1,9 @@
 local function override_hl()
-  local filename_hl = { bg = "#181825", fg = "#CDD6F5" }
-  local inactive_hl = { bg = "#181825", fg = "#89B4FB" }
+	local filename_hl = { bg = "#181825", fg = "#CDD6F5" }
+	local inactive_hl = { bg = "#181825", fg = "#89B4FB" }
 
-  vim.api.nvim_set_hl(0, "MiniStatuslineFilename", filename_hl)
-  vim.api.nvim_set_hl(0, "MiniStatuslineInactive", inactive_hl)
+	vim.api.nvim_set_hl(0, "MiniStatuslineFilename", filename_hl)
+	vim.api.nvim_set_hl(0, "MiniStatuslineInactive", inactive_hl)
 end
 
 local statuses = {
@@ -31,6 +31,16 @@ local function get_overseer_task_status(status)
 	return result
 end
 
+local function get_noice_status(str_callback, cond_callback, hl)
+	local result = { hl = "MiniStatuslineInactive", strings = { nil } }
+	if not cond_callback() then
+		return result
+	end
+	result.hl = hl
+	result.strings = { str_callback() }
+	return result
+end
+
 local function get_cwd()
 	return vim.fn.fnamemodify(vim.fn.getcwd(), ":~")
 end
@@ -45,9 +55,9 @@ return {
 	config = function()
 		local MiniStatusline = require("mini.statusline")
 
-    if vim.g.colors_name == "catppuccin-mocha" then
-      override_hl()
-    end
+		if vim.g.colors_name == "catppuccin-mocha" then
+			override_hl()
+		end
 
 		MiniStatusline.setup({
 			content = {
@@ -74,6 +84,11 @@ return {
 						get_overseer_task_status("RUNNING"),
 						{ hl = "MiniStatuslineFilename", strings = { get_relative_filename() } },
 						"%=", -- End left alignment
+            get_noice_status(
+              require("noice").api.status.mode.get,
+              require("noice").api.status.mode.has,
+              mode_hl
+            ),
 						{ hl = "MiniStatuslineFilename", strings = { get_cwd() } },
 						{ hl = "MiniStatuslineFileinfo", strings = { fileinfo } },
 						{ hl = mode_hl, strings = { search, location } },
