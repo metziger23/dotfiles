@@ -40,7 +40,7 @@ return {
 			require("noice").redirect(vim.fn.getcmdline())
 		end, { desc = "Redirect Cmdline" })
 
-    vim.keymap.set("n", "<leader>n", function()
+    vim.keymap.set({ "n", "v", "x", "s", "i", "c", "o", "l" }, "<M-n>", function()
       require("noice").cmd("dismiss")
     end, { desc = "Noice Dismiss" })
 	end,
