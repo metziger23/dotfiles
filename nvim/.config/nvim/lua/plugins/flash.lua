@@ -11,11 +11,6 @@ return {
 	opts = {
 		labels = "tnseriaodhplgmfucbjvkwyxqz",
 		modes = {
-			search = {
-				-- when `true`, flash will be activated during regular search by default.
-				-- You can always toggle when searching with `require("flash").toggle()`
-				enabled = true,
-			},
 			char = {
 				-- show jump labels
 				jump_labels = true,
