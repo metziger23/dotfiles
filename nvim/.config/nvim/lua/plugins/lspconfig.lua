@@ -60,46 +60,46 @@ return {
 			keymap.set("n", "gl", vim.diagnostic.open_float, opts)
 
 			opts.desc = "Lsp Implementations"
-			keymap.set("n", "<leader>li", picker.lsp_implementations, opts)
+			keymap.set("n", "li", picker.lsp_implementations, opts)
 			opts.desc = "Lsp Document Symbols"
-			keymap.set("n", "<leader>ls", picker.lsp_symbols, opts)
+			keymap.set("n", "ls", picker.lsp_symbols, opts)
 			opts.desc = "Lsp Workspace Symbols"
-			keymap.set("n", "<leader>lw", picker.lsp_workspace_symbols, opts)
+			keymap.set("n", "lw", picker.lsp_workspace_symbols, opts)
 			opts.desc = "Lsp Buffer Diagnostics"
-			keymap.set("n", "<leader>lb", picker.diagnostics_buffer, opts)
+			keymap.set("n", "lb", picker.diagnostics_buffer, opts)
 			opts.desc = "Lsp Diagnostics"
-			keymap.set("n", "<leader>lD", picker.diagnostics, opts)
+			keymap.set("n", "lD", picker.diagnostics, opts)
 
 			-- NOTE: snacks picker doesn't support this yet
 			-- if client.supports_method("callHierarchy/incomingCalls") then
 			-- 	opts.desc = "Lsp incoming calls"
-			-- 	keymap.set("n", "<leader>lc", picker.lsp_incoming_calls, opts)
+			-- 	keymap.set("n", "lc", picker.lsp_incoming_calls, opts)
 			-- end
 
 			-- NOTE: snacks picker doesn't support this yet
 			-- if client.supports_method("callHierarchy/outgoingCalls") then
 			-- 	opts.desc = "Lsp outgoing calls"
-			-- 	keymap.set("n", "<leader>lC", picker.lsp_outgoing_calls, opts)
+			-- 	keymap.set("n", "lC", picker.lsp_outgoing_calls, opts)
 			-- end
 
 			opts.desc = "Lsp rename"
-			keymap.set("n", "<leader>lr", function()
+			keymap.set("n", "lr", function()
 				vim.lsp.buf.rename()
 			end, opts)
 			opts.desc = "Lsp Code action"
-			keymap.set("n", "<leader>la", function()
+			keymap.set("n", "la", function()
 				vim.lsp.buf.code_action()
 			end, opts)
 			opts.desc = "Lsp Source action"
-			keymap.set("n", "<leader>lA", function()
+			keymap.set("n", "lA", function()
 				vim.lsp.buf.code_action({ context = { only = { "source" }, diagnostics = {} } })
 			end, opts)
 			opts.desc = "Format"
-			keymap.set("n", "<leader>lf", function()
+			keymap.set("n", "lf", function()
 				require("conform").format()
 			end, opts)
 			opts.desc = "Format selection"
-			keymap.set("v", "<leader>lf", function()
+			keymap.set("v", "lf", function()
 				require("conform").format()
 			end, opts)
 
