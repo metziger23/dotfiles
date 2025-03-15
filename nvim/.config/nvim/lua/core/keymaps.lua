@@ -21,3 +21,7 @@ vim.keymap.set("n", "<M-q>", "q:", { desc = "Open cmdline window" })
 
 vim.keymap.set("n", "[q", vim.cmd.cprev, { desc = "Previous Quickfix" })
 vim.keymap.set("n", "]q", vim.cmd.cnext, { desc = "Next Quickfix" })
+
+local hydra_utils = require("../utils/hydra_utils")
+
+hydra_utils.setup_bidirectional_hydra("n", "quickfix", "[q", "]q", vim.cmd.cprev, vim.cmd.cnext)
