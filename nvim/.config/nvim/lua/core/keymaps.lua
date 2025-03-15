@@ -18,3 +18,6 @@ vim.keymap.set("n", "<M-e>",   "<cmd>q<CR>",  { desc = "Exit current buffer" })
 vim.keymap.set("n", "<M-C-e>", "<cmd>qa<CR>", { desc = "Exit all buffers" })
 
 vim.keymap.set("n", "<M-q>", "q:", { desc = "Open cmdline window" })
+
+vim.keymap.set("n", "[q", vim.cmd.cprev, { desc = "Previous Quickfix" })
+vim.keymap.set("n", "]q", vim.cmd.cnext, { desc = "Next Quickfix" })
