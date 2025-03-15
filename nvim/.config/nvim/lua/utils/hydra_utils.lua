@@ -32,6 +32,7 @@ local function single_keymap_setup(is_next, modes, desc, prev_keymap, next_keyma
 end
 
 function M.setup_bidirectional_hydra(modes, desc, prev_keymap, next_keymap, prev_func, next_func, opts)
+  opts = opts or {}
   single_keymap_setup(false, modes, desc, prev_keymap, next_keymap, prev_func, next_func, opts)
   single_keymap_setup(true, modes, desc, prev_keymap, next_keymap, prev_func, next_func, opts)
 end
