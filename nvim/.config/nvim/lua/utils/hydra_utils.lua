@@ -2,8 +2,8 @@ local M = {}
 
 local function single_hydra_setup(modes, desc, prev_keymap, next_keymap, prev_func, next_func, opts)
 	local Hydra = require("hydra")
-	local next_desc = "Go to next " .. desc
 	local prev_desc = "Go to previous " .. desc
+	local next_desc = "Go to next " .. desc
 	return Hydra({
 		name = "Go to next/previous " .. desc,
 		mode = modes,
@@ -12,10 +12,10 @@ local function single_hydra_setup(modes, desc, prev_keymap, next_keymap, prev_fu
 			color = "pink",
 		},
 		heads = {
-			{ prev_keymap, prev_func, { desc = prev_desc } },
-			{ "<PageUp>", prev_func, { desc = prev_desc } },
-			{ next_keymap, next_func, { desc = next_desc } },
-			{ "<PageDown>", next_func, { desc = next_desc } },
+			{ prev_keymap, prev_func, vim.tbl_deep_extend("force", opts, { desc = prev_desc }) },
+			{ "<PageUp>", prev_func, vim.tbl_deep_extend("force", opts, { desc = prev_desc }) },
+			{ next_keymap, next_func, vim.tbl_deep_extend("force", opts, { desc = next_desc }) },
+			{ "<PageDown>", next_func, vim.tbl_deep_extend("force", opts, { desc = next_desc }) },
 		},
 	})
 end
