@@ -1,3 +1,5 @@
+local hydra_utils = require("../utils/hydra_utils")
+
 return {
 	"neovim/nvim-lspconfig",
 	event = { "BufReadPre", "BufNewFile" },
@@ -108,35 +110,23 @@ return {
 				vim.lsp.buf.hover()
 			end, opts)
 
-			opts.desc = "Go to next diagnostic"
-			keymap.set("n", "]d", function()
-				vim.diagnostic.goto_next({ severity = nil })
-			end, opts) -- jump to next diagnostic in buffer
-
-			opts.desc = "Go to previous diagnostic"
-			keymap.set("n", "[d", function()
+			hydra_utils.setup_bidirectional_hydra("n", "diagnostic", "[d", "]d", function()
 				vim.diagnostic.goto_prev({ severity = nil })
-			end, opts) -- jump to previous diagnostic in buffer
+			end, function()
+				vim.diagnostic.goto_next({ severity = nil })
+			end, opts)
 
-			opts.desc = "Go to next error"
-			keymap.set("n", "]e", function()
-				vim.diagnostic.goto_next({ severity = vim.diagnostic.severity["ERROR"] })
-			end, opts) -- jump to next diagnostic in buffer
-
-			opts.desc = "Go to previous error"
-			keymap.set("n", "[e", function()
+			hydra_utils.setup_bidirectional_hydra("n", "error", "[e", "]e", function()
 				vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity["ERROR"] })
-			end, opts) -- jump to previous diagnostic in buffer
+			end, function()
+				vim.diagnostic.goto_next({ severity = vim.diagnostic.severity["ERROR"] })
+			end, opts)
 
-			opts.desc = "Go to next warning"
-			keymap.set("n", "]w", function()
-				vim.diagnostic.goto_next({ severity = vim.diagnostic.severity["WARN"] })
-			end, opts) -- jump to next diagnostic in buffer
-
-			opts.desc = "Go to previous warning"
-			keymap.set("n", "[w", function()
+			hydra_utils.setup_bidirectional_hydra("n", "warning", "[w", "]w", function()
 				vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity["WARN"] })
-			end, opts) -- jump to previous diagnostic in buffer
+			end, function()
+				vim.diagnostic.goto_next({ severity = vim.diagnostic.severity["WARN"] })
+			end, opts)
 		end
 
 		-- used to enable autocompletion (assign to every lsp server config)
@@ -204,16 +194,15 @@ return {
 			filetypes = { "qmljs", "qml" },
 			handlers = {
 				["textDocument/publishDiagnostics"] = function(err, method, params, client_id)
+					local filtered_diagnostics = {}
+					for _, diagnostic in ipairs(method.diagnostics) do
+						if diagnostic.severity ~= vim.diagnostic.severity.WARN then
+							table.insert(filtered_diagnostics, diagnostic)
+						end
+					end
 
-          local filtered_diagnostics = {}
-          for _, diagnostic in ipairs(method.diagnostics) do
-            if diagnostic.severity ~= vim.diagnostic.severity.WARN then
-              table.insert(filtered_diagnostics, diagnostic)
-            end
-          end
-
-          -- Update the diagnostics in the params to only include errors
-          method.diagnostics = filtered_diagnostics
+					-- Update the diagnostics in the params to only include errors
+					method.diagnostics = filtered_diagnostics
 					vim.lsp.handlers["textDocument/publishDiagnostics"](err, method, params, client_id)
 				end,
 			},
