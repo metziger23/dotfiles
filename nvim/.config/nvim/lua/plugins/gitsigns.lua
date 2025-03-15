@@ -1,3 +1,5 @@
+local hydra_utils = require("../utils/hydra_utils")
+
 local function on_attach(bufnr)
 	local gitsigns = require("gitsigns")
 
@@ -8,21 +10,35 @@ local function on_attach(bufnr)
 	end
 
 	-- Navigation
-	map("n", "]h", function()
-		if vim.wo.diff then
-			vim.cmd.normal({ "]h", bang = true })
-		else
-			gitsigns.nav_hunk("next")
-		end
-	end)
+	-- map("n", "]h", function()
+	-- 	if vim.wo.diff then
+	-- 		vim.cmd.normal({ "]h", bang = true })
+	-- 	else
+	-- 		gitsigns.nav_hunk("next")
+	-- 	end
+	-- end)
+	--
+	-- map("n", "[h", function()
+	-- 	if vim.wo.diff then
+	-- 		vim.cmd.normal({ "[h", bang = true })
+	-- 	else
+	-- 		gitsigns.nav_hunk("prev")
+	-- 	end
+	-- end)
 
-	map("n", "[h", function()
+	hydra_utils.setup_bidirectional_hydra("n", "hunk", "[h", "]h", function()
 		if vim.wo.diff then
 			vim.cmd.normal({ "[h", bang = true })
 		else
 			gitsigns.nav_hunk("prev")
 		end
-	end)
+	end, function()
+		if vim.wo.diff then
+			vim.cmd.normal({ "]h", bang = true })
+		else
+			gitsigns.nav_hunk("next")
+		end
+	end, { buffer = bufnr })
 
 	-- Actions
 	map("n", "<leader>hs", gitsigns.stage_hunk, { desc = "Stage Hunk" })
