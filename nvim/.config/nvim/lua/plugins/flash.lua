@@ -1,10 +1,3 @@
-local function linewise_jump()
-	vim.cmd("norm! V")
-	require("flash").jump({
-		search = { multi_window = false },
-	})
-end
-
 return {
 	"folke/flash.nvim",
 	event = "VeryLazy",
@@ -27,6 +20,5 @@ return {
     { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
     { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
     { "<M-h>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
-    { "l", mode = { "n", "x", "o" }, linewise_jump, desc = "Flash Linewise" },
   },
 }
