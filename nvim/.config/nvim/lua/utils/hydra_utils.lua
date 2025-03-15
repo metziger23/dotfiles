@@ -21,16 +21,27 @@ local function single_hydra_setup(modes, desc, prev_keymap, next_keymap, prev_fu
 end
 
 local function single_keymap_setup(is_next, modes, desc, prev_keymap, next_keymap, prev_func, next_func, opts)
+	local single_keymap_table =
+		M.get_single_keymap_table(is_next, modes, desc, prev_keymap, next_keymap, prev_func, next_func, opts)
+	vim.keymap.set(single_keymap_table[1], single_keymap_table[2], single_keymap_table[3], single_keymap_table[4])
+end
+
+function M.get_single_keymap_table(is_next, modes, desc, prev_keymap, next_keymap, prev_func, next_func, opts)
 	local cur_keymap = is_next and next_keymap or prev_keymap
 	local cur_func = is_next and next_func or prev_func
 	local direction_desc = is_next and "next" or "previous"
 	local complete_direction_desc = "Go to " .. direction_desc .. " " .. desc
 	opts.desc = complete_direction_desc
-	vim.keymap.set(modes, cur_keymap, function()
-		cur_func()
-		local hydra = single_hydra_setup(modes, desc, prev_keymap, next_keymap, prev_func, next_func, opts)
-		hydra:activate()
-	end, opts)
+	return {
+		modes,
+		cur_keymap,
+		function()
+			cur_func()
+			local hydra = single_hydra_setup(modes, desc, prev_keymap, next_keymap, prev_func, next_func, opts)
+			hydra:activate()
+		end,
+		opts,
+	}
 end
 
 function M.setup_bidirectional_hydra(modes, desc, prev_keymap, next_keymap, prev_func, next_func, opts)
