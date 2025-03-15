@@ -27,6 +27,7 @@ local function single_keymap_setup(is_next, modes, desc, prev_keymap, next_keyma
 end
 
 function M.get_single_keymap_table(is_next, modes, desc, prev_keymap, next_keymap, prev_func, next_func, opts)
+  opts = opts or {}
 	local cur_keymap = is_next and next_keymap or prev_keymap
 	local cur_func = is_next and next_func or prev_func
 	local direction_desc = is_next and "next" or "previous"
