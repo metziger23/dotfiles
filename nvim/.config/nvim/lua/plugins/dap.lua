@@ -1,6 +1,16 @@
 return {
 	"mfussenegger/nvim-dap",
-	config = function() end,
+	config = function()
+		for _, group in pairs({
+			"DapBreakpoint",
+			"DapBreakpointCondition",
+			"DapBreakpointRejected",
+			"DapLogPoint",
+		}) do
+			vim.fn.sign_define(group, { text = "●", texthl = group })
+		end
+		vim.fn.sign_define("DapStopped", { text = "", texthl = "DapStopped", numhl = "debugPC" })
+	end,
 	keys = {
     -- stylua: ignore start
     { '<leader>dB', function() require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: ')) end, desc = 'Breakpoint Condition' },
