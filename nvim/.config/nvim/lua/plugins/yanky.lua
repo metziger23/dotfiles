@@ -30,7 +30,7 @@ return {
 				storage = "sqlite",
 			},
 			preserve_cursor_position = {
-				enabled = true,
+				enabled = false,
 			},
 			highlight = {
 				on_put = false,
