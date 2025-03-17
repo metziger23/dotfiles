@@ -16,16 +16,23 @@ return {
 					},
 					command = "qmlformat",
 					args = {
-            "--functions-spacing",
-            "--objects-spacing",
-            "--normalize",
-            "--indent-width",
-            "4",
-            "--force",
+						"--functions-spacing",
+						"--objects-spacing",
+						"--normalize",
+						"--indent-width",
+						"4",
+						"--force",
 						"$FILENAME",
 					},
 				},
 			},
+		})
+
+		vim.api.nvim_create_autocmd("BufWritePre", {
+			pattern = "*",
+			callback = function(args)
+				require("conform").format({ bufnr = args.buf })
+			end,
 		})
 	end,
 }
