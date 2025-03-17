@@ -1,37 +1,6 @@
 return {
 	"mfussenegger/nvim-dap",
 	config = function()
-		for _, group in pairs({
-			"DapBreakpoint",
-			"DapBreakpointCondition",
-			"DapBreakpointRejected",
-			"DapLogPoint",
-		}) do
-			vim.fn.sign_define(group, { text = "●", texthl = group })
-		end
-		vim.fn.sign_define("DapStopped", { text = "", texthl = "DapStopped", numhl = "debugPC" })
-	end,
-	keys = {
-    -- stylua: ignore start
-    { '<F1>', function() require('dap').toggle_breakpoint() end, desc = 'Toggle Breakpoint' },
-    { '<F2>', function() require('dap').run_to_cursor() end, desc = 'Run to Cursor' },
-    { '<F3>', function() require('dap').goto_() end, desc = 'Go to line (no execute)' },
-    { '<F4>', function() require('dap').terminate() end, desc = 'Terminate' },
-    { '<F5>', function() require('dap').continue() end, desc = 'Continue' },
-    { '<F6>', function() require('dap').pause() end, desc = 'Pause' },
-    { '<F7>', function() require('dap').step_into() end, desc = 'Step Into' },
-    { '<F8>', function() require('dap').step_out() end, desc = 'Step Out' },
-    { '<F9>', function() require('dap').step_over() end, desc = 'Step Over' },
-    { '<F10>', function() require('dap').down() end, desc = 'Down' },
-    { '<F11>', function() require('dap').up() end, desc = 'Up' },
-    { '<F12>', function() require('dap').run_last() end, desc = 'Run Last' },
-    { '<F13>', function() require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: ')) end, desc = 'Breakpoint Condition' },
-    { '<F14>', function() require('dap.ui.widgets').hover() end, desc = 'Widgets' },
-    { '<F15>', function() require('dap').repl.toggle() end, desc = 'Toggle REPL' },
-    { '<F16>', function() require('dap').session() end, desc = 'Session' },
-		-- stylua: ignore end
-	},
-	opts = function()
 		local dap = require("dap")
 		dap.adapters.codelldb = {
 			type = "server",
@@ -70,7 +39,37 @@ return {
 		}
 		dap.configurations.c = dap.configurations.cpp
 		require("overseer").enable_dap(true)
+
+		for _, group in pairs({
+			"DapBreakpoint",
+			"DapBreakpointCondition",
+			"DapBreakpointRejected",
+			"DapLogPoint",
+		}) do
+			vim.fn.sign_define(group, { text = "●", texthl = group })
+		end
+		vim.fn.sign_define("DapStopped", { text = "", texthl = "DapStopped", numhl = "debugPC" })
 	end,
+	keys = {
+    -- stylua: ignore start
+    { '<F1>', function() require('dap').toggle_breakpoint() end, desc = 'Toggle Breakpoint' },
+    { '<F2>', function() require('dap').run_to_cursor() end, desc = 'Run to Cursor' },
+    { '<F3>', function() require('dap').goto_() end, desc = 'Go to line (no execute)' },
+    { '<F4>', function() require('dap').terminate() end, desc = 'Terminate' },
+    { '<F5>', function() require('dap').continue() end, desc = 'Continue' },
+    { '<F6>', function() require('dap').pause() end, desc = 'Pause' },
+    { '<F7>', function() require('dap').step_into() end, desc = 'Step Into' },
+    { '<F8>', function() require('dap').step_out() end, desc = 'Step Out' },
+    { '<F9>', function() require('dap').step_over() end, desc = 'Step Over' },
+    { '<F10>', function() require('dap').down() end, desc = 'Down' },
+    { '<F11>', function() require('dap').up() end, desc = 'Up' },
+    { '<F12>', function() require('dap').run_last() end, desc = 'Run Last' },
+    { '<F13>', function() require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: ')) end, desc = 'Breakpoint Condition' },
+    { '<F14>', function() require('dap.ui.widgets').hover() end, desc = 'Widgets' },
+    { '<F15>', function() require('dap').repl.toggle() end, desc = 'Toggle REPL' },
+    { '<F16>', function() require('dap').session() end, desc = 'Session' },
+		-- stylua: ignore end
+	},
 	dependencies = {
 		"stevearc/overseer.nvim",
 		{
