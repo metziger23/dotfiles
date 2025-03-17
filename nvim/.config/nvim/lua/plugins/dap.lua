@@ -1,6 +1,12 @@
 return {
 	"mfussenegger/nvim-dap",
 	config = function()
+		-- load mason-nvim-dap here, after all adapters have been setup
+		local mason_nvim_dap_plugin = require("lazy.core.config").spec.plugins["mason-nvim-dap.nvim"]
+		local Plugin = require("lazy.core.plugin")
+		local mason_nvim_dap_opts = Plugin.values(mason_nvim_dap_plugin, "opts", false)
+		require("mason-nvim-dap").setup(mason_nvim_dap_opts)
+
 		local dap = require("dap")
 		dap.adapters.codelldb = {
 			type = "server",
@@ -91,8 +97,14 @@ return {
 					mode = { "n", "v" },
 				},
 			},
-			config = function()
+			opts = {
+				winbar = {
+					default_section = "threads",
+				},
+			},
+			config = function(_, opts)
 				local dap, dv = require("dap"), require("dap-view")
+				dv.setup(opts)
 				dap.listeners.before.attach["dap-view-config"] = function()
 					dv.open()
 				end
@@ -120,6 +132,8 @@ return {
 			opts = {
 				ensure_installed = { "codelldb" },
 			},
+			-- mason-nvim-dap is loaded when nvim-dap loads
+			config = function() end,
 		},
 	},
 }
