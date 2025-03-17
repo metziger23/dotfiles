@@ -1,13 +1,13 @@
-return
-{
-  "theprimeagen/harpoon",
-  enabled = false,
-  branch = "harpoon2",
-  dependencies = { "nvim-lua/plenary.nvim" },
-  config = function()
-    require("harpoon"):setup()
-  end,
-  keys = {
+return {
+	"theprimeagen/harpoon",
+	enabled = false,
+	branch = "harpoon2",
+	dependencies = { "nvim-lua/plenary.nvim" },
+	config = function()
+		require("harpoon"):setup()
+	end,
+	keys = {
+      -- stylua: ignore start
     { "<leader>A", function() require("harpoon"):list():add() end, desc = "Harpoon Add File", },
     { "<leader>a", function() local harpoon = require("harpoon") harpoon.ui:toggle_quick_menu(harpoon:list(), { border = "rounded" }) end, desc = "Harpoon Quick Menu", },
     { "<leader>1", function() require("harpoon"):list():select(1) end, desc = "which_key_ignore", },
@@ -19,5 +19,6 @@ return
     { "<leader>7", function() require("harpoon"):list():select(7) end, desc = "which_key_ignore", },
     { "<leader>8", function() require("harpoon"):list():select(8) end, desc = "which_key_ignore", },
     { "<leader>9", function() require("harpoon"):list():select(9) end, desc = "which_key_ignore", },
-  },
+		-- stylua: ignore end
+	},
 }

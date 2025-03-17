@@ -58,7 +58,7 @@ return {
 		float_opts = {
 			border = "curved",
 		},
-    autochdir = true,
+		autochdir = true,
 		-- NOTE: workaround used to stop overseer toggleterm from opening in terminal mode
 		start_in_insert = false,
 		on_open = function(term)
@@ -101,7 +101,7 @@ return {
 			term_opts = lazygit_opts,
 			toggle_pre_hook = function(term)
 				term.cmd = lazygit_cmd .. " --filter " .. vim.fn.expand("%:p")
-        term.dir = require("snacks").git.get_root()
+				term.dir = require("snacks").git.get_root()
 			end,
 		}
 

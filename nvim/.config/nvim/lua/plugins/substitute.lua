@@ -1,6 +1,7 @@
 return {
 	"gbprod/substitute.nvim",
 	keys = {
+    -- stylua: ignore start
 		{ "s", function() require("substitute").operator() end, mode = "n", desc = "Substitute" },
 		{ "ss", function() require("substitute").line() end, mode = "n", desc = "Substitute Line" },
 		{ "S", function() require("substitute").eol() end, mode = "n", desc = "Substitute EOL" },
@@ -15,13 +16,14 @@ return {
     {"sxx", function() require("substitute.exchange").line() end, mode = "n", desc = "Substitute Exchange Line" },
     {"X", function() require("substitute.exchange").visual() end, mode = "x", desc = "Substitute Exchange Visual" },
     {"sxc", function() require("substitute.exchange").cancel() end, mode = "n", desc = "Substitute Exchange Cancel" },
+		-- stylua: ignore end
 	},
-  config = function ()
-    require("substitute").setup({
-      highlight_substituted_text = {
-        enabled = false,
-      },
-      on_substitute = require("yanky.integration").substitute(),
-    })
-  end
+	config = function()
+		require("substitute").setup({
+			highlight_substituted_text = {
+				enabled = false,
+			},
+			on_substitute = require("yanky.integration").substitute(),
+		})
+	end,
 }

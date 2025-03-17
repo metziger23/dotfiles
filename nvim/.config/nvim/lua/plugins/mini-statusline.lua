@@ -84,11 +84,11 @@ return {
 						get_overseer_task_status("RUNNING"),
 						{ hl = "MiniStatuslineFilename", strings = { get_relative_filename() } },
 						"%=", -- End left alignment
-            get_noice_status(
-              require("noice").api.status.mode.get,
-              require("noice").api.status.mode.has,
-              mode_hl
-            ),
+						get_noice_status(
+							require("noice").api.status.mode.get,
+							require("noice").api.status.mode.has,
+							mode_hl
+						),
 						{ hl = "MiniStatuslineFilename", strings = { get_cwd() } },
 						{ hl = "MiniStatuslineFileinfo", strings = { fileinfo } },
 						{ hl = mode_hl, strings = { search, location } },

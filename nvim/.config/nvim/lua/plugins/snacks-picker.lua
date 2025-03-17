@@ -5,45 +5,46 @@ local select_preset = {
 }
 
 local explorer_options = {
-  win = {
-    list = {
-      keys = {
-        -- NOTE: use flash instead of default ones
-        ["l"] = false,
-        ["h"] = false, -- close directory
-        -- NOTE: toggle_hidden is still available with "<M-h>"
-        ["H"] = "explorer_close",
-      },
-    },
-  },
+	win = {
+		list = {
+			keys = {
+				-- NOTE: use flash instead of default ones
+				["l"] = false,
+				["h"] = false, -- close directory
+				-- NOTE: toggle_hidden is still available with "<M-h>"
+				["H"] = "explorer_close",
+			},
+		},
+	},
 }
 
 local arrow_keymaps_for_pinning = {
-	["<C-w><S-Left>"]  = "layout_left",
-	["<C-w><S-Down>"]  = "layout_bottom",
-	["<C-w><S-Up>"]    = "layout_top",
+	["<C-w><S-Left>"] = "layout_left",
+	["<C-w><S-Down>"] = "layout_bottom",
+	["<C-w><S-Up>"] = "layout_top",
 	["<C-w><S-Right>"] = "layout_right",
 }
 
 return {
 	"folke/snacks.nvim",
 	opts = {
-    picker = {
-      -- NOTE: to be able to reuse window opened from oil
-      -- https://github.com/folke/snacks.nvim/issues/618
-      main = { current = true },
-      win = {
-        input = {
-          keys = arrow_keymaps_for_pinning
-        },
-        list = {
-          keys = arrow_keymaps_for_pinning
-        }
-      }
-    }
-  },
-  event = "VeryLazy",
+		picker = {
+			-- NOTE: to be able to reuse window opened from oil
+			-- https://github.com/folke/snacks.nvim/issues/618
+			main = { current = true },
+			win = {
+				input = {
+					keys = arrow_keymaps_for_pinning,
+				},
+				list = {
+					keys = arrow_keymaps_for_pinning,
+				},
+			},
+		},
+	},
+	event = "VeryLazy",
 	keys = {
+    -- stylua: ignore start
     { "<BS>a", function() require("snacks").picker.autocmds() end, desc = "Autocmds" },
     { "<BS>b", function() require("snacks").picker.buffers() end, desc = "Buffers" },
     { "<BS>h", function() require("snacks").picker.command_history(select_preset) end, desc = "Command History" },
@@ -78,5 +79,6 @@ return {
     { "<BS>s", function() require("snacks").picker.spelling(select_preset) end, desc = "Spelling" },
     { "<BS>u", function() require("snacks").picker.undo() end, desc = "Undo" },
     { "<BS>z", function() require("snacks").picker.zoxide() end, desc = "Zoxide" },
+		-- stylua: ignore end
 	},
 }
