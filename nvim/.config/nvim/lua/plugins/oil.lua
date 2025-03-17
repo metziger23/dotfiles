@@ -22,7 +22,7 @@ return {
 				},
 				win_options = {
 					winbar = "%{v:lua.require('oil').get_current_dir()}",
-          signcolumn = "yes:2" -- NOTE: for oil-git-status
+					signcolumn = "yes:2", -- NOTE: for oil-git-status
 				},
 				keymaps = {
 					["g?"] = "actions.show_help",

@@ -4,7 +4,7 @@ end
 
 return {
 	"nvim-lualine/lualine.nvim",
-  enabled = false,
+	enabled = false,
 	event = "VeryLazy",
 	dependencies = { "nvim-tree/nvim-web-devicons" },
 	config = function()
@@ -15,7 +15,7 @@ return {
 				section_separators = { left = "█", right = "█" },
 			},
 			sections = {
-        lualine_c = { "filename", "overseer" },
+				lualine_c = { "filename", "overseer" },
 				lualine_x = { get_cwd, "encoding", "fileformat", "filetype" },
 			},
 		})
