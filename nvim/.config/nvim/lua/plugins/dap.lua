@@ -106,16 +106,16 @@ return {
 				local dap, dv = require("dap"), require("dap-view")
 				dv.setup(opts)
 				dap.listeners.before.attach["dap-view-config"] = function()
-					dv.open()
+					dv.open(true)
 				end
 				dap.listeners.before.launch["dap-view-config"] = function()
-					dv.open()
+					dv.open(true)
 				end
 				dap.listeners.before.event_terminated["dap-view-config"] = function()
-					dv.close()
+					dv.close(true)
 				end
 				dap.listeners.before.event_exited["dap-view-config"] = function()
-					dv.close()
+					dv.close(true)
 				end
 			end,
 		},
