@@ -152,6 +152,7 @@ return {
 				"clangd",
 				"--background-index",
 				"--clang-tidy",
+				"--header-insertion=never",
 				"--pch-storage=memory",
 				"--function-arg-placeholders",
 				"--compile-commands-dir=" .. vim.fn.getcwd(),
