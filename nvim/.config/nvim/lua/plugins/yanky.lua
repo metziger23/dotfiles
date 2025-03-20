@@ -2,9 +2,17 @@ return {
 	"gbprod/yanky.nvim",
 	dependencies = {
 		{ "kkharji/sqlite.lua" },
+		{ "folke/snacks.nvim" },
 	},
 	keys = {
-		{ "<leader>y", "<cmd>YankyRingHistory<cr>", desc = "Open Yank History" },
+		{
+			"<leader>y",
+			function()
+				require("snacks").picker.yanky()
+			end,
+			mode = { "n", "x" },
+			desc = "Open Yank History",
+		},
 		{ "y", "<Plug>(YankyYank)", mode = { "n", "x" }, desc = "Yank text" },
 		{ "p", "<Plug>(YankyPutAfter)", mode = { "n", "x" }, desc = "Put yanked text after cursor" },
 		{ "P", "<Plug>(YankyPutBefore)", mode = { "n", "x" }, desc = "Put yanked text before cursor" },
@@ -24,7 +32,6 @@ return {
 		{ "<leader>P", "<Plug>(YankyPutBeforeFilter)", desc = "Put before applying a filter" },
 	},
 	config = function()
-		local utils = require("yanky.utils")
 		require("yanky").setup({
 			ring = {
 				storage = "sqlite",
@@ -35,11 +42,6 @@ return {
 			highlight = {
 				on_put = false,
 				on_yank = false,
-			},
-			picker = {
-				select = {
-					action = require("yanky.picker").actions.set_register(utils.get_default_register()),
-				},
 			},
 		})
 	end,
