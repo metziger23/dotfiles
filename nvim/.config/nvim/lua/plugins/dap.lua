@@ -13,14 +13,7 @@ return {
 			port = "${port}",
 			executable = {
 				command = "codelldb",
-				args = {
-					"--port",
-					"${port}",
-					"--settings",
-					vim.json.encode({
-						showDisassembly = "never",
-					}),
-				},
+				args = { "--port", "${port}" },
 			},
 		}
 		dap.configurations.cpp = {
