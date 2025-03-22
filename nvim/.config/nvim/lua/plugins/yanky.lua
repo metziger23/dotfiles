@@ -8,7 +8,16 @@ return {
 		{
 			"<leader>y",
 			function()
-				require("snacks").picker.yanky()
+				require("snacks").picker.yanky({
+					win = {
+						input = {
+							keys = {
+								["<CR>"] = { "set_default_register", mode = { "n", "i" } },
+								["<S-CR>"] = { "confirm", mode = { "n", "i" } },
+							},
+						},
+					},
+				})
 			end,
 			mode = { "n", "x" },
 			desc = "Open Yank History",
