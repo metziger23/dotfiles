@@ -54,5 +54,13 @@ return {
 		vim.keymap.set({ "n", "v", "x", "s", "i", "c", "o", "l" }, "<M-n>", function()
 			require("noice").cmd("dismiss")
 		end, { desc = "Noice Dismiss" })
+
+		vim.keymap.set("n", "<leader>n", function()
+			require("noice").cmd("pick")
+		end, { desc = "Noice Pick" })
+
+		vim.keymap.set("n", "<leader>N", function()
+			require("noice").cmd("history")
+		end, { desc = "Noice History" })
 	end,
 }
