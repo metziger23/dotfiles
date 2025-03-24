@@ -11,13 +11,12 @@ catppuccin_black.background = "#000000"
 -- catppuccin_black.tab_bar.inactive_tab.bg_color = "#0f0f0f"
 -- catppuccin_black.tab_bar.new_tab.bg_color = "#080808"
 
-config.color_schemes = { ["catppuccin_black"] = catppuccin_black, }
+config.color_schemes = { ["catppuccin_black"] = catppuccin_black }
 config.color_scheme = "catppuccin_black"
 
-
-wezterm.on('gui-startup', function(cmd)
-  local _, _, window = mux.spawn_window(cmd or {})
-  window:gui_window():maximize()
+wezterm.on("gui-startup", function(cmd)
+	local _, _, window = mux.spawn_window(cmd or {})
+	window:gui_window():maximize()
 end)
 
 -- For example, changing the color scheme:
@@ -42,7 +41,7 @@ local function is_vim(pane)
 end
 
 local function split_nav(resize_or_move, key)
-	local modifiers = resize_or_move == "resize" and "META|CTRL|SHIFT" or "CTRL|SHIFT"
+	local modifiers = resize_or_move == "resize" and "META|CTRL" or "CTRL|SHIFT"
 	local direction = string.gsub(key, "Arrow", "")
 	local act = resize_or_move == "resize" and { AdjustPaneSize = { direction, 3 } }
 		or { ActivatePaneDirection = direction }
