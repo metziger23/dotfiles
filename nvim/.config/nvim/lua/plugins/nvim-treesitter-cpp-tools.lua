@@ -7,6 +7,14 @@ return {
 		"TSCppRuleOf3",
 		"TSCppRuleOf3",
 	},
+	keys = {
+		{
+			"<leader><C-d>",
+			"<cmd>TSCppDefineClassFunc<CR>",
+			ft = "cpp",
+			desc = "Define Class Function",
+		},
+	},
 	-- Optional: Configuration
 	opts = function()
 		local options = {
