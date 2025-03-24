@@ -58,7 +58,6 @@ return {
 		float_opts = {
 			border = "curved",
 		},
-		autochdir = true,
 		-- NOTE: workaround used to stop overseer toggleterm from opening in terminal mode
 		start_in_insert = false,
 		on_open = function(term)
@@ -69,7 +68,13 @@ return {
 	config = function(_, opts)
 		require("toggleterm").setup(opts)
 
-		local main_term_config = { keymap = "<M-C-t>", desc = "Toggle main Toggleterm" }
+		local main_term_config = {
+			keymap = "<M-C-t>",
+			desc = "Toggle main Toggleterm",
+			toggle_pre_hook = function(term)
+				term.dir = vim.fn.getcwd()
+			end,
+		}
 		setup_terminal(main_term_config)
 
 		local lazygit_config = {
