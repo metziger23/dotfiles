@@ -82,8 +82,7 @@ return {
 			desc = "Toggle Lazygit",
 			term_opts = lazygit_opts,
 			toggle_pre_hook = function(term)
-				local dot_git_path = vim.fn.finddir(".git", vim.fn.getcwd() .. ";")
-				term.dir = vim.fn.fnamemodify(dot_git_path, ":h")
+				term.dir = vim.fn.getcwd()
 			end,
 		}
 
