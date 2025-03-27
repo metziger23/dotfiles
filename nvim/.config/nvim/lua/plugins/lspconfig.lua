@@ -155,7 +155,6 @@ return {
 				"--header-insertion=never",
 				"--pch-storage=memory",
 				"--function-arg-placeholders",
-				"--compile-commands-dir=" .. vim.fn.getcwd(),
 			},
 			capabilities = capabilities,
 			on_attach = function(client, bufnr)
