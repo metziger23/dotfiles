@@ -7,7 +7,9 @@ return {
 		config = function()
 			require("catppuccin").setup({
 				floating_border = "on",
-				integrations = {},
+				integrations = {
+					blink_cmp = true,
+				},
 				color_overrides = {
 					mocha = {
 						base = "#000000",
