@@ -25,3 +25,9 @@ vim.keymap.set("n", "]q", vim.cmd.cnext, { desc = "Next Quickfix" })
 local hydra_utils = require("../utils/hydra_utils")
 
 hydra_utils.setup_bidirectional_hydra("n", "quickfix", "[q", "]q", vim.cmd.cprev, vim.cmd.cnext)
+
+vim.api.nvim_del_keymap("n", "grn")
+vim.api.nvim_del_keymap("n", "gra")
+vim.api.nvim_del_keymap("x", "gra")
+vim.api.nvim_del_keymap("n", "grr")
+vim.api.nvim_del_keymap("n", "gri")
