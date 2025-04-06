@@ -89,11 +89,11 @@ return {
 				vim.lsp.buf.rename()
 			end, opts)
 			opts.desc = "Lsp Code action"
-			keymap.set("n", "la", function()
+			keymap.set({ "n", "x" }, "la", function()
 				vim.lsp.buf.code_action()
 			end, opts)
 			opts.desc = "Lsp Source action"
-			keymap.set("n", "lA", function()
+			keymap.set({ "n", "x" }, "lA", function()
 				vim.lsp.buf.code_action({ context = { only = { "source" }, diagnostics = {} } })
 			end, opts)
 			opts.desc = "Format"
