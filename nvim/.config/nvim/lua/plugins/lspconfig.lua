@@ -1,5 +1,127 @@
 local hydra_utils = require("../utils/hydra_utils")
 
+local function find_compile_commands(start_path)
+	-- Search upward from the current file's directory
+	local path = vim.fs.find("compile_commands.json", { path = start_path, upward = true })[1]
+	if not path then
+		return nil
+	end
+
+	-- Resolve symlinks (returns nil if path doesn't exist)
+	local realpath = vim.loop.fs_realpath(path)
+	return realpath or path -- Fallback to original if not a symlink
+end
+
+function start_client()
+	local ok, Manager = pcall(require, "lspconfig.manager")
+	if not ok then
+		return
+	end
+
+	local util = require("lspconfig.util")
+	local lsp = vim.lsp
+
+	function Manager:_start_client(bufnr, new_config, root_dir, single_file, silent)
+		-- do nothing if the client is not enabled
+		if new_config.enabled == false then
+			return
+		end
+		if not new_config.cmd then
+			vim.notify(
+				string.format(
+					"[lspconfig] cmd not defined for %q. Manually set cmd in the setup {} call according to configs.md, see :help lspconfig-setup.",
+					new_config.name
+				),
+				vim.log.levels.ERROR
+			)
+			return
+		end
+
+		new_config.on_init = util.add_hook_before(new_config.on_init, function(client)
+			self:_notify_workspace_folder_added(root_dir, client)
+		end)
+
+		new_config.on_exit = util.add_hook_before(new_config.on_exit, function()
+			for name in pairs(self._clients[root_dir]) do
+				if name == new_config.name then
+					self._clients[root_dir][name] = nil
+				end
+			end
+		end)
+
+		-- Launch the server in the root directory used internally by lspconfig, if otherwise unset
+		-- also check that the path exist
+		if not new_config.cmd_cwd and vim.uv.fs_realpath(root_dir) then
+			new_config.cmd_cwd = root_dir
+		end
+
+		-- Sending rootDirectory and workspaceFolders as null is not explicitly
+		-- codified in the spec. Certain servers crash if initialized with a NULL
+		-- root directory.
+		if single_file then
+			new_config.root_dir = nil
+			new_config.workspace_folders = nil
+		end
+
+		local start_new_clangd = false
+		local reuse_clangd_id = nil
+
+		if new_config.name == "clangd" then
+			local root_dir_comp_db = find_compile_commands(root_dir)
+			if root_dir_comp_db ~= nil then
+				start_new_clangd = true
+				for client_root_dir, dir_clients in pairs(self._clients) do
+					if dir_clients[new_config.name] then
+						local client_root_dir_comp_db = find_compile_commands(client_root_dir)
+						if client_root_dir_comp_db == root_dir_comp_db then
+							start_new_clangd = false
+							reuse_clangd_id = dir_clients[new_config.name].id
+							break
+						end
+					end
+				end
+			end
+		end
+
+		if reuse_clangd_id ~= nil then
+			lsp.buf_attach_client(bufnr, reuse_clangd_id)
+			self:_cache_client(root_dir, assert(lsp.get_client_by_id(reuse_clangd_id)))
+			return
+		end
+
+		local reuse_client = function(existing_client)
+			if (self._clients[root_dir] or {})[existing_client.name] then
+				self:_notify_workspace_folder_added(root_dir, existing_client)
+				return true
+			end
+
+			for _, dir_clients in pairs(self._clients) do
+				if dir_clients[existing_client.name] then
+					self:_notify_workspace_folder_added(root_dir, existing_client)
+					return true
+				end
+			end
+
+			return false
+		end
+
+		local client_id = lsp.start(new_config, {
+			bufnr = bufnr,
+			silent = silent,
+			reuse_client = function(existing_client)
+				if start_new_clangd then
+					return false
+				end
+				return reuse_client(existing_client)
+			end,
+		})
+
+		if client_id then
+			self:_cache_client(root_dir, assert(lsp.get_client_by_id(client_id)))
+		end
+	end
+end
+
 return {
 	"neovim/nvim-lspconfig",
 	event = { "BufReadPre", "BufNewFile" },
@@ -139,6 +261,8 @@ return {
 			local hl = "DiagnosticSign" .. type
 			vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 		end
+
+		start_client()
 
 		-- configure bashls server
 		lspconfig["bashls"].setup({
