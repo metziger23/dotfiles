@@ -155,6 +155,7 @@ return {
 				"--header-insertion=never",
 				"--pch-storage=memory",
 				"--function-arg-placeholders",
+				"--compile-commands-dir=.",
 			},
 			capabilities = capabilities,
 			on_attach = function(client, bufnr)
