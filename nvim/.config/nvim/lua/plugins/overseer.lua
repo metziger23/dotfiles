@@ -1,6 +1,6 @@
 return {
 	"stevearc/overseer.nvim",
-	dependencies = { "akinsho/toggleterm.nvim" },
+	dependencies = { "akinsho/toggleterm.nvim", "kkharji/sqlite.lua" },
 	config = function()
 		local toggle_keymap = "<A-r>"
 		vim.keymap.set("n", toggle_keymap, function() end)
@@ -8,7 +8,8 @@ return {
 		local default_components = require("overseer.config").component_aliases.default
 		table.insert(default_components, "unique")
 
-		require("overseer").setup({
+		local overseer = require("overseer")
+		overseer.setup({
 			component_aliases = { default = default_components },
 			dap = false,
 			strategy = {
@@ -36,16 +37,24 @@ return {
 			},
 		})
 
+		overseer.add_template_hook({ module = "^just$" }, function(task_defn, util)
+			util.add_component(task_defn, { "mynamespace.save_to_db" })
+		end)
+
 		vim.api.nvim_create_user_command("OverseerRestartLast", function()
-			local overseer = require("overseer")
-			local tasks = overseer.list_tasks({ recent_first = true })
-			if vim.tbl_isempty(tasks) then
-				vim.notify("No tasks found", vim.log.levels.WARN)
-			else
-				overseer.run_action(tasks[1], "restart")
+			local tasks = require("../utils/overseer_sqlite_tasks")
+			local taskName = tasks.getName(vim.fn.getcwd())
+
+			if taskName == nil then
+				vim.notify("Last task not found", vim.log.levels.WARN)
+				return
 			end
+
+			overseer.run_template({ name = taskName, autostart = false }, function(task)
+				task.metadata["disable_saving_to_db"] = true
+				task:start()
+			end)
 		end, {})
-		vim.keymap.set("n", "<A-l>", "<cmd>OverseerRestartLast<CR>", { desc = "Overseer Restart Last Command" })
 	end,
 	keys = {
 		{ "<leader>oo", "<cmd>OverseerToggle<CR>", mode = "n", desc = "Overseer Toggle" },
@@ -55,5 +64,6 @@ return {
 		{ "<leader>ob", "<cmd>OverseerToggle! bottom<CR>", mode = "n", desc = "Overseer Toggle Bottom" },
 		{ "<leader>od", "<cmd>OverseerQuickAction<CR>", mode = "n", desc = "Overseer Quick Action" },
 		{ "<leader>os", "<cmd>OverseerTaskAction<CR>", mode = "n", desc = "Overseer Task Action" },
+		{ "<A-l>", "<cmd>OverseerRestartLast<CR>", mode = "n", desc = "Overseer Restart Last Task" },
 	},
 }
