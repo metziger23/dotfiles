@@ -24,14 +24,14 @@ return {
 			{
 				"<C-q>",
 				function()
-					require("quicker").toggle()
+					require("quicker").toggle({ open_cmd_mods = { split = "botright" } })
 				end,
 				desc = "Toggle quickfix",
 			},
 			{
 				"<M-C-q>",
 				function()
-					require("quicker").toggle({ loclist = true })
+					require("quicker").toggle({ loclist = true, open_cmd_mods = { split = "botright" } })
 				end,
 				desc = "Toggle loclist",
 			},
