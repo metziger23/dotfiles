@@ -4,10 +4,22 @@ return {
 		{
 			"<leader>b",
 			function()
+				require("snacks").gitbrowse({
+					open = function(url)
+						vim.fn.setreg("+", url)
+					end,
+				})
+			end,
+			desc = "Git browse (copy)",
+			mode = { "n", "x" },
+		},
+		{
+			"<leader>B",
+			function()
 				require("snacks").gitbrowse.open()
 			end,
 			desc = "Git browse",
-			mode = { "n", "v" },
+			mode = { "n", "x" },
 		},
 	},
 	opts = {
