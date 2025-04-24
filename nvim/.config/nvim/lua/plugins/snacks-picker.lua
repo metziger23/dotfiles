@@ -79,6 +79,11 @@ return {
     { "<BS>s", function() require("snacks").picker.spelling(select_preset) end, desc = "Spelling", mode = { "n", "x" }  },
     { "<BS>u", function() require("snacks").picker.undo() end, desc = "Undo", mode = { "n", "x" }  },
     { "<BS>z", function() require("snacks").picker.zoxide() end, desc = "Zoxide", mode = { "n", "x" }  },
+    { "<BS><Esc>", function() require("snacks").picker.smart({
+      search = function(picker)
+        return picker:word()
+      end,
+    }) end, desc = "Smart Word", mode = { "n", "x" } },
 		-- stylua: ignore end
 	},
 }
