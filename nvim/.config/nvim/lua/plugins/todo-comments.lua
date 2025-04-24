@@ -15,6 +15,7 @@ return {
 				require("snacks").picker.todo_comments()
 			end,
 			desc = "Todo",
+			mode = { "n", "x" },
 		},
 		{
 			"<BS>T",
@@ -22,6 +23,7 @@ return {
 				require("snacks").picker.todo_comments({ keywords = { "TODO", "FIX", "FIXME" } })
 			end,
 			desc = "Todo/Fix/Fixme",
+			mode = { "n", "x" },
 		},
 	},
 }
