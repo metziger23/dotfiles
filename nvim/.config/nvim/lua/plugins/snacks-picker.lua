@@ -20,6 +20,7 @@ local function zoxide_picker(cd_callback)
 				end
 
 				cd_callback(_, item)
+				vim.cmd("e .")
 			end
 		end,
 		win = {
