@@ -30,3 +30,10 @@ vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold" }, {
 	pattern = "*",
 	command = "silent! checktime",
 })
+
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+	pattern = "*.qrc",
+	callback = function()
+		vim.bo.filetype = "xml"
+	end,
+})
