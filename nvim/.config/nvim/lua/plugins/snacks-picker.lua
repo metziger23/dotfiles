@@ -108,7 +108,6 @@ return {
     { "<BS>M", function() require("snacks").picker.man() end, desc = "Man", mode = { "n", "x" }  },
     { "<BS>m", function() require("snacks").picker.marks() end, desc = "Marks", mode = { "n", "x" }  },
     { "<BS>P", function() require("snacks").picker.pickers() end, desc = "Pickers", mode = { "n", "x" }  },
-    { "<BS>p", function() require("snacks").picker.projects() end, desc = "Projects", mode = { "n", "x" }  },
     { "<BS>q", function() require("snacks").picker.qflist() end, desc = "Quickfix List", mode = { "n", "x" }  },
     { "<BS>o", function() require("snacks").picker.recent() end, desc = "Old Files", mode = { "n", "x" }  },
     { "<BS>R", function() require("snacks").picker.registers() end, desc = "Registers", mode = { "n", "x" }  },
