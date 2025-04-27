@@ -29,6 +29,51 @@ return {
 		local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
 		local keymap = vim.keymap -- for conciseness
+		local function workspace_symbols_fallback()
+			local params = { query = vim.fn.input("Query: ") }
+			if params.query == "" then
+				return
+			end
+
+			-- Get all active clients for the current buffer
+			local clients = vim.lsp.get_active_clients({ bufnr = vim.api.nvim_get_current_buf() })
+
+			-- First try to find a client that supports workspace/symbol from the current buffer
+			for _, client in ipairs(clients) do
+				if client.supports_method("workspace/symbol") then
+					return vim.lsp.buf_request(
+						vim.api.nvim_get_current_buf(),
+						"workspace/symbol",
+						params,
+						vim.lsp.handlers["workspace/symbol"]
+					)
+				end
+			end
+
+			-- If no client supports it, look for clangd among all active clients
+			for _, client in ipairs(vim.lsp.get_active_clients()) do
+				if client.name == "clangd" and client.supports_method("workspace/symbol") then
+					-- Use buf_request to make the request on the current buffer but using clangd client
+					-- return vim.lsp.buf_request(
+					-- 	vim.api.nvim_get_current_buf(),
+					-- 	"workspace/symbol",
+					-- 	params,
+					-- 	vim.lsp.handlers["workspace/symbol"]
+					-- )
+					return client.request("workspace/symbol", params, vim.lsp.handlers["workspace/symbol"])
+				end
+			end
+
+			vim.notify("No LSP client with workspace/symbol support available", vim.log.levels.WARN)
+		end
+
+		-- Map the function
+		vim.keymap.set(
+			"n",
+			"<leader>ws",
+			workspace_symbols_fallback,
+			{ desc = "Workspace symbols (fallback to clangd)" }
+		)
 
 		local opts = { noremap = true, silent = true }
 		local on_attach = function(client, bufnr)
