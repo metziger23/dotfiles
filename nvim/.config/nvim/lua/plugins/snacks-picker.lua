@@ -1,3 +1,42 @@
+local edit_cmd = {
+	edit = "buffer",
+	split = "sbuffer",
+	vsplit = "vert sbuffer",
+	tab = "tab sbuffer",
+	drop = "drop",
+	tabdrop = "tab drop",
+}
+
+local function zoxide_picker(cd_callback)
+	require("snacks").picker.zoxide({
+		confirm = function(picker, item, action)
+			picker:close()
+			if item and item.dir and item.file then
+				if action and action.cmd then
+					local cmd = vim.cmd(edit_cmd[action.cmd])
+					if cmd ~= nil then
+						vim.cmd(cmd)
+					end
+				end
+
+				cd_callback(_, item)
+			end
+		end,
+		win = {
+			input = {
+				keys = {
+					["<S-CR>"] = { { "pick_win", "confirm" }, mode = { "n", "i" } },
+				},
+			},
+			list = {
+				keys = {
+					["<S-CR>"] = { { "pick_win", "confirm" } },
+				},
+			},
+		},
+	})
+end
+
 local select_preset = {
 	layout = {
 		preset = "select",
@@ -78,7 +117,9 @@ return {
     { "<BS><tab>", function() require("snacks").picker.smart() end, desc = "Smart", mode = { "n", "x" }  },
     { "<BS>s", function() require("snacks").picker.spelling(select_preset) end, desc = "Spelling", mode = { "n", "x" }  },
     { "<BS>u", function() require("snacks").picker.undo() end, desc = "Undo", mode = { "n", "x" }  },
-    { "<BS>z", function() require("snacks").picker.zoxide() end, desc = "Zoxide", mode = { "n", "x" }  },
+    { "<BS>zz", function() zoxide_picker(require("snacks").picker.actions.cd) end, desc = "Zoxide cd", mode = { "n", "x" }, },
+    { "<BS>zl", function() zoxide_picker(require("snacks").picker.actions.lcd) end, desc = "Zoxide lcd", mode = { "n", "x" }, },
+    { "<BS>zt", function() zoxide_picker(require("snacks").picker.actions.tcd) end, desc = "Zoxide tcd", mode = { "n", "x" }, },
 		-- stylua: ignore end
 	},
 }
