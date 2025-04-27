@@ -9,6 +9,7 @@ local edit_cmd = {
 
 local function zoxide_picker(cd_callback)
 	require("snacks").picker.zoxide({
+		format = "text",
 		confirm = function(picker, item, action)
 			picker:close()
 			if item and item.dir and item.file then
