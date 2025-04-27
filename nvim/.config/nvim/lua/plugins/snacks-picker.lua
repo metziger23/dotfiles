@@ -20,6 +20,7 @@ local function zoxide_picker(cd_callback)
 					end
 				end
 
+				---@diagnostic disable-next-line: undefined-global
 				cd_callback(_, item)
 				vim.cmd("e .")
 			end
