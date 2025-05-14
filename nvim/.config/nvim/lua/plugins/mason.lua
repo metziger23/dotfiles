@@ -1,5 +1,6 @@
 return {
-	"williamboman/mason.nvim",
+	"mason-org/mason.nvim",
+	version = "1.11.0",
 	cmd = {
 		"Mason",
 		"MasonUpdate",
@@ -9,8 +10,8 @@ return {
 		"MasonLog",
 	},
 	dependencies = {
-		"williamboman/mason-lspconfig.nvim",
-		"WhoIsSethDaniel/mason-tool-installer.nvim",
+		{ "mason-org/mason-lspconfig.nvim", version = "1.32.0" },
+		{ "WhoIsSethDaniel/mason-tool-installer.nvim", commit = "09caa3380a0e8532043bc417c04d1d6d31b6683b" },
 	},
 	config = function()
 		-- import mason
