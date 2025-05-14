@@ -7,7 +7,7 @@ return {
 		"hrsh7th/cmp-nvim-lsp",
 		{ "antosha417/nvim-lsp-file-operations", config = true },
 		"mason.nvim",
-		"williamboman/mason-lspconfig.nvim",
+    { "mason-org/mason-lspconfig.nvim", version = "1.32.0" },
 		"folke/snacks.nvim",
 	},
 	config = function()
