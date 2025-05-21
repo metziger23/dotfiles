@@ -77,7 +77,7 @@ automatically-unhide-macos-hidden-apps = false
     # - F-keys.         f1, f2, ..., f20
     # - Special keys.   minus, equal, period, comma, slash, backslash, quote, semicolon,
     #                   backtick, leftSquareBracket, rightSquareBracket, space, enter, esc,
-    #qwertybackspace, tab, pageUp, pageDown, home, end, forwardDelete,
+    #                   backspace, tab, pageUp, pageDown, home, end, forwardDelete,
     #                   sectionSign (ISO keyboards only, european keyboards only)
     # - Keypad special. keypadClear, keypadDecimalMark, keypadDivide, keypadEnter, keypadEqual,
     #                   keypadMinus, keypadMultiply, keypadPlus
