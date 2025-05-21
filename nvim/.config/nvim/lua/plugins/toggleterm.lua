@@ -13,7 +13,7 @@ local function setup_terminal(configuration)
 	end
 
 	term_opts.on_open = function(term)
-		vim.cmd.startinsert()
+		vim.api.nvim_input([[<C-\><C-n>^i]])
 		utils.setup_new_tab_breakout_keymap(term.bufnr)
 		local opts = { buffer = term.bufnr, noremap = true, silent = true }
 		opts.desc = configuration.desc
