@@ -23,6 +23,7 @@ return {
 
 		-- enable mason and configure icons
 		mason.setup({
+			automatic_enable = false,
 			ui = {
 				icons = {
 					package_installed = "✓",
