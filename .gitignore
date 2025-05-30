@@ -7,3 +7,4 @@ fish/.config/fish/completions
 tmux/.config/tmux/plugins/
 tmux/.config/tmux/tmux-*.log
 .DS_Store
+lazygit/.config/lazygit/state.yml
