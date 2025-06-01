@@ -37,3 +37,17 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
 		vim.bo.filetype = "xml"
 	end,
 })
+
+vim.api.nvim_create_autocmd("TextYankPost", {
+	callback = function()
+		local registers = { "t", "n", "s", "e", "r", "i", "a", "o" }
+
+		if vim.v.event.operator == "y" then
+			for i = #registers, 1, -1 do
+				local cur_reg = registers[i]
+				local prev_reg = registers[i - 1] or "0"
+				vim.fn.setreg(cur_reg, vim.fn.getreg(prev_reg))
+			end
+		end
+	end,
+})
