@@ -17,7 +17,12 @@ return {
 		{
 			"<leader>G",
 			function()
-				require("neogit").open({ cwd = vim.fn.expand("%:p:h") })
+				if vim.bo.filetype == "oil" then
+					local cur_dir = require("oil").get_current_dir(0)
+					require("neogit").open({ cwd = cur_dir })
+				else
+					require("neogit").open({ cwd = vim.fn.expand("%:p:h") })
+				end
 			end,
 			desc = "Neogit in current buffer directory",
 		},
