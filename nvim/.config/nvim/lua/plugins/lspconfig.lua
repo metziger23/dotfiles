@@ -197,7 +197,7 @@ return {
 		lspconfig["qmlls"].setup({
 			capabilities = capabilities,
 			on_attach = on_attach,
-			cmd = { vim.env.QMLLS_NEWEST },
+			cmd = { vim.fs.joinpath(vim.env.QT_BIN_DIR, "qmlls") },
 			filetypes = { "qmljs", "qml" },
 			handlers = {
 				["textDocument/publishDiagnostics"] = function(err, method, params, client_id)
