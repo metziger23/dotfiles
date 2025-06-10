@@ -39,7 +39,7 @@ opt.signcolumn = "yes" -- show sign column so that text doesn't shift
 opt.swapfile = false
 
 -- Always keep 8 lines above/below cursor unless at start/end of file
-opt.scrolloff = 8
+opt.scrolloff = 999
 
 opt.cursorline = true
 
