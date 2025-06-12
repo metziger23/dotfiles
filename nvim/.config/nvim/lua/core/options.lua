@@ -57,3 +57,5 @@ opt.langmap = "\
   ABCDEFGHIJKLMNOPQRSTUVWXYZ,\
   абздешгчийклмнопюрстувжхыь;\
   abcdefghijklmnopqrstuvwxyz"
+
+opt.exrc = true
