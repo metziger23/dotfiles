@@ -27,17 +27,17 @@ return {
 				keymaps = {
 					["g?"] = "actions.show_help",
 					["<CR>"] = "actions.select",
-					["<M-w>v"] = {
+					["<leader><c-v>"] = {
 						"actions.select",
 						opts = { vertical = true },
 						desc = "Open the entry in a vertical split",
 					},
-					["<M-w>s"] = {
+					["<leader><c-s>"] = {
 						"actions.select",
 						opts = { horizontal = true },
 						desc = "Open the entry in a horizontal split",
 					},
-					["<M-t>"] = { "actions.select", opts = { tab = true }, desc = "Open the entry in new tab" },
+					["<leader><c-t>"] = { "actions.select", opts = { tab = true }, desc = "Open the entry in new tab" },
 					["<M-p>"] = "actions.preview",
 					["<C-c>"] = "actions.close",
 					["+"] = "actions.refresh",
