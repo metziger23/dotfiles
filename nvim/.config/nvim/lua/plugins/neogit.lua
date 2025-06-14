@@ -35,7 +35,7 @@ return {
 		graph_style = get_graph_style(),
 		mappings = {
 			commit_editor = {
-				-- ["q"] = "Close", -- NOTE: maybe change
+				["q"] = "Close", -- NOTE: maybe change
 				["<C-s>"] = "Submit",
 				["<M-a>"] = "Abort",
 				["<C-Up>"] = "PrevMessage",
@@ -55,7 +55,7 @@ return {
 				["x"] = "Execute",
 				["d"] = "Drop",
 				["b"] = "Break",
-				-- ["q"] = "Close",
+				["q"] = "Close",
 				["<cr>"] = "OpenCommit",
 				["<C-Up>"] = "MoveUp",
 				["<C-Down>"] = "MoveDown",
@@ -116,7 +116,7 @@ return {
 				["j"] = false,
 				["k"] = false,
 				["o"] = "OpenTree",
-				-- ["q"] = "Close",
+				["q"] = "Close",
 				["I"] = "InitRepo",
 				["<M-1>"] = "Depth1",
 				["<M-2>"] = "Depth2",
