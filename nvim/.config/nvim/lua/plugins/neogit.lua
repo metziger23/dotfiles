@@ -4,7 +4,6 @@ end
 
 return {
 	"NeogitOrg/neogit",
-	enabled = false,
 	cmd = {
 		"Neogit" --[[ , "Neogit cwd", "Neogit kind", "Neogit commit" ]],
 	},
@@ -13,9 +12,9 @@ return {
 		"sindrets/diffview.nvim", -- optional - Diff integration
 	},
 	keys = {
-		{ "<leader>g", "<cmd>Neogit<cr>", desc = "Neogit" },
+		{ "<leader>n", "<cmd>Neogit<cr>", desc = "Neogit" },
 		{
-			"<leader>G",
+			"<leader>N",
 			function()
 				if vim.bo.filetype == "oil" then
 					local cur_dir = require("oil").get_current_dir(0)
