@@ -180,3 +180,14 @@ keybinding:
     bulkMenu: b
   commitMessage:
     commitMenu: <c-o>
+customCommands:
+  - key: 'U'
+    command: 'git submodule update --recursive'
+    context: 'global'
+    description: 'Update submodules'
+    output: log
+  - key: 'I'
+    command: 'git submodule update --init --recursive'
+    context: 'global'
+    description: 'Initialize submodules'
+    output: log
