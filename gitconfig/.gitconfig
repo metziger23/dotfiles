@@ -3,6 +3,10 @@
 
 [core]
   pager = delta
+  editor = nvim -c 'startinsert'
+
+[commit]
+  verbose = true
 
 [interactive]
   diffFilter = delta --color-only
