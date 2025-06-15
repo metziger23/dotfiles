@@ -2,6 +2,31 @@ local utils = require("../utils/utils")
 
 local prev_win_configs = {}
 
+-- NOTE: copied this from snacks.git and removed the part related to the cache
+--- Gets the git root for a buffer or path.
+--- Defaults to the current buffer.
+---@param path? number|string buffer or path
+---@return string?
+local function get_root(path)
+	path = path or 0
+	path = type(path) == "number" and vim.api.nvim_buf_get_name(path) or path --[[@as string]]
+	path = vim.fs.normalize(path)
+	path = path == "" and (vim.uv or vim.loop).cwd() or path
+
+	local todo = { path } ---@type string[]
+	for dir in vim.fs.parents(path) do
+		table.insert(todo, dir)
+	end
+
+	for _, dir in ipairs(todo) do
+		if (vim.uv or vim.loop).fs_stat(dir .. "/.git") ~= nil then
+			return vim.fs.normalize(dir) or nil
+		end
+	end
+
+	return os.getenv("GIT_WORK_TREE")
+end
+
 local function setup_terminal(configuration)
 	local term_opts = {
 		direction = "float",
@@ -119,7 +144,7 @@ return {
 			desc = "Toggle Lazygit (current buffer)",
 			term_opts = lazygit_opts,
 			toggle_pre_hook = function(term)
-				term.dir = require("snacks").git.get_root()
+				term.dir = get_root()
 			end,
 		}
 
@@ -131,7 +156,7 @@ return {
 			term_opts = lazygit_opts,
 			toggle_pre_hook = function(term)
 				term.cmd = lazygit_cmd .. " --filter " .. vim.fn.expand("%:p")
-				term.dir = require("snacks").git.get_root()
+				term.dir = get_root()
 			end,
 		}
 
