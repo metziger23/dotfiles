@@ -79,7 +79,7 @@ return {
 					local search = MiniStatusline.section_searchcount({ trunc_width = 75 })
 
 					return MiniStatusline.combine_groups({
-						{ hl = mode_hl, strings = { mode } },
+						{ hl = mode_hl, strings = { string.upper(mode) } },
 						{ hl = "MiniStatuslineDevinfo", strings = { git, diff, diagnostics, lsp } },
 						"%<", -- Mark general truncate point
 						get_overseer_task_status("CANCELED"),
