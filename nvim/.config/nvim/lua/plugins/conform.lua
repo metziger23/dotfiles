@@ -14,7 +14,8 @@ return {
 						url = "https://doc.qt.io/qt-6//qtqml-tooling-qmlformat.html",
 						description = "qmlformat is a tool that automatically formats QML files in accordance with the QML Coding Conventions.",
 					},
-					command = vim.fs.joinpath(vim.env.QT_BIN_DIR, "qmlformat"),
+					command = vim.env.QT_BIN_DIR ~= nil and vim.fs.joinpath(vim.env.QT_BIN_DIR, "qmlformat")
+						or "qmlformat",
 					args = {
 						"--functions-spacing",
 						"--objects-spacing",
