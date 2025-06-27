@@ -106,6 +106,7 @@ return {
 	"akinsho/toggleterm.nvim",
 	event = "VeryLazy",
 	opts = {
+		persist_mode = false, -- if set to true (default) the previous terminal mode will be remembered
 		float_opts = {
 			border = "curved",
 		},
