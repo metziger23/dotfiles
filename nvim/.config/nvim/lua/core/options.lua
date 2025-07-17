@@ -52,10 +52,10 @@ opt.showmode = false
 -- global statusline
 opt.laststatus = 3
 
-local ru_upper = 'ЦКЛБЙЪЫЯЭФЗВНТДИАОЕСХПРМГ\\"ЬУЮШ'
-local en_upper = 'QWFPBJLUY\\"ARSTGMNEIOZXCDVKH\\<>?'
-local ru_lower = "цклбйъыяэфзвнтдиаоесхпрмг'ьуюш"
-local en_lower = "qwfpbjluy'arstgmneiozxcdvkh\\,./"
+local ru_upper = "ЦКЛБЙЪЫЯЭФЗВНТДИАОЕСХПРМГЬУЮШ"
+local en_upper = 'QWFPBJLUY\\"ARSTGMNEIOZXCDVH<>?'
+local ru_lower = "цклбйъыяэфзвнтдиаоесхпрмгьуюш"
+local en_lower = "qwfpbjluy'arstgmneiozxcdvh\\,./"
 opt.langmap = ru_upper .. ";" .. en_upper .. "," .. ru_lower .. ";" .. en_lower
 
 opt.exrc = true
