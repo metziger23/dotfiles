@@ -31,6 +31,7 @@ vim.api.nvim_del_keymap("n", "gra")
 vim.api.nvim_del_keymap("x", "gra")
 vim.api.nvim_del_keymap("n", "grr")
 vim.api.nvim_del_keymap("n", "gri")
+vim.api.nvim_del_keymap("n", "grt")
 
 vim.keymap.set("x", "z/", "<C-\\><C-n>`</\\%V", { desc = "Search forward within visual selection" })
 vim.keymap.set("x", "z?", "<C-\\><C-n>`>?\\%V", { desc = "Search backward within visual selection" })
