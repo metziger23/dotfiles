@@ -9,6 +9,12 @@ return {
 				custom_highlights = function(colors)
 					return {
 						WinSeparator = { fg = colors.overlay1 },
+						BlinkCmpDocBorder = { fg = colors.blue },
+						BlinkCmpKind = { fg = colors.blue },
+						BlinkCmpMenu = { fg = colors.text },
+						BlinkCmpMenuBorder = { fg = colors.blue },
+						BlinkCmpSignatureHelpActiveParameter = { fg = colors.mauve },
+						BlinkCmpSignatureHelpBorder = { fg = colors.blue },
 					}
 				end,
 				floating_border = "on",
