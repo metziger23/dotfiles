@@ -36,7 +36,11 @@ return {
 			local picker = require("snacks").picker
 
 			opts.desc = "Signature Help"
-			keymap.set({ "n", "i", "s" }, "<c-s>", vim.lsp.buf.signature_help, opts)
+			keymap.set({ "n", "i", "s" }, "<c-s>", function()
+				-- NOTE: for some reason the border gets rouned only when this
+				-- is called with "function()"
+				vim.lsp.buf.signature_help()
+			end, opts)
 
 			opts.desc = "Lsp Decralations"
 			keymap.set("n", "gD", function()
