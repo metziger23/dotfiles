@@ -23,7 +23,7 @@ return {
 			highlight_substituted_text = {
 				enabled = false,
 			},
-			on_substitute = require("yanky.integration").substitute(),
+			-- on_substitute = require("yanky.integration").substitute(),
 		})
 	end,
 }
