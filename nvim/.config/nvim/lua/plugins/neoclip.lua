@@ -6,7 +6,10 @@ return {
 		-- {'nvim-telescope/telescope.nvim'},
 		{ "ibhagwan/fzf-lua" },
 	},
-	opts = {},
+	lazy = false, -- NOTE: otherwise yanks won't be saved before setup
+	opts = {
+		enable_persistent_history = true,
+	},
 	keys = {
 		{
 			"<leader>y",
