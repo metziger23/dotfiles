@@ -9,6 +9,7 @@ return {
 				jump_labels = false,
 				-- When using jump labels, don't use these keys
 				-- This allows using those keys directly after the motion
+				highlight = { backdrop = false },
 				label = { exclude = "neioardc" },
 			},
 		},
