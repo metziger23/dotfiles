@@ -1,3 +1,37 @@
+-- NOTE: taken from fzf-lua code
+local function change_dir(selected, opts, cmd)
+  local uv = vim.uv or vim.loop
+  local utils = require "fzf-lua.utils"
+  local path = require "fzf-lua.path"
+
+  if #selected == 0 then return end
+  local cwd = selected[1]:match("[^\t]+$") or selected[1]
+  if opts.cwd then
+    cwd = path.join({ opts.cwd, cwd })
+  end
+  local git_root = opts.git_root and path.git_root({ cwd = cwd }, true) or nil
+  cwd = git_root or cwd
+  if uv.fs_stat(cwd) then
+    vim.cmd(cmd .. " " .. cwd)
+    utils.io_system({ "zoxide", "add", "--", cwd })
+    utils.info(("cwd set to %s'%s'"):format(git_root and "git root " or "", cwd))
+  else
+    utils.warn(("Unable to set cwd to '%s', directory is not accessible"):format(cwd))
+  end
+end
+
+local function cd(selected, opts)
+  return change_dir(selected, opts, "cd")
+end
+
+local function lcd(selected, opts)
+  return change_dir(selected, opts, "lcd")
+end
+
+local function tcd(selected, opts)
+  return change_dir(selected, opts, "tcd")
+end
+
 return {
 	"ibhagwan/fzf-lua",
 	-- optional for icon support
@@ -70,17 +104,17 @@ return {
 
     {
       "<BS>zc", function()
-        require("fzf-lua").zoxide({ actions = { enter = require("fzf-lua").actions.cd } })
+        require("fzf-lua").zoxide({ actions = { enter = cd } })
       end, desc = "Fzf zoxide cd",
     },
     {
       "<BS>zl", function()
-        require("fzf-lua").zoxide({ actions = { enter = require("fzf-lua").actions.lcd } })
+        require("fzf-lua").zoxide({ actions = { enter = lcd } })
       end, desc = "Fzf zoxide lcd",
     },
     {
       "<BS>zt", function()
-        require("fzf-lua").zoxide({ actions = { enter = require("fzf-lua").actions.tcd } })
+        require("fzf-lua").zoxide({ actions = { enter = tcd } })
       end, desc = "Fzf zoxide tcd",
     }
   },
