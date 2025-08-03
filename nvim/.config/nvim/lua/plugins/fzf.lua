@@ -129,5 +129,9 @@ return {
 			end
 			return { winopts = { height = h, width = 0.60, row = 0.40 } }
 		end)
+
+		vim.keymap.set({ "i" }, "<C-x><C-f>", function()
+			require("fzf-lua").complete_path()
+		end, { silent = true, desc = "Fuzzy complete path" })
 	end,
 }
