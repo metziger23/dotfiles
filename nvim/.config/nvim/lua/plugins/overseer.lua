@@ -15,14 +15,16 @@ return {
 			strategy = {
 				"toggleterm",
 				auto_scroll = false,
-				direction = "float",
+				close_on_exit = false,
+				quit_on_exit = "never",
 				hidden = true,
 				open_on_start = false,
 				on_create = function(term)
 					local toggle_desc = "Toggleterm: Toggle Overseer"
 					local keymap_opts = { noremap = true, silent = true, desc = toggle_desc }
 					term.on_open = function(terminal)
-						require("../utils/utils").setup_new_tab_breakout_keymap(term.bufnr)
+						-- NOTE: not needed since I don't use floating toggleterm
+						-- require("../utils/utils").setup_new_tab_breakout_keymap(term.bufnr)
 						local on_open_keymap_opts = vim.deepcopy(keymap_opts)
 						on_open_keymap_opts.buffer = terminal.bufnr
 						vim.keymap.set("t", toggle_keymap, function()
