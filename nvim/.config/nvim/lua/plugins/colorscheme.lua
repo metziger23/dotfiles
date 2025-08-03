@@ -12,7 +12,7 @@ return {
 						BlinkCmpDocBorder = { fg = colors.blue },
 						BlinkCmpKind = { fg = colors.blue },
 						BlinkCmpMenu = { fg = colors.text },
-						BlinkCmpMenuBorder = { fg = colors.blue },
+						BlinkCmpMenuBorder = { fg = colors.blue, bg = colors.base },
 						BlinkCmpSignatureHelpActiveParameter = { fg = colors.mauve },
 						BlinkCmpSignatureHelpBorder = { fg = colors.blue },
 					}
