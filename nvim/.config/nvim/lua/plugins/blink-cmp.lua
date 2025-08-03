@@ -40,8 +40,8 @@ return {
 		completion = {
 			menu = { border = "rounded" },
 			documentation = {
-				-- (Default) Only show the documentation popup when manually triggered
-				auto_show = false,
+				-- if false then only show the documentation popup when manually triggered
+				auto_show = true,
 				window = { border = "rounded" },
 			},
 		},
