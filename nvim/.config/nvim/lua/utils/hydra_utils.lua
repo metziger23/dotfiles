@@ -10,6 +10,7 @@ local function single_hydra_setup(modes, desc, prev_keymap, next_keymap, prev_fu
 		config = {
 			hint = { type = "window" },
 			color = "pink",
+			buffer = opts and opts.buffer or nil,
 		},
 		heads = {
 			{ prev_keymap, prev_func, vim.tbl_deep_extend("force", opts, { desc = prev_desc }) },
