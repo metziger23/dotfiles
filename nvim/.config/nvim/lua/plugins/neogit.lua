@@ -4,7 +4,7 @@ end
 
 return {
 	"NeogitOrg/neogit",
-	enabled = false,
+	-- enabled = false,
 	cmd = {
 		"Neogit" --[[ , "Neogit cwd", "Neogit kind", "Neogit commit" ]],
 	},
@@ -36,8 +36,8 @@ return {
 			popup = {
 				["<M-m>"] = "RemotePopup",
 				["M"] = false,
-				["l"] = false,
-				["<M-l>"] = "LogPopup",
+				-- ["l"] = false,
+				-- ["<M-l>"] = "LogPopup",
 			},
 			status = {
 				["1"] = false,
