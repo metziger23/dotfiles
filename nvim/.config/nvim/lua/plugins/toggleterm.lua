@@ -1,3 +1,22 @@
+local function setup_move_to_diagnostics_keymaps(opts)
+	local hydra_utils = require("../utils/hydra_utils")
+
+	local diagnostics = { { "error", "e" }, { "warning", "w" } }
+
+	for _, diag in ipairs(diagnostics) do
+		local pattern, key = diag[1], diag[2]
+		hydra_utils.setup_bidirectional_hydra("n", pattern, "[" .. key, "]" .. key, function()
+			if vim.fn.search(pattern, "bWs") == 0 then
+				vim.notify(pattern .. " not found")
+			end
+		end, function()
+			if vim.fn.search(pattern, "Ws") == 0 then
+				vim.notify(pattern .. " not found")
+			end
+		end, opts)
+	end
+end
+
 local utils = require("../utils/utils")
 
 local prev_win_configs = {}
@@ -119,6 +138,14 @@ return {
 	},
 	config = function(_, opts)
 		require("toggleterm").setup(opts)
+
+		vim.api.nvim_create_autocmd("FileType", {
+			pattern = "toggleterm",
+			callback = function(event)
+				local move_to_diagnostics_opts = { buffer = event.buf, silent = true, noremap = true }
+				setup_move_to_diagnostics_keymaps(move_to_diagnostics_opts)
+			end,
+		})
 
 		local main_term_config = {
 			keymap = "<M-C-t>",
