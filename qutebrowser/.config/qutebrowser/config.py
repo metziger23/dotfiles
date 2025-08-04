@@ -81,3 +81,5 @@ c.colors.tabs.indicator.start = "#000000"   # Gradient start
 c.colors.tabs.indicator.stop = "#000000"    # Gradient end
   
 c.scrolling.bar = "always"  # Options: "always", "never", "when-searching"
+
+c.hints.chars = "arstneio"
