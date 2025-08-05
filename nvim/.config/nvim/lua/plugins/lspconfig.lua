@@ -42,20 +42,12 @@ return {
 			opts.desc = "Go to declaration"
 			keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
 			opts.desc = "Goto definition"
-			keymap.set("n", "gd", function()
-				fzf_lua.lsp_definitions({ jump_to_single_result = true })
-			end, opts)
-			keymap.set("n", "gI", function()
-				fzf_lua.lsp_implementations({ jump_to_single_result = true })
-			end, opts)
+			keymap.set("n", "gd", fzf_lua.lsp_definitions, opts)
+			keymap.set("n", "gI", fzf_lua.lsp_implementations, opts)
 			opts.desc = "Goto type"
-			keymap.set("n", "gy", function()
-				fzf_lua.lsp_typedefs({ jump_to_single_result = true })
-			end, opts)
+			keymap.set("n", "gy", fzf_lua.lsp_typedefs, opts)
 			opts.desc = "Goto References"
-			keymap.set("n", "gr", function()
-				fzf_lua.lsp_references({ jump_to_single_result = true })
-			end, opts)
+			keymap.set("n", "gr", fzf_lua.lsp_references, opts)
 			opts.desc = "Goto Line Diagnostics"
 			keymap.set("n", "gl", vim.diagnostic.open_float, opts)
 
