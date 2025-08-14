@@ -10,9 +10,10 @@ after-login-command = []
 # 'after-startup-command' is run after 'after-login-command'
 # Available commands : https://nikitabobko.github.io/AeroSpace/commands
 after-startup-command = [ 
+  'exec-and-forget keyboardSwitcher select "U.S."',
   'exec-and-forget open -a Telegram',
   'exec-and-forget open ~/ssd/ex-apps/IVA\ Connect\ beta.app',
-  'exec-and-forget open -a Brave\ Browser',
+  'exec-and-forget open -a qutebrowser',
   'exec-and-forget open -a kitty',
   'workspace T'
 ]
@@ -246,7 +247,7 @@ automatically-unhide-macos-hidden-apps = true
   run = ["move-node-to-workspace T"]
 
 [[on-window-detected]]
-  if.app-id = 'com.brave.Browser'
+  if.app-id = 'org.qutebrowser.qutebrowser'
   run = ["move-node-to-workspace S"]
 
 [[on-window-detected]]
