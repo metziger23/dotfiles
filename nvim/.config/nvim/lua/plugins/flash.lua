@@ -5,6 +5,7 @@ return {
 		labels = "tnseriaodhplgmfucbjvkwyxqz",
 		modes = {
 			char = {
+				enabled = false,
 				-- show jump labels
 				jump_labels = false,
 				-- When using jump labels, don't use these keys
