@@ -56,7 +56,7 @@ return {
 			opts.desc = "Lsp Document Symbols"
 			keymap.set("n", "ls", fzf_lua.lsp_document_symbols, opts)
 			opts.desc = "Lsp Workspace Symbols"
-			keymap.set("n", "lw", fzf_lua.lsp_workspace_symbols, opts)
+			keymap.set("n", "lw", fzf_lua.lsp_live_workspace_symbols, opts)
 			opts.desc = "Lsp Workspace Symbols (live query)"
 			keymap.set("n", "ll", fzf_lua.lsp_live_workspace_symbols, opts)
 			opts.desc = "Lsp Document Diagnostics"
