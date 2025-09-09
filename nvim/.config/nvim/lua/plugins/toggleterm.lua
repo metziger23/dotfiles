@@ -59,30 +59,7 @@ local function setup_terminal(configuration)
 	end
 
 	term_opts.on_open = function(term)
-		local size_changed = false
-
-		local win_config = vim.api.nvim_win_get_config(term.window)
-		local prev_win_config = prev_win_configs[configuration.keymap]
-
-		if
-			prev_win_config ~= nil
-			and prev_win_config.width ~= nil
-			and prev_win_config.height ~= nil
-			and win_config.width ~= nil
-			and win_config.height ~= nil
-		then
-			if win_config.width ~= prev_win_config.width or win_config.height ~= prev_win_config.height then
-				size_changed = true
-			end
-		end
-
-		prev_win_configs[configuration.keymap] = win_config
-
-		if size_changed then
-			vim.api.nvim_input([[<C-\><C-n>^i]])
-		else
-			vim.cmd.startinsert()
-		end
+		vim.cmd.startinsert()
 
 		utils.setup_new_tab_breakout_keymap(term.bufnr)
 		local opts = { buffer = term.bufnr, noremap = true, silent = true }
@@ -91,10 +68,10 @@ local function setup_terminal(configuration)
 			term:toggle()
 		end, opts)
 
-		vim.api.nvim_create_autocmd({ "VimResized" }, {
+		vim.api.nvim_create_autocmd({ "TermOpen", "TermEnter" }, {
 			buffer = term.bufnr,
 			callback = function()
-				vim.api.nvim_input([[<C-\><C-n>^i]])
+				vim.api.nvim_win_set_cursor(0, { 1, 0 }) -- Note: Lua uses 1-based indexing for rows
 			end,
 		})
 	end
