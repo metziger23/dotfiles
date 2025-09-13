@@ -154,7 +154,8 @@ return {
 				"--completion-style=detailed",
 				"--function-arg-placeholders",
 				"--fallback-style=llvm",
-				"--compile-commands-dir=.",
+				"--compile-commands-dir=" .. vim.fn.getcwd(),
+				-- "--compile-commands-dir=.",
 			},
 			init_options = {
 				usePlaceholders = true,
