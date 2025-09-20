@@ -15,6 +15,7 @@ after-startup-command = [
   'exec-and-forget open ~/ssd/ex-apps/IVA\ Connect\ beta.app',
   'exec-and-forget open -a qutebrowser',
   'exec-and-forget open -a kitty',
+  'exec-and-forget kitten quick-access-terminal',
   'workspace T'
 ]
 
