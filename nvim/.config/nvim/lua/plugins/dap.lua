@@ -8,6 +8,14 @@ return {
 		require("mason-nvim-dap").setup(mason_nvim_dap_opts)
 
 		local dap = require("dap")
+		-- NOTE: don't switch buf for assembly (assembly has no filetype)
+		dap.defaults.fallback.switchbuf = function(bufnr, line, column)
+			if vim.bo[bufnr].filetype == "" then
+				return
+			end
+			vim.api.nvim_set_current_buf(bufnr)
+			vim.api.nvim_win_set_cursor(0, { line, column - 1 }) -- NOTE: columns are 0-indexed in API
+		end
 		dap.adapters.codelldb = {
 			type = "server",
 			port = "${port}",
