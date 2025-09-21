@@ -102,6 +102,9 @@ return {
 				winbar = {
 					default_section = "threads",
 				},
+				help = {
+					border = "rounded",
+				},
 			},
 			config = function(_, opts)
 				local dap, dv = require("dap"), require("dap-view")
