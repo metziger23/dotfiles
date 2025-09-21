@@ -168,6 +168,7 @@ return {
 
 		-- configure bashls server
 		vim.lsp.config("bashls", {})
+		vim.lsp.enable("bashls")
 
 		-- configure clangd server
 		vim.lsp.config("clangd", {
@@ -211,6 +212,7 @@ return {
 				})
 			end,
 		})
+		vim.lsp.enable("clangd")
 
 		-- configure lua server (with special settings)
 		vim.lsp.config("lua_ls", {
@@ -230,6 +232,7 @@ return {
 				},
 			},
 		})
+		vim.lsp.enable("lua_ls")
 
 		vim.lsp.config("qmlls", {
 			cmd = { vim.env.QT_BIN_DIR ~= nil and vim.fs.joinpath(vim.env.QT_BIN_DIR, "qmlls") or "qmlls" },
@@ -249,11 +252,13 @@ return {
 				end,
 			},
 		})
+		vim.lsp.enable("qmlls")
 
 		vim.lsp.config("fish_lsp", {
 			cmd = { "fish-lsp", "start" },
 			filetypes = { "fish" },
 			cmd_env = { fish_lsp_show_client_popups = false },
 		})
+		vim.lsp.enable("fish_lsp")
 	end,
 }
