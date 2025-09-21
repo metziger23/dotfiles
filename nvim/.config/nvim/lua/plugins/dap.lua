@@ -72,44 +72,46 @@ return {
 	dependencies = {
 		"stevearc/overseer.nvim",
 		{
-			"rcarriga/nvim-dap-ui",
-			dependencies = {
-				"nvim-neotest/nvim-nio",
-			},
+			"igorlfs/nvim-dap-view",
 			keys = {
 				{
 					"<F17>",
 					function()
-						require("dapui").toggle({})
+						require("dap-view").toggle()
 					end,
-					desc = "Dap UI",
+					desc = "Toggle nvim-dap-view",
 				},
 				{
 					"<F18>",
 					function()
-						require("dapui").eval()
+						require("dap-view").add_expr()
 					end,
-					desc = "Eval",
+					desc = "Add Expression",
 					mode = { "n", "v" },
 				},
 			},
-			opts = {},
+			opts = {
+				winbar = {
+					default_section = "threads",
+				},
+			},
 			config = function(_, opts)
-				local dap = require("dap")
-				local dapui = require("dapui")
-				dapui.setup(opts)
-				dap.listeners.after.event_initialized["dapui_config"] = function()
-					dapui.open({})
+				local dap, dv = require("dap"), require("dap-view")
+				dv.setup(opts)
+				dap.listeners.before.attach["dap-view-config"] = function()
+					dv.open(true)
 				end
-				dap.listeners.before.event_terminated["dapui_config"] = function()
-					dapui.close({})
+				dap.listeners.before.launch["dap-view-config"] = function()
+					dv.open(true)
 				end
-				dap.listeners.before.event_exited["dapui_config"] = function()
-					dapui.close({})
+				dap.listeners.before.event_terminated["dap-view-config"] = function()
+					dv.close(true)
+				end
+				dap.listeners.before.event_exited["dap-view-config"] = function()
+					dv.close(true)
 				end
 			end,
 		},
-
 		-- virtual text for the debugger
 		{
 			"theHamsta/nvim-dap-virtual-text",
