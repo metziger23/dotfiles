@@ -126,21 +126,21 @@ return {
 				end, opts)
 
 				hydra_utils.setup_bidirectional_hydra("n", "diagnostic", "[d", "]d", function()
-					vim.diagnostic.goto_prev({ severity = nil })
+					vim.diagnostic.jump({ count = -1, float = true, severity = nil })
 				end, function()
-					vim.diagnostic.goto_next({ severity = nil })
+					vim.diagnostic.jump({ count = 1, float = true, severity = nil })
 				end, opts)
 
 				hydra_utils.setup_bidirectional_hydra("n", "error", "[e", "]e", function()
-					vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity["ERROR"] })
+					vim.diagnostic.jump({ count = -1, float = true, severity = vim.diagnostic.severity.ERROR })
 				end, function()
-					vim.diagnostic.goto_next({ severity = vim.diagnostic.severity["ERROR"] })
+					vim.diagnostic.jump({ count = 1, float = true, severity = vim.diagnostic.severity.ERROR })
 				end, opts)
 
 				hydra_utils.setup_bidirectional_hydra("n", "warning", "[w", "]w", function()
-					vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity["WARN"] })
+					vim.diagnostic.jump({ count = -1, float = true, severity = vim.diagnostic.severity.WARN })
 				end, function()
-					vim.diagnostic.goto_next({ severity = vim.diagnostic.severity["WARN"] })
+					vim.diagnostic.jump({ count = 1, float = true, severity = vim.diagnostic.severity.WARN })
 				end, opts)
 			end,
 		})
