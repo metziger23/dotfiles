@@ -24,11 +24,13 @@
   padding: 0 6px;
   margin: 0 1.5px;
   min-width: 9px;
+  opacity: 0.5;  
 }
 
-#workspaces button.empty {
-  opacity: 0.5;
-}
+#workspaces button.active {
+  font-weight: bolder;
+  opacity: 1; 
+} 
 
 #tray,
 #cpu,
