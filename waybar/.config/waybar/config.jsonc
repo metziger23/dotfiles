@@ -7,7 +7,8 @@
   "modules-left": ["custom/omarchy", "hyprland/workspaces"],
   "modules-center": ["clock", "custom/update", "custom/screenrecording-indicator"],
   "modules-right": [
-    "group/tray-expander",
+    // "group/tray-expander",
+    "tray", // NOTE: keep tray always expanded
     "bluetooth",
     "network",
     "pulseaudio",
