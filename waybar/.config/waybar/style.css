@@ -74,3 +74,8 @@ tooltip {
 #custom-screenrecording-indicator.active {
   color: #a55555;
 }
+
+#language {
+  margin-right: 8px; 
+  min-width: 12px;
+} 

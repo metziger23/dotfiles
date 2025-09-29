@@ -8,6 +8,7 @@
   "modules-center": ["clock", "custom/update", "custom/screenrecording-indicator"],
   "modules-right": [
     // "group/tray-expander",
+    "hyprland/language", 
     "tray", // NOTE: keep tray always expanded
     "bluetooth",
     "network",
@@ -74,6 +75,12 @@
       "warning": 20,
       "critical": 10
     }
+  },
+  "hyprland/language": {
+    "format": "{}",
+    "format-en": "US", // Customize the display for 'en' layout
+    "format-ru": "RU", // Customize the display for 'ru' layout
+    "on-click": "hyprctl switchxkblayout all next  " // Replace with your actual keyboard name
   },
   "bluetooth": {
     "format": "",
