@@ -28,8 +28,7 @@ return {
 						-- crust = "#000000",
 					},
 				},
-				transparent_background = vim.env.KITTY_INSTALLATION_DIR ~= nil
-					and string.match(vim.env.KITTY_INSTALLATION_DIR, "kitty%-quick%-access"),
+				transparent_background = true,
 			})
 			vim.cmd.colorscheme("catppuccin")
 		end,
