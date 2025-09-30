@@ -18,6 +18,7 @@ return {
 				close_on_exit = false,
 				quit_on_exit = "never",
 				hidden = true,
+				direction = "float",
 				open_on_start = false,
 				on_create = function(term)
 					local toggle_desc = "Toggleterm: Toggle Overseer"
