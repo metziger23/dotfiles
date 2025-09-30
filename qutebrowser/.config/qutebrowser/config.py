@@ -65,7 +65,7 @@ en_keys = "qwfpbjluy'arstgmneiozxcdvkh,./" + 'QWFPBJLUY"ARSTGMNEIOZXCDVKH<>?'
 ru_keys = "цклбйъыяэфзвнтдиаоесхпрмг'ьуюш" + 'ЦКЛБЙЪЫЯЭФЗВНТДИАОЕСХПРМГ"ЬУЮШ'
 c.bindings.key_mappings.update(dict(zip(ru_keys, en_keys)))
 
-c.scrolling.smooth = True
+c.scrolling.smooth = False
 
 c.tabs.position = "left"
 
