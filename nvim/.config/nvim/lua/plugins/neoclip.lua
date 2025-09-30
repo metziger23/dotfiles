@@ -9,12 +9,19 @@ return {
 	lazy = false, -- NOTE: otherwise yanks won't be saved before setup
 	opts = {
 		enable_persistent_history = true,
+		on_paste = {
+			move_to_front = true,
+			set_reg = true,
+		},
+		on_select = {
+			move_to_front = true,
+		},
 	},
 	keys = {
 		{
 			"<leader>y",
 			function()
-				require("neoclip.fzf")()
+				require("neoclip.fzf")({ '"', "*", "+", "0" })
 			end,
 			desc = "Neoclip",
 			mode = { "n", "x" },
