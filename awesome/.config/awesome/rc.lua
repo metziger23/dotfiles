@@ -6,11 +6,11 @@ pcall(require, "luarocks.loader")
 local gears = require("gears")
 local awful = require("awful")
 
-awful.spawn.with_shell("picom --config ~/.config/picom/picom.conf -b &")
-
 awful.spawn.with_shell(
-	"xrandr --output HDMI-A-0 --mode 3840x2400 --pos 0x2160 --rotate normal --output DisplayPort-0 --primary --mode 3840x2160 --pos 0x0 --rotate normal --output DisplayPort-1 --off --output DisplayPort-2 --off"
+	"xrandr --output DisplayPort-0 --primary --mode 3840x2160 --pos 0x0 --output HDMI-A-0 --mode 1920x1200 --pos 960x2160"
 )
+
+awful.spawn.with_shell("picom -b &")
 
 awful.spawn.with_shell("setxkbmap -layout us,ru -option 'grp:shifts_toggle' ")
 awful.spawn.with_shell("xset r rate 200 60")
