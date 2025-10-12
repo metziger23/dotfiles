@@ -5,6 +5,25 @@ pcall(require, "luarocks.loader")
 -- Standard awesome library
 local gears = require("gears")
 local awful = require("awful")
+
+awful.spawn.with_shell("picom --config ~/.config/picom/picom.conf -b &")
+
+awful.spawn.with_shell(
+	"xrandr --output HDMI-A-0 --mode 3840x2400 --pos 0x2160 --rotate normal --output DisplayPort-0 --primary --mode 3840x2160 --pos 0x0 --rotate normal --output DisplayPort-1 --off --output DisplayPort-2 --off"
+)
+
+awful.spawn.with_shell("setxkbmap -layout us,ru -option 'grp:shifts_toggle' ")
+awful.spawn.with_shell("xset r rate 200 60")
+awful.spawn.with_shell('xinput set-prop "Bastard Keyboards Charybdis (4x6) Splinky Mouse" "libinput Accel Speed" -0.7')
+awful.spawn.with_shell(
+	'xinput set-prop "Bastard Keyboards Charybdis (4x6) Splinky System Control" "libinput Accel Speed" -0.7'
+)
+
+awful.spawn.with_shell('xinput set-prop 9 "libinput Tapping Enabled" 1')
+awful.spawn.with_shell('xinput set-prop 10 "libinput Tapping Enabled" 1')
+
+awful.spawn.with_shell("thunar --daemon")
+
 require("awful.autofocus")
 -- Widget and layout library
 local wibox = require("wibox")
@@ -71,8 +90,8 @@ modkey = "Mod4"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
-	awful.layout.suit.floating,
 	awful.layout.suit.tile,
+	awful.layout.suit.floating,
 	awful.layout.suit.tile.left,
 	awful.layout.suit.tile.bottom,
 	awful.layout.suit.tile.top,
@@ -139,7 +158,7 @@ mykeyboardlayout = awful.widget.keyboardlayout()
 
 -- {{{ Wibar
 -- Create a textclock widget
-mytextclock = wibox.widget.textclock()
+mytextclock = wibox.widget.textclock("%a %b %d, %H:%M", 1)
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
@@ -600,4 +619,3 @@ client.connect_signal("unfocus", function(c)
 	c.border_color = beautiful.border_normal
 end)
 -- }}}
-
