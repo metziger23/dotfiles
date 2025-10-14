@@ -26,6 +26,8 @@ awful.spawn.with_shell("thunar --daemon &")
 
 awful.spawn.with_shell("greenclip daemon &")
 
+awful.spawn.with_shell("flameshot &") 
+
 require("awful.autofocus")
 -- Widget and layout library
 local wibox = require("wibox")
@@ -394,7 +396,7 @@ globalkeys = gears.table.join(
 
 	-- Other
 	awful.key({ modkey, "Shift" }, "s", function()
-		awful.spawn.with_shell("scrot -s -e 'mv $f ~/Pictures/screenshots/'") -- TODO: Replace with your preferred screenshot command
+		awful.spawn.with_shell("flameshot gui")
 	end, { description = "screenshot", group = "other" }),
 	awful.key({ modkey, "Shift" }, "c", function()
 		awful.spawn.with_shell(
