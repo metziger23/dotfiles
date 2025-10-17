@@ -6,8 +6,20 @@ pcall(require, "luarocks.loader")
 local gears = require("gears")
 local awful = require("awful")
 
+local function get_big_screen()
+	for s in screen do
+		if s ~= screen.primary then
+			return s
+		end
+	end
+end
+
+local function get_small_screen()
+	return screen.primary
+end
+
 awful.spawn.with_shell(
-	"xrandr --output DisplayPort-0 --primary --mode 3840x2160 --pos 0x0 --output HDMI-A-0 --mode 1920x1200 --pos 960x2160"
+	"xrandr --output DisplayPort-0 --mode 3840x2160 --pos 0x0 --output HDMI-A-0 --primary --mode 1920x1200 --pos 960x2160"
 )
 
 awful.spawn.with_shell("picom -b &")
@@ -162,6 +174,9 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 -- Keyboard map indicator and switcher
 mykeyboardlayout = awful.widget.keyboardlayout()
 
+local tray = wibox.widget.systray()
+tray:set_screen(get_big_screen())
+
 -- {{{ Wibar
 -- Create a textclock widget
 mytextclock = wibox.widget.textclock("%a %b %d, %H:%M", 1)
@@ -225,14 +240,19 @@ end
 screen.connect_signal("property::geometry", set_wallpaper)
 
 -- Bind tags to characters a-z (except n, e, i, o)
-local tag_chars = { "a", "r", "s", "t", "g" } -- TODO: update this
+local big_screen_tag_chars = { "a", "r", "s", "t", "g", "q", "w", "f", "p", "b", "j", "l", "u", "y", "m" }
+local small_screen_tag_chars = { "z", "x", "c", "d", "v", "k", "h" }
 
 awful.screen.connect_for_each_screen(function(s)
 	-- Wallpaper
 	set_wallpaper(s)
 
 	-- Each screen has its own tag table.
-	awful.tag(tag_chars, s, awful.layout.layouts[1])
+	if s == get_small_screen() then
+		awful.tag(small_screen_tag_chars, s, awful.layout.layouts[1])
+	else
+		awful.tag(big_screen_tag_chars, s, awful.layout.layouts[1])
+	end
 
 	-- Create a promptbox for each screen
 	s.mypromptbox = awful.widget.prompt()
@@ -283,7 +303,7 @@ awful.screen.connect_for_each_screen(function(s)
 		{ -- Right widgets
 			layout = wibox.layout.fixed.horizontal,
 			mykeyboardlayout,
-			wibox.widget.systray(),
+			tray,
 			mytextclock,
 			s.mylayoutbox,
 		},
@@ -432,12 +452,12 @@ clientkeys = gears.table.join(
 	awful.key({ modkey, "Shift" }, "n", function(c)
 		c.minimized = true
 	end, { description = "minimize", group = "client" }),
-  awful.key({ modkey, "Shift" }, "a", function()
-    local c = awful.client.restore()
-    if c then
-      c:emit_signal("request::activate", "key.unminimize", { raise = true })
-    end
-  end, { description = "restore minimized", group = "client" }),
+	awful.key({ modkey, "Shift" }, "a", function()
+		local c = awful.client.restore()
+		if c then
+			c:emit_signal("request::activate", "key.unminimize", { raise = true })
+		end
+	end, { description = "restore minimized", group = "client" }),
 	awful.key({ modkey, "Shift" }, "m", function(c)
 		c.maximized = not c.maximized
 		c:raise()
@@ -452,45 +472,51 @@ clientkeys = gears.table.join(
 	end, { description = "(un)maximize horizontally", group = "client" })
 )
 
-for i, char in ipairs(tag_chars) do
-	globalkeys = gears.table.join(
-		globalkeys,
-		-- View tag only
-		awful.key({ modkey }, char, function()
-			local screen = awful.screen.focused()
-			local tag = screen.tags[i]
-			if tag then
-				tag:view_only()
-			end
-		end, { description = "view tag #" .. char, group = "tag" }),
-		-- Toggle tag display
-		awful.key({ modkey, "Control" }, char, function()
-			local screen = awful.screen.focused()
-			local tag = screen.tags[i]
-			if tag then
-				awful.tag.viewtoggle(tag)
-			end
-		end, { description = "toggle tag #" .. char, group = "tag" }),
-		-- Move client to tag
-		awful.key({ modkey, "Control" }, char, function()
-			if client.focus then
-				local tag = client.focus.screen.tags[i]
+local function setup_tag_keybindings_for_screen(s, tag_chars)
+	for i, char in ipairs(tag_chars) do
+		globalkeys = gears.table.join(
+			globalkeys,
+			-- View tag only
+			awful.key({ modkey }, char, function()
+				local screen = s
+				awful.screen.focus(screen) -- NOTE: I added this manually
+				local tag = screen.tags[i]
 				if tag then
-					client.focus:move_to_tag(tag)
+					tag:view_only()
 				end
-			end
-		end, { description = "move focused client to tag #" .. char, group = "tag" }),
-		-- Toggle tag on focused client
-		awful.key({ modkey, altkey, altkey }, char, function()
-			if client.focus then
-				local tag = client.focus.screen.tags[i]
+			end, { description = "view tag #" .. char, group = "tag" }),
+			-- Toggle tag display
+			awful.key({ modkey, "Control" }, char, function()
+				local screen = s
+				local tag = screen.tags[i]
 				if tag then
-					client.focus:toggle_tag(tag)
+					awful.tag.viewtoggle(tag)
 				end
-			end
-		end, { description = "toggle focused client on tag #" .. char, group = "tag" })
-	)
+			end, { description = "toggle tag #" .. char, group = "tag" }),
+			-- Move client to tag
+			awful.key({ modkey, "Control" }, char, function()
+				if client.focus then
+					local tag = client.focus.screen.tags[i]
+					if tag then
+						client.focus:move_to_tag(tag)
+					end
+				end
+			end, { description = "move focused client to tag #" .. char, group = "tag" }),
+			-- Toggle tag on focused client
+			awful.key({ modkey, altkey, altkey }, char, function()
+				if client.focus then
+					local tag = client.focus.screen.tags[i]
+					if tag then
+						client.focus:toggle_tag(tag)
+					end
+				end
+			end, { description = "toggle focused client on tag #" .. char, group = "tag" })
+		)
+	end
 end
+
+setup_tag_keybindings_for_screen(get_small_screen(), small_screen_tag_chars)
+setup_tag_keybindings_for_screen(get_big_screen(), big_screen_tag_chars)
 
 clientbuttons = gears.table.join(
 	awful.button({}, 1, function(c)
@@ -505,7 +531,6 @@ clientbuttons = gears.table.join(
 		awful.mouse.client.resize(c)
 	end)
 )
-
 -- Set keys
 root.keys(globalkeys)
 -- }}}
@@ -514,6 +539,14 @@ root.keys(globalkeys)
 -- Rules to apply to new clients (through the "manage" signal).
 awful.rules.rules = {
 	-- All clients will match this rule.
+	{
+		rule = { class = "2GIS" },
+		properties = {
+			screen = get_small_screen(),
+			tag = awful.tag.find_by_name(get_small_screen(), "d"),
+			switchtotag = true,
+		},
+	},
 	{
 		rule = {},
 		properties = {
