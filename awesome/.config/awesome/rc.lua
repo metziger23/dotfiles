@@ -345,11 +345,41 @@ globalkeys = gears.table.join(
 	awful.key({ modkey }, "Escape", awful.tag.history.restore, { description = "go back", group = "tag" }),
 
 	-- Client focus
+
+  awful.key({ modkey }, "n", function ()
+    awful.client.focus.bydirection("left")
+  end, { description = "focus left client", group = "client" }),
+  awful.key({ modkey }, "Left", function ()
+    awful.client.focus.bydirection("left")
+  end, { description = "focus left client", group = "client" }), 
+
+  awful.key({ modkey }, "e", function ()
+    awful.client.focus.bydirection("down")
+  end, { description = "focus down client", group = "client" }),
+  awful.key({ modkey }, "Down", function ()
+    awful.client.focus.bydirection("down")
+  end, { description = "focus down client", group = "client" }),  
+
+  awful.key({ modkey }, "i", function ()
+    awful.client.focus.bydirection("up")
+  end, { description = "focus up client", group = "client" }),
+  awful.key({ modkey }, "Up", function ()
+    awful.client.focus.bydirection("up")
+  end, { description = "focus up client", group = "client" }),  
+
+  awful.key({ modkey }, "o", function ()
+    awful.client.focus.bydirection("right")
+  end, { description = "focus right client", group = "client" }),
+  awful.key({ modkey }, "Right", function ()
+    awful.client.focus.bydirection("right")
+  end, { description = "focus right client", group = "client" }),  
+
 	awful.key({ modkey }, "j", function()
 		awful.client.focus.byidx(1)
 	end, { description = "focus next by index", group = "client" }),
 	awful.key({ modkey }, "k", function()
 		awful.client.focus.byidx(-1)
+
 	end, { description = "focus previous by index", group = "client" }),
 	awful.key({ modkey }, "Tab", function()
 		awful.client.focus.history.previous()
@@ -359,12 +389,41 @@ globalkeys = gears.table.join(
 	end, { description = "go back", group = "client" }),
 
 	-- Layout manipulation
+  awful.key({ modkey, "Control" }, "n", function ()
+    awful.client.swap.bydirection("left")
+  end, { description = "swap left client", group = "client" }),
+  awful.key({ modkey, "Control" }, "Left", function ()
+    awful.client.swap.bydirection("left")
+  end, { description = "swap left client", group = "client" }), 
+
+  awful.key({ modkey, "Control" }, "e", function ()
+    awful.client.swap.bydirection("down")
+  end, { description = "swap down client", group = "client" }),
+  awful.key({ modkey, "Control" }, "Down", function ()
+    awful.client.swap.bydirection("down")
+  end, { description = "swap down client", group = "client" }),  
+
+  awful.key({ modkey, "Control" }, "i", function ()
+    awful.client.swap.bydirection("up")
+  end, { description = "swap up client", group = "client" }),
+  awful.key({ modkey, "Control" }, "Up", function ()
+    awful.client.swap.bydirection("up")
+  end, { description = "swap up client", group = "client" }),  
+
+  awful.key({ modkey, "Control" }, "o", function ()
+    awful.client.swap.bydirection("right")
+  end, { description = "swap right client", group = "client" }),
+  awful.key({ modkey, "Control" }, "Right", function ()
+    awful.client.swap.bydirection("right")
+  end, { description = "swap right client", group = "client" }),  
+
 	awful.key({ modkey, "Shift" }, "j", function()
 		awful.client.swap.byidx(1)
 	end, { description = "swap with next client by index", group = "client" }),
 	awful.key({ modkey, "Shift" }, "k", function()
 		awful.client.swap.byidx(-1)
 	end, { description = "swap with previous client by index", group = "client" }),
+
 	awful.key({ modkey }, "BackSpace", function()
 		awful.screen.focus_relative(1)
 	end, { description = "focus the next screen", group = "screen" }),
