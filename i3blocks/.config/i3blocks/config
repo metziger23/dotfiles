@@ -35,8 +35,15 @@ markup=none
 # The second parameter overrides the mixer selection
 # See the script for details.
 
+[xkb_layout]
+# NOTE: use my version and not the one in $SCRIPT_DIR
+command=$SCRIPT_DIR/../xkb_layout
+interval=persist
+
+
 [volume]
 #label=♪
+command=$SCRIPT_DIR/volume/volume 
 label=VOL
 interval=once
 signal=10
@@ -46,9 +53,18 @@ signal=10
 #
 # The type defaults to "mem" if the instance is not specified.
 [memory]
+command=$SCRIPT_DIR/memory/memory  
 label=MEM
-separator=false
-interval=30
+# separator=false
+interval=1
+
+[temperature]
+command=$SCRIPT_DIR/temperature/temperature
+label=TEMP
+interval=10
+#T_WARN=70
+#T_CRIT=90
+#SENSOR_CHIP="" 
 
 [memory]
 label=SWAP
@@ -91,8 +107,9 @@ interval=5
 # The script may be called with -w and -c switches to specify thresholds,
 # see the script for details.
 [cpu_usage]
+command=$SCRIPT_DIR/cpu_usage/cpu_usage 
 label=CPU
-interval=10
+interval=1
 min_width=CPU 100.00%
 #separator=false
 
@@ -112,7 +129,7 @@ interval=30
 #
 [time]
 command=date '+%Y-%m-%d %H:%M:%S'
-interval=5
+interval=1
 
 # Generic media player support
 #

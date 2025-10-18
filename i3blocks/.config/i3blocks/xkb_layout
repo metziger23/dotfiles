@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+# This script is supposed to be used as an i3blocks persistent blocklet.
+# It outputs current keyboard layout, then waits for it to change in an infinite loop.
+# Requires `xkb-switch` utility. Should work in any *sh.
+# Written by skidnik <skidnik@gmail.com>
+while :
+do
+# Output current layout:
+    xkb-switch -p | tr '[:lower:]' '[:upper:]' || sleep 1
+# Wait for layout change:
+    xkb-switch -w
+done
