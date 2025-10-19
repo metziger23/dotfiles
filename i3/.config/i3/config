@@ -34,6 +34,10 @@ exec --no-startup-id thunar --daemon &
 exec --no-startup-id greenclip daemon &
 exec --no-startup-id flameshot &
 
+# NOTE: to generate the image I used 
+# convert -size 3840x2160 xc:black black_wallpaper.png
+exec --no-startup-id feh --bg-fill ~/Pictures/black_wallpaper.png 
+
 # Start XDG autostart .desktop files using dex. See also
 # https://wiki.archlinux.org/index.php/XDG_Autostart 
 # exec --no-startup-id dex --autostart --environment i3
