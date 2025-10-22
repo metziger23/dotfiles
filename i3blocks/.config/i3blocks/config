@@ -35,9 +35,10 @@ markup=none
 # The second parameter overrides the mixer selection
 # See the script for details.
 
-[kbdd_layout]
-command=$SCRIPT_DIR/kbdd_layout/kbdd_layout
-interval=persist 
+# NOTE: xkb-switch is install with nix package manager
+[xkb_layout]
+command=xkb-switch && xkb-switch -W
+interval=persist
 
 [volume]
 #label=♪
