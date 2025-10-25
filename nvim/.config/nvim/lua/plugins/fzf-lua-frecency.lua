@@ -1,5 +1,6 @@
 return {
 	"elanmed/fzf-lua-frecency.nvim",
+  enabled = false,
 	dependencies = { "ibhagwan/fzf-lua" },
 	keys = {
 		{

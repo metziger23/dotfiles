@@ -24,7 +24,7 @@ return {
 		{ "antosha417/nvim-lsp-file-operations", config = true },
 		"mason.nvim",
 		"williamboman/mason-lspconfig.nvim",
-		"ibhagwan/fzf-lua",
+		"folke/snacks.nvim",
 	},
 	config = function()
 		-- NOTE: gives deprecation warning and probably not needed
@@ -55,7 +55,7 @@ return {
 				-- Buffer local mappings.
 				-- See `:help vim.lsp.*` for documentation on any of the below functions
 				local opts = { buffer = ev.buf, silent = true }
-				local fzf_lua = require("fzf-lua")
+				local picker = require("snacks").picker
 
 				opts.desc = "Signature Help"
 				keymap.set({ "n", "i", "s" }, "<c-s>", function()
@@ -65,39 +65,33 @@ return {
 				end, opts)
 
 				opts.desc = "Go to declaration"
-				keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
+				keymap.set("n", "gD", function() picker.lsp_declarations({ jump = { reuse_win = false } }) end, opts)
 				opts.desc = "Goto definition"
-				keymap.set("n", "gd", fzf_lua.lsp_definitions, opts)
-				keymap.set("n", "gI", fzf_lua.lsp_implementations, opts)
+				keymap.set("n", "gd", function() picker.lsp_definitions({ jump = { reuse_win = false } }) end, opts)
+				keymap.set("n", "gI", function() picker.lsp_implementations({ jump = { reuse_win = false } }) end, opts)
 				opts.desc = "Goto type"
-				keymap.set("n", "gy", fzf_lua.lsp_typedefs, opts)
+				keymap.set("n", "gy", function() picker.lsp_type_definitions({ jump = { reuse_win = false } }) end, opts)
 				opts.desc = "Goto References"
-				keymap.set("n", "gr", fzf_lua.lsp_references, opts)
+				keymap.set("n", "gr", function() picker.lsp_references({ jump = { reuse_win = false } }) end, opts)
 				opts.desc = "Goto Line Diagnostics"
 				keymap.set("n", "gl", vim.diagnostic.open_float, opts)
 
 				opts.desc = "Lsp Implementations"
-				keymap.set("n", "li", fzf_lua.lsp_implementations, opts)
+				keymap.set("n", "li", picker.lsp_implementations, opts)
 				opts.desc = "Lsp Document Symbols"
-				keymap.set("n", "ls", fzf_lua.lsp_document_symbols, opts)
+				keymap.set("n", "ls", picker.lsp_symbols, opts)
 				opts.desc = "Lsp Workspace Symbols"
-				keymap.set("n", "lw", fzf_lua.lsp_live_workspace_symbols, opts)
-				opts.desc = "Lsp Workspace Symbols (live query)"
-				keymap.set("n", "ll", fzf_lua.lsp_live_workspace_symbols, opts)
-				opts.desc = "Lsp Document Diagnostics"
-				keymap.set("n", "ld", fzf_lua.diagnostics_document, opts)
+				keymap.set("n", "lw", picker.lsp_workspace_symbols, opts)
+				opts.desc = "Lsp Buffer Diagnostics"
+				keymap.set("n", "lb", picker.diagnostics_buffer, opts)
 				opts.desc = "Lsp Workspace Diagnostics"
-				keymap.set("n", "lD", fzf_lua.diagnostics_workspace, opts)
+				keymap.set("n", "lD", picker.diagnostics, opts)
 
-				if client:supports_method("callHierarchy/incomingCalls", ev.buf) then
-					opts.desc = "Lsp incoming calls"
-					keymap.set("n", "lc", fzf_lua.lsp_incoming_calls, opts)
-				end
+        opts.desc = "Lsp incoming calls"
+        keymap.set("n", "lc", function () picker.lsp_incoming_calls({ jump = { reuse_win = false } }) end, opts)
 
-				if client:supports_method("callHierarchy/outgoingCalls", ev.buf) then
-					opts.desc = "Lsp outgoing calls"
-					keymap.set("n", "lC", fzf_lua.lsp_outgoing_calls, opts)
-				end
+        opts.desc = "Lsp outgoing calls"
+        keymap.set("n", "lC", function () picker.lsp_outgoing_calls({ jump = { reuse_win = false } }) end, opts) 
 
 				opts.desc = "Lsp rename"
 				keymap.set("n", "lr", function()
