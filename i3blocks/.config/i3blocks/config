@@ -99,7 +99,8 @@ separator=false
 
 [bandwidth]
 #INTERFACE=eth0
-interval=5
+command=$SCRIPT_DIR/bandwidth/bandwidth  
+interval=1
 
 # CPU usage
 #
