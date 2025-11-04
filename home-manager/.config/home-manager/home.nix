@@ -34,7 +34,7 @@
     pkgs.egl-wayland
     pkgs.hyprcursor
     pkgs.nwg-look
-    pkgs.autotiling
+    pkgs.autotiling # for i3 wm
     (config.lib.nixGL.wrap pkgs.qtcreator)  
     pkgs.android-file-transfer
     pkgs.adbfs-rootless 
@@ -125,10 +125,13 @@
     xwayland.enable = true;
     extraConfig = 
       ''
+        source = ~/.config/hypr/workspaces.conf
+        source = ~/.config/hypr/autostart.conf
         source = ~/.config/hypr/bindings.conf
         source = ~/.config/hypr/input.conf
         source = ~/.config/hypr/monitors.conf
         source = ~/.config/hypr/envs.conf
+        source = ~/.config/hypr/looknfeel.conf
       ''; 
   }; 
 
