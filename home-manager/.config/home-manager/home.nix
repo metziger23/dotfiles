@@ -31,6 +31,7 @@
     # (config.lib.nixGL.wrap pkgs.hyprland)  
     # pkgs.rose-pine-cursor
     # pkgs.rose-pine-hyprcursor
+    pkgs.playerctl
     pkgs.egl-wayland
     pkgs.hyprcursor
     pkgs.nwg-look
