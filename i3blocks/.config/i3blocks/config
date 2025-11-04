@@ -110,7 +110,7 @@ interval=1
 command=$SCRIPT_DIR/cpu_usage/cpu_usage 
 label=CPU
 interval=1
-min_width=CPU 100.00%
+# min_width=CPU 100.00%
 #separator=false
 
 [load_average]
