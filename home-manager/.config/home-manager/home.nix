@@ -27,36 +27,32 @@
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
-  home.packages = [
-    # (config.lib.nixGL.wrap pkgs.hyprland)  
-    # pkgs.rose-pine-cursor
-    # pkgs.rose-pine-hyprcursor
-    pkgs.playerctl
-    pkgs.egl-wayland
-    pkgs.hyprcursor
-    pkgs.nwg-look
-    pkgs.autotiling # for i3 wm
+  home.packages = with pkgs; [
+    playerctl
+    egl-wayland
+    hyprcursor
+    nwg-look
+    autotiling # for i3 wm
     (config.lib.nixGL.wrap pkgs.qtcreator)  
-    pkgs.android-file-transfer
-    pkgs.adbfs-rootless 
-    pkgs.impala
-    pkgs.just
-    pkgs.rofi
-    pkgs.bat
-    pkgs.btop
-    pkgs.fish
-    pkgs.lazygit
-    pkgs.fzf
-    pkgs.zoxide
-    pkgs.tealdeer
-    pkgs.fd
-    pkgs.ripgrep
-    pkgs.delta
-    pkgs.yazi
-    pkgs.neovim  # This will be available thanks to the overlay 
-    pkgs.neovim-remote
-    pkgs.xkb-switch
-    # pkgs.xkblayout-state 
+    android-file-transfer
+    adbfs-rootless 
+    impala
+    just
+    rofi
+    bat
+    btop
+    fish
+    lazygit
+    fzf
+    zoxide
+    tealdeer
+    fd
+    ripgrep
+    delta
+    yazi
+    neovim  # This will be available thanks to the overlay 
+    neovim-remote
+    xkb-switch
     (config.lib.nixGL.wrap pkgs.qutebrowser) 
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
