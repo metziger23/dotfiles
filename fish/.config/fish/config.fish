@@ -22,8 +22,9 @@ if status is-interactive
     # do things for macOS
   else if test "$os" = Linux
     # do things for Linux
-    set -x QT_QPA_PLATFORMTHEME "qt5ct"
-    set -x QT_STYLE_OVERRIDE "kvantum"  
+    # set -x QT_QPA_PLATFORMTHEME "qt5ct"
+    # set -x QT_STYLE_OVERRIDE "kvantum"  
+    # set -x XCURSOR_PATH "$RUNTIME/usr/share/icons"   # NOTE: fix for tiny cursor in qutebrowser
   else
     # do things for other operating systems
   end
