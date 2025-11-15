@@ -5,7 +5,7 @@ config.load_autoconfig()
 c.url.start_pages = ['https://www.google.com/']
 c.url.default_page = 'https://www.google.com/'
 c.url.searchengines = {
-    'DEFAULT':  'https://google.com/search?hl=en&q={}',
+    'DEFAULT':  'https://www.google.com/search?hl=en&q={}',
 }
 
 config.bind("<Home>", "rl-beginning-of-line", mode="command")
@@ -37,7 +37,7 @@ config.bind("<Ctrl-D>", "fake-key <Delete>", mode="insert")
 config.bind("<Ctrl-E>", "fake-key <End>", mode="insert")
 config.bind("<Ctrl-U>", "fake-key <Shift-Home>;; cmd-later 3 fake-key <Delete>", mode="insert")
 config.bind("<Ctrl-K>", "fake-key <Shift-End><Delete>", mode="insert")
-config.bind("<Ctrl-A>", "fake-key <Home>", mode="insert")
+# config.bind("<Ctrl-A>", "fake-key <Home>", mode="insert")
 
 config.bind("<Down>", "fake-key <j>", mode="normal")
 config.bind("<Up>", "fake-key <k>", mode="normal")
@@ -84,9 +84,14 @@ c.colors.tabs.indicator.stop = "#000000"    # Gradient end
 c.scrolling.bar = "always"  # Options: "always", "never", "when-searching"
 
 c.hints.chars = "arstneio"
+c.content.pdfjs = True
 
 ru_symbols = "хйцазижфкыеп9ячсвмодгнэъьтушщжлрбю.0"
 eng_symbols = "[qwfpb:arstg(zxcdvjluy']mneio;kh,./)"
 for ru_symbol, eng_symbol in zip(ru_symbols, eng_symbols):
     c.bindings.key_mappings["<Ctrl-" + ru_symbol + ">"] = "<Ctrl-" + eng_symbol + ">"
 
+c.content.javascript.log_message.excludes = {"userscript:_qute_stylesheet": ["*Refused to apply inline style because it violates the following Content Security Policy directive: *"], 
+                                              "userscript:_qute_js": ["*TrustedHTML*"]} 
+
+config.bind("<Backspace>", "cmd-set-text -sr :tab-focus") 
