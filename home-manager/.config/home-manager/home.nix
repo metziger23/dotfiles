@@ -28,15 +28,13 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
-    playerctl
-    egl-wayland
-    hyprcursor
-    nwg-look
+  (config.lib.nixGL.wrap pkgs.localsend)  
+  
+    libnotify
     autotiling # for i3 wm
     (config.lib.nixGL.wrap pkgs.qtcreator)  
     android-file-transfer
     adbfs-rootless 
-    impala
     just
     rofi
     bat
@@ -104,8 +102,6 @@
   #  /etc/profiles/per-user/mikhail/etc/profile.d/hm-session-vars.sh
   #
   home.sessionVariables = {
-
-    GIO_EXTRA_MODULES = "${pkgs.gvfs}/lib/gio/modules"; # NOTE: https://gist.github.com/Pablo1107/4afd86a7a5c086443a3a6dd07faa352d
     # EDITOR = "emacs";
   };
 
@@ -115,22 +111,6 @@
   xdg.configFile."environment.d/envvars.conf".text = ''
     PATH="$HOME/.nix-profile/bin:$PATH"
   '';
-  wayland.windowManager.hyprland = {
-    systemd.variables = ["--all"];
-    enable = true;
-    package = config.lib.nixGL.wrap pkgs.hyprland;
-    xwayland.enable = true;
-    extraConfig = 
-      ''
-        source = ~/.config/hypr/workspaces.conf
-        source = ~/.config/hypr/autostart.conf
-        source = ~/.config/hypr/bindings.conf
-        source = ~/.config/hypr/input.conf
-        source = ~/.config/hypr/monitors.conf
-        source = ~/.config/hypr/envs.conf
-        source = ~/.config/hypr/looknfeel.conf
-      ''; 
-  }; 
 
   programs.fish = {
     plugins = [
