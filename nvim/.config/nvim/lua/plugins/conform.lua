@@ -30,7 +30,7 @@ return {
 		})
 
 		-- Create a variable to track the toggle state
-		local formatOnSaveEnabled = true
+		local formatOnSaveEnabled = false
 
 		-- Function to toggle the format on save
 		function ToggleFormatOnSave()
