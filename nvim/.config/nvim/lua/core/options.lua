@@ -59,3 +59,5 @@ local en_lower = "qwfpbarstgzxcdvjluy'mneiokh\\,./"
 opt.langmap = ru_upper .. ";" .. en_upper .. "," .. ru_lower .. ";" .. en_lower
 
 opt.exrc = true
+
+opt.scrollback = 1000000
