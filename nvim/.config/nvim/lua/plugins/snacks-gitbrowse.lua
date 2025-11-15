@@ -26,7 +26,7 @@ return {
 		-- patterns to transform remotes to an actual URL
 		gitbrowse = {
 			url_patterns = {
-				["git%.(.*)%.org"] = {
+				["gitlab%.(.*)%.ru"] = {
 					branch = "/-/tree/{branch}",
 					file = "/-/blob/{branch}/{file}#L{line_start}-L{line_end}",
 					permalink = "/-/blob/{commit}/{file}#L{line_start}-L{line_end}",
