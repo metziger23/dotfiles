@@ -63,3 +63,8 @@ vim.api.nvim_set_keymap("n", "<leader>p", "Put linewise after the cursor", {
 		put_linewise_with_filter(vim.v.register, "p")
 	end,
 })
+
+vim.keymap.set("n", "<leader>qn",
+  "<cmd>mksession! /tmp/nvim-session.vim | restart source /tmp/nvim-session.vim<cr>",
+  { desc = "Restart neovim"}
+)
