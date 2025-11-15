@@ -18,6 +18,7 @@ return {
 				"qmldir",
 				"just",
 				"json",
+				"python",
 			},
 			highlight = { enable = true },
 			indent = { enable = true },
