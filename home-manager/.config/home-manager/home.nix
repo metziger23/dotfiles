@@ -4,7 +4,7 @@
     (import (builtins.fetchTarball {
       url = "https://github.com/nix-community/neovim-nightly-overlay/archive/master.tar.gz";
       # nix-prefetch-url --unpack "https://github.com/nix-community/neovim-nightly-overlay/archive/master.tar.gz" 
-      sha256 = "06w8vfga26ms84hdjjbqgjvs6gn7makkmpnas9yic4bi13ak50yb";
+      sha256 = "1binn84nlwnr7xrxl5irn3jj0zx97632zj2hdsv7zzvl5vsr6fqw";
     }))
   ];
   nixGL = {
@@ -28,8 +28,10 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
+  haskellPackages.greenclip 
   (config.lib.nixGL.wrap pkgs.localsend)  
   
+    (config.lib.nixGL.wrap pkgs.kitty) 
     libnotify
     autotiling # for i3 wm
     (config.lib.nixGL.wrap pkgs.qtcreator)  
@@ -111,18 +113,4 @@
   xdg.configFile."environment.d/envvars.conf".text = ''
     PATH="$HOME/.nix-profile/bin:$PATH"
   '';
-
-  programs.fish = {
-    plugins = [
-    {
-      name = "fzf.fish";
-      src = pkgs.fetchFromGitHub {
-        owner = "PatrickF1";
-        repo = "fzf.fish";
-        rev = "v10.3";
-        sha256 = "sha256-T8KYLA/r/gOKvAivKRoeqIwE2pINlxFQtZJHpOy9GMM=";
-      };
-    } 
-    ];
-  };
 }
