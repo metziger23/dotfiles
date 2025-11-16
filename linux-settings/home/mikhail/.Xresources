@@ -8,3 +8,9 @@ Xft.hintstyle:  hintfull
 Xft.hinting: 1
 Xft.antialias: 1
 Xft.rgba: rgb
+
+! sudo apt install dmz-cursor-theme 
+! sudo update-alternatives --config x-cursor-theme 
+! also select via lxappearance
+Xcursor.size: 48
+Xcursor.theme: DMZ-Black
