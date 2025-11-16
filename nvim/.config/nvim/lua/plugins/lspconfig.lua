@@ -230,7 +230,7 @@ return {
 		vim.lsp.enable("lua_ls")
 
 		vim.lsp.config("qmlls", {
-			cmd = { vim.env.QT_BIN_DIR ~= nil and vim.fs.joinpath(vim.env.QT_BIN_DIR, "qmlls") or "qmlls" },
+			-- cmd = { vim.env.QT_BIN_DIR ~= nil and vim.fs.joinpath(vim.env.QT_BIN_DIR, "qmlls") or "qmlls" },
 			filetypes = { "qmljs", "qml" },
 			handlers = {
 				["textDocument/publishDiagnostics"] = function(err, method, params, client_id)
