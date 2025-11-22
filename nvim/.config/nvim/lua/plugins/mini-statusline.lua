@@ -93,7 +93,7 @@ return {
 							require("noice").api.status.mode.has,
 							mode_hl
 						),
-						{ hl = "MiniStatuslineFilename", strings = { get_cwd() } },
+						-- { hl = "MiniStatuslineFilename", strings = { get_cwd() } },
 						{ hl = "MiniStatuslineFileinfo", strings = { fileinfo } },
 						{ hl = mode_hl, strings = { search, location } },
 					})
