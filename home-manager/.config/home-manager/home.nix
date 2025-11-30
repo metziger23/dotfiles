@@ -4,10 +4,10 @@
     (import (builtins.fetchTarball {
       url = "https://github.com/nix-community/neovim-nightly-overlay/archive/master.tar.gz";
       # nix-prefetch-url --unpack "https://github.com/nix-community/neovim-nightly-overlay/archive/master.tar.gz" 
-      sha256 = "1binn84nlwnr7xrxl5irn3jj0zx97632zj2hdsv7zzvl5vsr6fqw";
+      # sha256 = "1wi7754sa5xpcqfx3cs148awj6inib0jrrvy1rwvywr3vl5qijjz";
     }))
   ];
-  nixGL = {
+  targets.genericLinux.nixGL = {
     packages = nixGL.packages; # you must set this or everything will be a noop
       defaultWrapper = "mesa"; # choose from nixGL options depending on GPU
   };  
@@ -28,11 +28,10 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
-  haskellPackages.greenclip 
-  (config.lib.nixGL.wrap pkgs.localsend)  
-  
+    bear
+    haskellPackages.greenclip 
+    (config.lib.nixGL.wrap pkgs.localsend)  
     (config.lib.nixGL.wrap pkgs.kitty) 
-    libnotify
     autotiling # for i3 wm
     (config.lib.nixGL.wrap pkgs.qtcreator)  
     android-file-transfer
