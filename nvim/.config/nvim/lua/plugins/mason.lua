@@ -40,7 +40,8 @@ return {
 				"lua_ls",
 				"bashls",
 				"clangd",
-				"qmlls",
+				"qmlls", -- NOTE: on ubuntu 24.04 requires sudo apt install unixodbc-dev
+				"nil_ls",
 			},
 			-- auto-install configured servers (with lspconfig)
 			automatic_installation = true, -- not the same as ensure_installed
@@ -50,6 +51,7 @@ return {
 			ensure_installed = {
 				"stylua", -- lua formatter
 				"clang-format",
+				"nixfmt",
 			},
 		})
 	end,
