@@ -4,8 +4,9 @@ return {
 		require("conform").setup({
 			formatters_by_ft = {
 				lua = { "stylua" },
-				c = { "clang_format" },
-				cpp = { "clang_format" },
+				nix = { "nixfmt" },
+				c = { "clang-format" },
+				cpp = { "clang-format" },
 				qml = { "qmlformat" },
 			},
 			formatters = {
@@ -56,5 +57,13 @@ return {
 
 		-- Create a command to toggle
 		vim.api.nvim_create_user_command("ToggleFormatOnSave", ToggleFormatOnSave, {})
+
+		vim.keymap.set("n", "lf", function()
+			require("conform").format()
+		end, { desc = "Format" })
+
+		vim.keymap.set("v", "lf", function()
+			require("conform").format()
+		end, { desc = "Format selection" })
 	end,
 }

@@ -65,14 +65,24 @@ return {
 				end, opts)
 
 				opts.desc = "Go to declaration"
-				keymap.set("n", "gD", function() picker.lsp_declarations({ jump = { reuse_win = false } }) end, opts)
+				keymap.set("n", "gD", function()
+					picker.lsp_declarations({ jump = { reuse_win = false } })
+				end, opts)
 				opts.desc = "Goto definition"
-				keymap.set("n", "gd", function() picker.lsp_definitions({ jump = { reuse_win = false } }) end, opts)
-				keymap.set("n", "gI", function() picker.lsp_implementations({ jump = { reuse_win = false } }) end, opts)
+				keymap.set("n", "gd", function()
+					picker.lsp_definitions({ jump = { reuse_win = false } })
+				end, opts)
+				keymap.set("n", "gI", function()
+					picker.lsp_implementations({ jump = { reuse_win = false } })
+				end, opts)
 				opts.desc = "Goto type"
-				keymap.set("n", "gy", function() picker.lsp_type_definitions({ jump = { reuse_win = false } }) end, opts)
+				keymap.set("n", "gy", function()
+					picker.lsp_type_definitions({ jump = { reuse_win = false } })
+				end, opts)
 				opts.desc = "Goto References"
-				keymap.set("n", "gr", function() picker.lsp_references({ jump = { reuse_win = false } }) end, opts)
+				keymap.set("n", "gr", function()
+					picker.lsp_references({ jump = { reuse_win = false } })
+				end, opts)
 				opts.desc = "Goto Line Diagnostics"
 				keymap.set("n", "gl", vim.diagnostic.open_float, opts)
 
@@ -87,11 +97,15 @@ return {
 				opts.desc = "Lsp Workspace Diagnostics"
 				keymap.set("n", "lD", picker.diagnostics, opts)
 
-        opts.desc = "Lsp incoming calls"
-        keymap.set("n", "lc", function () picker.lsp_incoming_calls({ jump = { reuse_win = false } }) end, opts)
+				opts.desc = "Lsp incoming calls"
+				keymap.set("n", "lc", function()
+					picker.lsp_incoming_calls({ jump = { reuse_win = false } })
+				end, opts)
 
-        opts.desc = "Lsp outgoing calls"
-        keymap.set("n", "lC", function () picker.lsp_outgoing_calls({ jump = { reuse_win = false } }) end, opts) 
+				opts.desc = "Lsp outgoing calls"
+				keymap.set("n", "lC", function()
+					picker.lsp_outgoing_calls({ jump = { reuse_win = false } })
+				end, opts)
 
 				opts.desc = "Lsp rename"
 				keymap.set("n", "lr", function()
@@ -104,14 +118,6 @@ return {
 				opts.desc = "Lsp Source action"
 				keymap.set({ "n", "x" }, "lA", function()
 					vim.lsp.buf.code_action({ context = { only = { "source" }, diagnostics = {} } })
-				end, opts)
-				opts.desc = "Format"
-				keymap.set("n", "lf", function()
-					require("conform").format()
-				end, opts)
-				opts.desc = "Format selection"
-				keymap.set("v", "lf", function()
-					require("conform").format()
 				end, opts)
 
 				opts.desc = "Hover information"
@@ -174,10 +180,11 @@ return {
 				"--completion-style=detailed",
 				"--function-arg-placeholders",
 				"--fallback-style=llvm",
-        "-j=32"
+				"-j=32",
 				-- "--compile-commands-dir=" .. vim.fn.getcwd(),
-				-- "--compile-commands-dir=.", -- NOTE: now I configure it using .clangd
+				"--compile-commands-dir=.",
 			},
+			root_dir = "compile_commands.json",
 			init_options = {
 				usePlaceholders = true,
 				completeUnimported = true,
