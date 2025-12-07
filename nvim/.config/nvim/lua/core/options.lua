@@ -60,4 +60,5 @@ opt.langmap = ru_upper .. ";" .. en_upper .. "," .. ru_lower .. ";" .. en_lower
 
 opt.exrc = true
 
-opt.scrollback = 1000000
+-- TODO: try increasing to 1000000 when moving to 0.12
+opt.scrollback = 100000
