@@ -18,11 +18,6 @@ return {
 					command = vim.env.QT_BIN_DIR ~= nil and vim.fs.joinpath(vim.env.QT_BIN_DIR, "qmlformat")
 						or "qmlformat",
 					args = {
-						"--functions-spacing",
-						"--objects-spacing",
-						"--normalize",
-						"--indent-width",
-						"4",
 						"--force",
 						"$FILENAME",
 					},
