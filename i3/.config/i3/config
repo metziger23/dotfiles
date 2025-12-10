@@ -70,6 +70,7 @@ bindsym $mod+Shift+w kill
 
 bindsym $mod+Shift+c exec --no-startup-id rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
 bindsym $mod+Shift+s exec --no-startup-id flameshot gui 
+bindsym $mod+Shift+b exec --no-startup-id rofi-rbw
 
 # start dmenu (a program launcher)
 bindsym $mod+space exec --no-startup-id "rofi -modi drun,run -show drun -show-icons"
@@ -103,8 +104,9 @@ bindsym $mod+Control+Down move down
 bindsym $mod+Control+Up move up
 bindsym $mod+Control+Right move right
 
+# TODO: update this 
 # split in horizontal orientation
-bindsym $altkey+$mod+Shift+h split h
+bindsym $mod+Shift+h split h 
 
 # split in vertical orientation
 bindsym $mod+Shift+v split v 
@@ -113,9 +115,9 @@ bindsym $mod+Shift+v split v
 bindsym $mod+Shift+f fullscreen toggle 
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod+Shift+$mod+a layout stacking
-bindsym $mod+Shift+$mod+b layout tabbed
-bindsym $mod+Shift+$mod+t layout toggle split 
+bindsym $mod+Shift+comma layout stacking
+bindsym $mod+Shift+period layout tabbed
+bindsym $mod+Shift+slash layout toggle split 
 
 # toggle tiling / floating
 bindsym $mod+Shift+g floating toggle 
