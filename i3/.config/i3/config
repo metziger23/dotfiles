@@ -20,11 +20,14 @@ font pango:Fira Code 12
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
 #font pango:DejaVu Sans Mono 8
 
+exec --no-startup-id xrandr --output DisplayPort-0 --primary --mode 3840x2160 --pos 0x0 --output HDMI-A-0 --mode 1920x1200 --pos 960x2160  
+
 exec --no-startup-id autotiling &
 exec --no-startup-id picom -b &
 
 exec --no-startup-id thunar --daemon &
 exec --no-startup-id greenclip daemon &
+exec --no-startup-id flameshot &
 
 # NOTE: to generate the image I used 
 # convert -size 3840x2160 xc:black black_wallpaper.png
@@ -301,5 +304,5 @@ assign [class="^2GIS$"] → $ws_d
 
 # exec --no-startup-id i3-msg 'workspace $ws_a; exec telegram-desktop'
 # exec --no-startup-id i3-msg 'workspace $ws_r; exec mattermost-desktop'
-exec --no-startup-id i3-msg 'workspace $ws_s; exec qutebrowser'
+# exec --no-startup-id i3-msg 'workspace $ws_s; exec qutebrowser'
 exec --no-startup-id i3-msg 'workspace $ws_t; exec kitty' 

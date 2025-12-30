@@ -1,6 +1,7 @@
 
 configuration{
-    font: "Fira Code 32";
+    // font: "Fira Code 32";
+    font: "Fira Code 16";
     kb-cancel: "Escape,Control+g,Control+bracketleft,Control+c";
     kb-secondary-copy : "Control+y";
 } 

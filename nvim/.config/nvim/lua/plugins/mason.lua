@@ -51,7 +51,6 @@ return {
 			ensure_installed = {
 				"stylua", -- lua formatter
 				"clang-format",
-				"nixfmt",
 			},
 		})
 	end,
