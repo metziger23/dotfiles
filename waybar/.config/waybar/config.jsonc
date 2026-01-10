@@ -1,96 +1,121 @@
-// -*- mode: jsonc -*-
-{
-    "layer": "top", 
-    "position": "top", 
-    "height": 30, 
-    "spacing": 4, 
-
-    // Choose the order of the modules
+// -*- mode: jsonc -*- 
+[
+  {
+    "output": [
+      "DP-1"
+    ],
+    "layer": "top",
+    "position": "top",
+    "height": 30,
+    "spacing": 4,
+    "expand-right": true,
+    "no-center": true,
     "modules-left": [
-        "hyprland/workspaces"
-        // "custom/sep",
-        // "hyprland/window",
-        // "custom/sep"
+      "hyprland/workspaces"
     ],
-    "modules-center": [
-    ],
-
     "modules-right": [
-        "hyprland/language",
-        "custom/sep",
-        "network",
-        "custom/sep",
-        "cpu",
-        "custom/sep",
-        "memory",
-        "custom/sep",
-        "disk",
-        "custom/sep",
-        "clock",
-        "custom/sep",
-        "tray"
+      "hyprland/language",
+      "custom/sep",
+      "pulseaudio",
+      "custom/sep",
+      "network",
+      "custom/sep",
+      "cpu",
+      "custom/sep",
+      "memory",
+      "custom/sep",
+      "disk",
+      "custom/sep",
+      "clock",
+      "custom/sep",
+      "tray"
     ],
-
-    // Modules configuration
     "hyprland/workspaces": {
-        "disable-scroll": true,
-        "all-outputs": false,
-        "warp-on-scroll": false,
-        "format": "{name}",
-        // "persistent-workspaces": {
-        //     "*" : 9
-        // }
-    },
-    "hyprland/window" : {
-        "max-length": 40,
-        "seperate-outputs": false
+      "disable-scroll": true,
+      "all-outputs": false,
+      "warp-on-scroll": false,
+      "format": "{name}"
     },
     "tray": {
-        // "icon-size": 21,
-        "spacing": 10
-        // "icons": {
-        //   "blueman": "bluetooth",
-        //   "TelegramDesktop": "$HOME/.local/share/icons/hicolor/16x16/apps/telegram.png"
-        // }
+      "spacing": 10
     },
     "clock": {
-        "format-alt": "{:%Y-%m-%d}"
+      "format": "{:%R, %a, %b %d}",
+      "tooltip-format": "<tt><small>{calendar}</small></tt>",
+      "calendar": {
+        "mode": "year",
+        "mode-mon-col": 3,
+        "on-scroll": 1,
+        "format": {
+          "months": "<span color='#b4befe'><b>{}</b></span>",
+          "days": "<span color='#f5e0dc'><b>{}</b></span>",
+          "weekdays": "<span color='#a6e3a1'><b>{}</b></span>",
+          "today": "<span color='#f38ba8'><b><u>{}</u></b></span>"
+        }
+      },
+      "actions": {
+        "on-click-right": "mode",
+        "on-scroll-up": "shift_up",
+        "on-scroll-down": "shift_down"
+      }
     },
     "cpu": {
-        "format": "CPU: {usage}%",
-        "tooltip": false
+      "format": "cpu: {usage}%",
+      "tooltip": false
     },
     "memory": {
-        "format": "Mem: {used}GiB"
+      "format": "mem: {used}GiB"
     },
     "disk": {
-        "interval": 60,
-        "path": "/",
-        "format": "Disk: {free}"
-    },
-    "battery": {
-        "states": {
-            "good": 95,
-            "warning": 30,
-            "critical": 15
-        },
-        "format": "Bat: {capacity}% {icon} {time}",
-        "format-plugged": "{capacity}% ",
-        "format-alt": "Bat {capacity}%",
-        "format-time": "{H}:{M}",
-        "format-icons": ["", "", "", "", ""]
+      "interval": 60,
+      "path": "/",
+      "format": "disk: {free}"
     },
     "network": {
-        "format": "Online",
-        "format-disconnected": "Disconnected ⚠"
+      "format": "online",
+      "format-disconnected": "disconnected ⚠"
     },
     "custom/sep": {
-        "format" : "|",
-        "interval" : 0
+      "format": "|",
+      "interval": 0
     },
     "hyprland/language": {
-      "format": "{}",
-      "format-en": "US",
-      "format-ru": "RU"
-    } 
-}
+      "format": "{shortDescription}"
+    },
+    "pulseaudio": {
+      "format": "vol: {volume}%",
+      "format-bluetooth": "{volume}%",
+      "scroll-step": 1,
+      "on-click": "pavucontrol",
+      "ignored-sinks": [
+        "Easy Effects Sink"
+      ]
+    }
+  },
+  {
+    "output": [
+      "HDMI-A-1"
+    ],
+    "layer": "top",
+    "position": "top",
+    "height": 30,
+    "spacing": 4,
+    "expand-right": true,
+    "no-center": true,
+    "modules-left": [
+      "hyprland/workspaces"
+    ],
+    "modules-right": [
+      "tray"
+    ],
+    "hyprland/workspaces": {
+      "disable-scroll": true,
+      "all-outputs": false,
+      "warp-on-scroll": false,
+      "format": "{name}"
+    },
+    "tray": {
+      "spacing": 10
+    }
+  }
+]
