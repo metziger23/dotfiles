@@ -1,6 +1,7 @@
 return {
 	"nvim-treesitter/nvim-treesitter",
 	build = ":TSUpdate",
+	branch = "master",
 	event = { "BufReadPre", "BufNewFile" },
 	dependencies = { "nvim-treesitter/nvim-treesitter-textobjects" },
 	config = function()
