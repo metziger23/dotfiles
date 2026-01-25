@@ -1,4 +1,4 @@
-// -*- mode: jsonc -*- 
+// -*- mode: jsonc -*-
 [
   {
     "output": [
@@ -18,7 +18,7 @@
       "custom/sep",
       "pulseaudio",
       "custom/sep",
-      "network",
+      "custom/vpn",
       "custom/sep",
       "cpu",
       "custom/sep",
@@ -73,7 +73,7 @@
     },
     "network": {
       "format": "online",
-      "format-disconnected": "disconnected ⚠"
+      "format-disconnected": "offline"
     },
     "custom/sep": {
       "format": "|",
@@ -90,6 +90,12 @@
       "ignored-sinks": [
         "Easy Effects Sink"
       ]
+    },
+    "custom/vpn": {
+      "exec": "~/.config/waybar/scripts/vpn_status.sh",
+      "interval": 1,
+      "return-type": "json",
+      "format": "{text}"
     }
   },
   {

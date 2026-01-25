@@ -1,16 +1,18 @@
 /* https://catppuccin.com/palette/  */
-@define-color bg     #000000;
-@define-color fg     #b4befe;
-@define-color blk    #313244;
-@define-color red    #f38ba8;
-@define-color grn    #a6e3a1;
-@define-color peach  #fab387;
-@define-color yellow #f9e2af;
-@define-color blu    #89b4fa;
-@define-color mag    #cba6f7;
-@define-color cyn    #74c7ec;
-@define-color brblk  #45475a;
-@define-color white  #f5e0dc;
+@define-color bg       #000000;
+@define-color fg       #b4befe;
+@define-color blk      #313244;
+@define-color red      #f38ba8;
+@define-color grn      #a6e3a1;
+@define-color peach    #fab387;
+@define-color yellow   #f9e2af;
+@define-color blu      #89b4fa;
+@define-color mag      #cba6f7;
+@define-color cyn      #74c7ec;
+@define-color brblk    #45475a;
+@define-color white    #f5e0dc;
+@define-color lavender #b4befe; 
+ 
 
 * {
     font-family: "Fira Code", monospace;
@@ -72,6 +74,7 @@ window#waybar {
 #network,
 #language,
 #pulseaudio,
+#custom-vpn,
 #tray {
     padding: 0 8px;
     color: @white;
@@ -107,10 +110,6 @@ window#waybar {
     border-bottom: 4px solid @blu;
 }
 
-#network.disconnected {
-    background-color: @red;
-}
-
 #language {
   color: @red;
   border-bottom: 4px solid @red;
@@ -120,3 +119,8 @@ window#waybar {
   color: @yellow;
   border-bottom: 4px solid @yellow;
 }  
+
+#custom-vpn {
+  color: @lavender;
+  border-bottom: 4px solid @lavender; 
+}
