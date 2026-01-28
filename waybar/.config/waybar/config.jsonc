@@ -16,6 +16,8 @@
     "modules-right": [
       "hyprland/language",
       "custom/sep",
+      "hyprland/submap",
+      "custom/sep",
       "pulseaudio",
       "custom/sep",
       "custom/vpn",
@@ -81,6 +83,12 @@
     },
     "hyprland/language": {
       "format": "{shortDescription}"
+    },
+    "hyprland/submap": {
+      "format": "submap: {}",
+      "tooltip": false,
+      "always-on": true,
+      "default-submap": "off"
     },
     "pulseaudio": {
       "format": "vol: {volume}%",
