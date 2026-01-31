@@ -3,6 +3,7 @@ import Quickshell
 import QtQuick
 
 Singleton {
+    readonly property color bg:        "#000000"
     readonly property color surface:   "#313244"
     readonly property color rosewater: "#f5e0dc"
     readonly property color flamingo:  "#f2cdcd"
