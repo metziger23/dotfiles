@@ -3,6 +3,8 @@ import Quickshell.Wayland
 import Quickshell.Io
 import Quickshell.Hyprland
 import Quickshell.Services.Pipewire
+import Quickshell.Services.SystemTray
+
 import QtQuick
 
 ShellRoot {
@@ -39,7 +41,6 @@ ShellRoot {
                 spacing: 10
 
                 Repeater {
-
                     model: SortFilterModel {
 
                         property var names: Object.freeze([
@@ -89,6 +90,45 @@ ShellRoot {
                         }
                     }
 
+
+                }
+
+            }
+
+            Row {
+                anchors.right: parent.right
+                anchors.rightMargin: 5
+                height: parent.height
+                spacing: 10
+
+                Repeater {
+                    model: SystemTray.items
+
+                    delegate: Image {
+                        id: trayItemIcon
+
+                        anchors.verticalCenter: parent.verticalCenter
+                        width: 16
+                        height: width
+                        mipmap: true
+                        smooth: true
+                        antialiasing: true
+                        source: modelData.icon;
+
+                        MouseArea {
+                            acceptedButtons: Qt.LeftButton | Qt.RightButton
+                            anchors.fill: parent
+
+                            onClicked: mevent => {
+                                if (mevent.button === Qt.LeftButton) {
+                                    modelData.activate();
+                                    return;
+                                }
+
+                                // TODO: open menu if Qt.RightButton is clicked
+                            }
+                        }
+                    }
 
                 }
 
