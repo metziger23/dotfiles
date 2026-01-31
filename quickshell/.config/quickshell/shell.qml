@@ -33,7 +33,9 @@ ShellRoot {
             }
 
             Row {
-                anchors.fill: parent
+                anchors.left: parent.left
+                anchors.leftMargin: 5
+                height: parent.height
                 spacing: 10
 
                 Repeater {
@@ -43,11 +45,12 @@ ShellRoot {
                         property var names: Object.freeze([
                             "A", "R", "S", "T", "G", "Q", "W", "F", "P", "B",
                             "J", "L", "U", "Y", "M", "Z", "X", "C", "D", "V", "K", "H"
-                        ]) 
+                        ])
 
                         lessThan: function(left, right) {
                             const leftIndex = names.indexOf(left.modelData.name);
                             const rightIndex = names.indexOf(right.modelData.name);
+
                             if (leftIndex !== -1 && rightIndex !== -1) {
                                 return leftIndex < rightIndex;
                             }
@@ -58,10 +61,8 @@ ShellRoot {
                         model: Hyprland.workspaces
 
                         delegate: Item {
-                            readonly property bool isActive: modelData.active
-
-                            width: childrenRect.width
-                            height: childrenRect.height
+                            width: 10
+                            height: parent.height
                             visible: {
                                 if (!panelWindow.screen || !modelData.monitor) {
                                     return false;
@@ -70,18 +71,26 @@ ShellRoot {
                             }
 
                             Text {
-                                color: isActive ? Colors.mauve : Colors.rosewater
+                                anchors.centerIn: parent
+                                color: {
+                                    if (modelData.active) {
+                                        return Colors.mauve;
+                                    }
+                                    if (modelData.urgent) {
+                                        return Colors.red;
+                                    }
+                                    return Colors.rosewater;
+                                }
                                 text: modelData.name
                                 font.pixelSize: 14
-                                font.bold: true 
-                                font.family: "Fira Code" 
-
-                            } 
-                        } 
+                                font.bold: true
+                                font.family: "Fira Code"
+                            }
+                        }
                     }
 
-                    
-                } 
+
+                }
 
             }
         }
