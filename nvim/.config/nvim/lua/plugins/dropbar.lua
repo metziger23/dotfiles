@@ -1,37 +1,54 @@
--- 'Bekaboo/dropbar.nvim',
 return {
 	"Bekaboo/dropbar.nvim",
 	dependencies = {
 		"nvim-tree/nvim-web-devicons", -- optional dependency
 	},
 	opts = {
+		sources = {
+			path = {
+				modified = function(sym)
+					return sym:merge({
+						name_hl = "DiffAdded",
+						name = sym.name .. " ",
+					})
+				end,
+			},
+		},
 		bar = {
-			sources = function(buf, _)
-				local sources = require("dropbar.sources")
-				if vim.bo[buf].buftype == "terminal" then
-					return {
-						sources.terminal,
-					}
+			enable = function(buf, win, _)
+				buf = vim._resolve_bufnr(buf)
+				if not vim.api.nvim_buf_is_valid(buf) or not vim.api.nvim_win_is_valid(win) then
+					return false
 				end
+
+				if
+					not vim.api.nvim_buf_is_valid(buf)
+					or not vim.api.nvim_win_is_valid(win)
+					or vim.fn.win_gettype(win) ~= ""
+					or vim.wo[win].winbar ~= ""
+				then
+					return false
+				end
+
+				local buf_name = vim.api.nvim_buf_get_name(buf)
+				if buf_name == "" then
+					return false
+				end
+
+				local stat = vim.uv.fs_stat(buf_name)
+				if stat and stat.size > 1024 * 1024 then
+					return false
+				end
+
+				if vim.bo[buf].bt == "terminal" then
+					return false
+				end
+
+				return true
+			end,
+			sources = function(_, _)
+				local sources = require("dropbar.sources")
 				return { sources.path }
-				-- if vim.bo[buf].ft == 'markdown' then
-				--   return {
-				--     sources.path,
-				--     sources.markdown,
-				--   }
-				-- end
-				-- if vim.bo[buf].buftype == 'terminal' then
-				--   return {
-				--     sources.terminal,
-				--   }
-				-- end
-				-- return {
-				--   sources.path,
-				--   utils.source.fallback({
-				--     sources.lsp,
-				--     sources.treesitter,
-				--   }),
-				-- }
 			end,
 		},
 		menu = {
