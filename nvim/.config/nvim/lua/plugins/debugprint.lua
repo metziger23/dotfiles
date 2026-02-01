@@ -9,6 +9,20 @@ local colors = {
 }
 -- stylua: ignore end
 
+local js_like = {
+	left = 'console.info("',
+	right = '")',
+	mid_var = '", ',
+	right_var = ")",
+}
+
+local qt_like = {
+	left = 'qInfo() << "',
+	right = '";',
+	mid_var = '" << ',
+	right_var = ";",
+}
+
 return {
 	"andrewferrier/debugprint.nvim", -- opts = {},
 
@@ -64,6 +78,14 @@ return {
 					variable_below = "<M-i>v",
 					variable_above = "<M-i>V",
 				},
+			},
+			filetypes = {
+				["cpp"] = qt_like,
+				["javascript"] = js_like,
+				["javascriptreact"] = js_like,
+				["typescript"] = js_like,
+				["typescriptreact"] = js_like,
+				["qml"] = js_like,
 			},
 		})
 	end,
