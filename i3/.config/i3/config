@@ -70,11 +70,11 @@ bindsym $mod+Return exec kitty
 # kill focused window
 bindsym $mod+Shift+w kill
 
-bindsym $mod+Shift+c exec --no-startup-id greenclip print | grep . | dmenu -i -l 10 -p clipboard | xargs -r -d'\n' -I '{}' greenclip print '{}'
+bindsym $mod+Shift+c exec --no-startup-id rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
 bindsym $mod+Shift+s exec --no-startup-id flameshot gui 
 
 # start dmenu (a program launcher)
-bindsym $mod+space exec --no-startup-id dmenu_run  
+bindsym $mod+space exec --no-startup-id "rofi -modi drun,run -show drun"
 # A more modern dmenu replacement is rofi:
 # bindcode $mod+40 exec "rofi -modi drun,run -show drun"
 # There also is i3-dmenu-desktop which only displays applications shipping a
