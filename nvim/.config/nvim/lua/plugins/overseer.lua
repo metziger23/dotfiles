@@ -1,5 +1,6 @@
 return {
 	"stevearc/overseer.nvim",
+  tag = "v1.6.0",
 	dependencies = { "akinsho/toggleterm.nvim", "kkharji/sqlite.lua" },
 	config = function()
 		local toggle_keymap = "<A-r>"
