@@ -43,7 +43,7 @@ interval=persist
 #label=♪
 command=$SCRIPT_DIR/volume/volume 
 label=VOL
-interval=once
+interval=1
 signal=10
 #STEP=5%
 
@@ -59,7 +59,7 @@ interval=1
 [temperature]
 command=$SCRIPT_DIR/temperature/temperature
 label=TEMP
-interval=10
+interval=1
 #T_WARN=70
 #T_CRIT=90
 #SENSOR_CHIP="" 
