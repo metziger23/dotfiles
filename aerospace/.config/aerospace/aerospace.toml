@@ -190,6 +190,31 @@ automatically-unhide-macos-hidden-apps = true
     # See: https://nikitabobko.github.io/AeroSpace/commands#mode
     alt-ctrl-shift-quote = 'mode service'
 
+[workspace-to-monitor-force-assignment]
+    A = 'main'
+    B = 'main'
+    C = ['secondary', 'main']
+    D = ['secondary', 'main']
+    F = 'main'
+    G = 'main'
+    H = 'main'
+    J = 'main'
+    K = 'main'
+    L = 'main'
+    M = 'main'
+    N = 'main'
+    P = 'main'
+    Q = 'main'
+    R = 'main'
+    S = 'main'
+    T = 'main'
+    U = 'main'
+    V = ['secondary', 'main']
+    W = 'main'
+    X = ['secondary', 'main']
+    Y = 'main'
+    Z = ['secondary', 'main']
+
 # 'service' binding mode declaration.
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
 [mode.service.binding]
@@ -212,20 +237,20 @@ automatically-unhide-macos-hidden-apps = true
 
 [[on-window-detected]]
   if.app-id = 'net.kovidgoyal.kitty'
-  if.during-aerospace-startup = true
   run = ["move-node-to-workspace T"]
 
 [[on-window-detected]]
   if.app-id = 'com.brave.Browser'
-  if.during-aerospace-startup = true
   run = ["move-node-to-workspace S"]
 
 [[on-window-detected]]
   if.app-id = 'org.hi-tech.connect.beta'
-  if.during-aerospace-startup = true
   run = ["move-node-to-workspace R"]
 
 [[on-window-detected]]
   if.app-id = 'ru.keepcoder.Telegram'
-  if.during-aerospace-startup = true
   run = ["move-node-to-workspace A"]
+
+[[on-window-detected]]
+  if.app-id = 'com.Iva-tech.IvaOne'
+  run = ["move-node-to-workspace D"]
