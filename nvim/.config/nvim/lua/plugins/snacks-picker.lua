@@ -122,6 +122,7 @@ return {
 	   { "<BS>zl", function() zoxide_picker(require("snacks").picker.actions.lcd) end, desc = "Zoxide lcd", mode = { "n", "x" }, },
 	   { "<BS>zt", function() zoxide_picker(require("snacks").picker.actions.tcd) end, desc = "Zoxide tcd", mode = { "n", "x" }, },
 	   { "<BS><C-l>", function() require("snacks").picker.lsp_config() end, desc = "Lsp Config", mode = { "n", "x" }, },
+	   { "<leader>y", function() require("snacks").picker.cliphist() end, desc = "Cliphist", mode = { "n", "x" }, },
 		-- stylua: ignore end
 	},
 }

@@ -4,7 +4,6 @@ return {
 		require("conform").setup({
 			formatters_by_ft = {
 				lua = { "stylua" },
-				nix = { "nixfmt" },
 				c = { "clang-format" },
 				cpp = { "clang-format" },
 				qml = { "qmlformat" },
@@ -15,10 +14,10 @@ return {
 						url = "https://doc.qt.io/qt-6//qtqml-tooling-qmlformat.html",
 						description = "qmlformat is a tool that automatically formats QML files in accordance with the QML Coding Conventions.",
 					},
-					command = vim.env.QT_BIN_DIR ~= nil and vim.fs.joinpath(vim.env.QT_BIN_DIR, "qmlformat")
-						or "qmlformat",
+					command = "/home/mikhail/.nix-profile/bin/qmlformat",
 					args = {
 						"--force",
+            "--inplace",
 						"$FILENAME",
 					},
 				},

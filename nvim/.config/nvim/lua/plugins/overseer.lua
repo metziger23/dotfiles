@@ -41,7 +41,7 @@ return {
 			},
 		})
 
-		overseer.add_template_hook({ module = "^just$" }, function(task_defn, util)
+		overseer.add_template_hook({ module = "^make$" }, function(task_defn, util)
 			util.add_component(task_defn, { "mynamespace.save_to_db" })
 		end)
 
