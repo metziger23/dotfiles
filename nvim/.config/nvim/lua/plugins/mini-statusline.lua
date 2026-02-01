@@ -1,3 +1,7 @@
+local function substitute_with_ssd(input_str)
+	return input_str:gsub("^/Volumes/ADATA%-LEGEND%-960%-MAX/", "~/ssd/")
+end
+
 local function override_hl()
 	local filename_hl = { bg = "#181825", fg = "#CDD6F5" }
 	local inactive_hl = { bg = "#181825", fg = "#89B4FB" }
@@ -42,11 +46,11 @@ local function get_noice_status(str_callback, cond_callback, hl)
 end
 
 local function get_cwd()
-	return vim.fn.fnamemodify(vim.fn.getcwd(), ":~")
+	return substitute_with_ssd(vim.fn.fnamemodify(vim.fn.getcwd(), ":~"))
 end
 
 local function get_relative_filename()
-	return vim.fn.expand("%:.")
+	return substitute_with_ssd(vim.fn.expand("%:."))
 end
 
 return {
