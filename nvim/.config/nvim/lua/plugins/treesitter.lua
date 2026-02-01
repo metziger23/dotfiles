@@ -19,6 +19,7 @@ return {
 				"just",
 				"json",
 				"python",
+				"make",
 			},
 			highlight = { enable = true },
 			indent = { enable = true },
