@@ -12,6 +12,7 @@
 @define-color brblk    #45475a;
 @define-color white    #f5e0dc;
 @define-color lavender #b4befe; 
+@define-color pink     #f5c2e7; 
  
 
 * {
@@ -106,14 +107,19 @@ window#waybar {
 }
 
 #network {
-    color: @blu;
-    border-bottom: 4px solid @blu;
+    color: @pink;
+    border-bottom: 4px solid @pink;
 }
 
 #language {
   color: @red;
   border-bottom: 4px solid @red;
 } 
+
+#submap {
+  color: @blu;
+  border-bottom: 4px solid @blu; 
+}  
 
 #pulseaudio {
   color: @yellow;
