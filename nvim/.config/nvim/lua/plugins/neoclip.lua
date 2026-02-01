@@ -1,5 +1,6 @@
 return {
 	"AckslD/nvim-neoclip.lua",
+  enaled = false,
 	dependencies = {
 		{ "kkharji/sqlite.lua", module = "sqlite" },
 		-- you'll need at least one of these
