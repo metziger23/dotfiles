@@ -22,7 +22,9 @@ awful.spawn.with_shell(
 awful.spawn.with_shell('xinput set-prop 9 "libinput Tapping Enabled" 1')
 awful.spawn.with_shell('xinput set-prop 10 "libinput Tapping Enabled" 1')
 
-awful.spawn.with_shell("thunar --daemon")
+awful.spawn.with_shell("thunar --daemon &")
+
+awful.spawn.with_shell("greenclip daemon &")
 
 require("awful.autofocus")
 -- Widget and layout library
@@ -294,6 +296,13 @@ root.buttons(gears.table.join(
 
 -- {{{ Key bindings
 globalkeys = gears.table.join(
+
+	awful.key({ modkey }, "c", function()
+		awful.spawn.with_shell(
+			"greenclip print | grep . | dmenu -i -l 10 -p clipboard | xargs -r -d'\n' -I '{}' greenclip print '{}'"
+		)
+	end, { description = "clipboard", group = "awesome" }),
+
 	awful.key({ modkey }, "s", hotkeys_popup.show_help, { description = "show help", group = "awesome" }),
 	awful.key({ modkey }, "Left", awful.tag.viewprev, { description = "view previous", group = "tag" }),
 	awful.key({ modkey }, "Right", awful.tag.viewnext, { description = "view next", group = "tag" }),
@@ -372,8 +381,8 @@ globalkeys = gears.table.join(
 
 	-- Prompt
 	awful.key({ modkey }, "r", function()
-		awful.screen.focused().mypromptbox:run()
-	end, { description = "run prompt", group = "launcher" }),
+		awful.spawn.with_shell("dmenu_run")
+	end, { description = "run dmenu", group = "launcher" }),
 
 	awful.key({ modkey }, "x", function()
 		awful.prompt.run({
