@@ -5,7 +5,8 @@ return {
 	config = function()
 		require("stay-centered").setup({
 			-- Add any configurations here, like skip_filetypes if needed
-			skip_filetypes = { "kitty-scrollback" },
+      -- NOTE: I have issues with snacks_picker_list and flash
+			skip_filetypes = { "kitty-scrollback", "snacks_picker_list" },
 			-- fix for https://github.com/arnamak/stay-centered.nvim/issues/23
 			allow_scroll_move = false,
 		})
