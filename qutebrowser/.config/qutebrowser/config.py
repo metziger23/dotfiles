@@ -60,6 +60,7 @@ config.bind("cn", "tab-only --prev", mode="normal")  # close next
 
 
 c.fonts.default_size = "16px"
+c.fonts.default_family = "Fira Code"
 
 en_keys = "qwfpbjluy'arstgmneiozxcdvkh,./" + 'QWFPBJLUY"ARSTGMNEIOZXCDVKH<>?'
 ru_keys = "цклбйъыяэфзвнтдиаоесхпрмг'ьуюш" + 'ЦКЛБЙЪЫЯЭФЗВНТДИАОЕСХПРМГ"ЬУЮШ'
