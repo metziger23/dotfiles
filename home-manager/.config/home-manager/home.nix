@@ -113,4 +113,10 @@
   xdg.configFile."environment.d/envvars.conf".text = ''
     PATH="$HOME/.nix-profile/bin:$PATH"
   '';
+
+  home.pointerCursor = {
+    name = "DMZ-Black";
+    package = pkgs.vanilla-dmz; 
+    size = 48;
+  }; 
 }
