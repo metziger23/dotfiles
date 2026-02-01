@@ -1,4 +1,5 @@
 return {
+	enabled = false,
 	"dstein64/nvim-scrollview",
 	event = { "BufReadPre", "BufNewFile" },
 	after = "gitsigns.nvim",
