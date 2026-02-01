@@ -22,6 +22,8 @@ if status is-interactive
     # do things for macOS
   else if test "$os" = Linux
     # do things for Linux
+    set -x QT_QPA_PLATFORMTHEME "qt5ct"
+    set -x QT_STYLE_OVERRIDE "kvantum"  
   else
     # do things for other operating systems
   end
