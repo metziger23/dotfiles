@@ -6,6 +6,11 @@ return {
 		priority = 1000,
 		config = function()
 			require("catppuccin").setup({
+				custom_highlights = function(colors)
+					return {
+						WinSeparator = { fg = colors.overlay1 },
+					}
+				end,
 				floating_border = "on",
 				integrations = {},
 				color_overrides = {
