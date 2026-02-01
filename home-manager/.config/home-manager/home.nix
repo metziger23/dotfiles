@@ -1,16 +1,8 @@
-{ config, pkgs, lib, inputs, nixGL, ... }:
-{
-  nixpkgs.overlays = [
-    (import (builtins.fetchTarball {
-      url = "https://github.com/nix-community/neovim-nightly-overlay/archive/master.tar.gz";
-      # nix-prefetch-url --unpack "https://github.com/nix-community/neovim-nightly-overlay/archive/master.tar.gz" 
-      # sha256 = "1wi7754sa5xpcqfx3cs148awj6inib0jrrvy1rwvywr3vl5qijjz";
-    }))
-  ];
+{ config, pkgs, lib, inputs, nixGL, ... }: {
   targets.genericLinux.nixGL = {
     packages = nixGL.packages; # you must set this or everything will be a noop
-      defaultWrapper = "mesa"; # choose from nixGL options depending on GPU
-  };  
+    defaultWrapper = "mesa"; # choose from nixGL options depending on GPU
+  };
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "mikhail";
@@ -28,14 +20,15 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
+    calcure
     bear
-    haskellPackages.greenclip 
-    (config.lib.nixGL.wrap pkgs.localsend)  
-    (config.lib.nixGL.wrap pkgs.kitty) 
+    haskellPackages.greenclip
+    (config.lib.nixGL.wrap pkgs.localsend)
+    (config.lib.nixGL.wrap pkgs.kitty)
     autotiling # for i3 wm
-    (config.lib.nixGL.wrap pkgs.qtcreator)  
+    (config.lib.nixGL.wrap pkgs.qtcreator)
     android-file-transfer
-    adbfs-rootless 
+    adbfs-rootless
     just
     rofi
     bat
@@ -49,10 +42,10 @@
     ripgrep
     delta
     yazi
-    neovim  # This will be available thanks to the overlay 
+    neovim
     neovim-remote
     xkb-switch
-    (config.lib.nixGL.wrap pkgs.qutebrowser) 
+    (config.lib.nixGL.wrap pkgs.qutebrowser)
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
@@ -115,7 +108,7 @@
 
   home.pointerCursor = {
     name = "DMZ-Black";
-    package = pkgs.vanilla-dmz; 
+    package = pkgs.vanilla-dmz;
     size = 48;
-  }; 
+  };
 }
