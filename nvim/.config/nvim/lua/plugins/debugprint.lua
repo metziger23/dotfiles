@@ -46,7 +46,7 @@ return {
 			local default_result = default_display_counter()
 			local default_result_number = tonumber(default_result:match("%[(%d+)%]"))
 			---@diagnostic disable-next-line: param-type-mismatch
-			local color_number = math.fmod(default_result_number, #colors)
+			local color_number = math.fmod(default_result_number, #colors) + 1
 			return colors[color_number]
 		end
 
