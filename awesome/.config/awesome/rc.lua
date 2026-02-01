@@ -26,7 +26,7 @@ awful.spawn.with_shell("thunar --daemon &")
 
 awful.spawn.with_shell("greenclip daemon &")
 
-awful.spawn.with_shell("flameshot &") 
+awful.spawn.with_shell("flameshot &")
 
 require("awful.autofocus")
 -- Widget and layout library
@@ -402,15 +402,7 @@ globalkeys = gears.table.join(
 		awful.spawn.with_shell(
 			"greenclip print | grep . | dmenu -i -l 10 -p clipboard | xargs -r -d'\n' -I '{}' greenclip print '{}'"
 		)
-	end, { description = "clipboard", group = "other" }),
-
-	-- Restore minimized (moved from clientkeys to globalkeys)
-	awful.key({ modkey, "Shift" }, "a", function()
-		local c = awful.client.restore()
-		if c then
-			c:emit_signal("request::activate", "key.unminimize", { raise = true })
-		end
-	end, { description = "restore minimized", group = "client" })
+	end, { description = "clipboard", group = "other" })
 )
 
 clientkeys = gears.table.join(
@@ -439,6 +431,12 @@ clientkeys = gears.table.join(
 	awful.key({ modkey, "Shift" }, "n", function(c)
 		c.minimized = true
 	end, { description = "minimize", group = "client" }),
+  awful.key({ modkey, "Shift" }, "a", function()
+    local c = awful.client.restore()
+    if c then
+      c:emit_signal("request::activate", "key.unminimize", { raise = true })
+    end
+  end, { description = "restore minimized", group = "client" }),
 	awful.key({ modkey, "Shift" }, "m", function(c)
 		c.maximized = not c.maximized
 		c:raise()
