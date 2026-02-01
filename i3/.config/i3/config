@@ -21,8 +21,12 @@ font pango:Fira Code 10
 #font pango:DejaVu Sans Mono 8
 
 exec --no-startup-id xrandr --output DisplayPort-0 --primary --mode 3840x2160 --pos 0x0 --output HDMI-A-0 --mode 1920x1200 --pos 960x2160
-exec_always --no-startup-id autotiling  
+exec_always --no-startup-id autotiling &
 exec --no-startup-id picom -b &
+
+# TODO: this is probably not the best way to do this
+exec --no-startup-id xset -dpms
+exec --no-startup-id xset s off
 
 exec --no-startup-id thunar --daemon &
 exec --no-startup-id greenclip daemon &
@@ -34,7 +38,7 @@ exec --no-startup-id feh --bg-fill ~/Pictures/black_wallpaper.png
 
 # Start XDG autostart .desktop files using dex. See also
 # https://wiki.archlinux.org/index.php/XDG_Autostart 
-# exec --no-startup-id dex --autostart --environment i3
+exec --no-startup-id dex --autostart --environment i3
 
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
 # they are included here as an example. Modify as you see fit.
@@ -234,8 +238,27 @@ bindsym $mod+Control+h move container to workspace $ws_h
 bindsym $mod+Shift+j reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+m restart
+
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+k exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"  
+# bindsym $mod+Shift+k exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"  
+
+set $Locker i3lock && sleep 1 
+
+set $mode_system System (l) lock, (e) exit-i3, (d) suspend, (h) hibernate, (r) reboot, (s) shutdown
+mode "$mode_system" {
+    bindsym l exec --no-startup-id $Locker, mode "default"
+    bindsym e exec --no-startup-id i3-msg exit, mode "default"
+    bindsym d exec --no-startup-id $Locker && systemctl suspend, mode "default"
+    bindsym h exec --no-startup-id $Locker && systemctl hibernate, mode "default"
+    bindsym r exec --no-startup-id systemctl reboot, mode "default"
+    bindsym s exec --no-startup-id systemctl poweroff -i, mode "default"
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+    bindsym $mod+Shift+k mode "default"
+} 
+
+bindsym $mod+Shift+k mode "$mode_system" 
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -276,10 +299,11 @@ bar {
 assign [class="^TelegramDesktop$"] → $ws_a 
 assign [class="^Mattermost$"] → $ws_r  
 assign [class="^qutebrowser$"] → $ws_s  
+assign [class="^ktalk$"] → $ws_g
 
 assign [class="^2GIS$"] → $ws_d
 
-exec --no-startup-id i3-msg 'workspace $ws_a; exec telegram-desktop'
-exec --no-startup-id i3-msg 'workspace $ws_r; exec mattermost-desktop'
+# exec --no-startup-id i3-msg 'workspace $ws_a; exec telegram-desktop'
+# exec --no-startup-id i3-msg 'workspace $ws_r; exec mattermost-desktop'
 exec --no-startup-id i3-msg 'workspace $ws_s; exec qutebrowser'
 exec --no-startup-id i3-msg 'workspace $ws_t; exec kitty' 
