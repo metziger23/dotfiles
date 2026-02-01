@@ -20,6 +20,12 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
+  
+  kdePackages.qtdeclarative 
+  haskellPackages.greenclip
+    fastfetch
+    rofi-rbw
+    rbw
     calcure
     bear
     haskellPackages.greenclip
@@ -27,13 +33,13 @@
     (config.lib.nixGL.wrap pkgs.kitty)
     autotiling # for i3 wm
     (config.lib.nixGL.wrap pkgs.qtcreator)
-    android-file-transfer
-    adbfs-rootless
+    # android-file-transfer
+    # adbfs-rootless
     just
     rofi
     bat
     btop
-    fish
+    # fish
     lazygit
     fzf
     zoxide
@@ -106,9 +112,9 @@
     PATH="$HOME/.nix-profile/bin:$PATH"
   '';
 
-  home.pointerCursor = {
-    name = "DMZ-Black";
-    package = pkgs.vanilla-dmz;
-    size = 48;
-  };
+  # home.pointerCursor = {
+  #   name = "DMZ-Black";
+  #   package = pkgs.vanilla-dmz;
+  #   size = 48;
+  # };
 }
