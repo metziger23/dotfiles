@@ -23,7 +23,6 @@ return {
 
 		-- enable mason and configure icons
 		mason.setup({
-			automatic_enable = false,
 			ui = {
 				icons = {
 					package_installed = "✓",
@@ -35,6 +34,7 @@ return {
 		})
 
 		mason_lspconfig.setup({
+			automatic_enable = false,
 			-- list of servers for mason to install
 			ensure_installed = {
 				"lua_ls",
