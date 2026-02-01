@@ -10,18 +10,33 @@
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
 set $mod Mod4
+set $altkey Mod1
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:monospace 8
+font pango:Fira Code 10
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
 #font pango:DejaVu Sans Mono 8
 
+exec --no-startup-id xrandr --output DisplayPort-0 --primary --mode 3840x2160 --pos 0x0 --output HDMI-A-0 --mode 1920x1200 --pos 960x2160
+exec_always --no-startup-id autotiling  
+exec --no-startup-id picom -b &
+
+exec --no-startup-id setxkbmap -layout us,ru -option 'grp:shifts_toggle' 
+exec --no-startup-id xset r rate 200 60
+exec --no-startup-id xinput set-prop "Bastard Keyboards Charybdis (4x6) Splinky Mouse" "libinput Accel Speed" -0.7
+exec --no-startup-id xinput set-prop "Bastard Keyboards Charybdis (4x6) Splinky System Control" "libinput Accel Speed" -0.7
+exec --no-startup-id xinput set-prop 9 "libinput Tapping Enabled" 1
+exec --no-startup-id xinput set-prop 10 "libinput Tapping Enabled" 1
+exec --no-startup-id thunar --daemon &
+exec --no-startup-id greenclip daemon &
+exec --no-startup-id flameshot &
+
 # Start XDG autostart .desktop files using dex. See also
-# https://wiki.archlinux.org/index.php/XDG_Autostart
-exec --no-startup-id dex --autostart --environment i3
+# https://wiki.archlinux.org/index.php/XDG_Autostart 
+# exec --no-startup-id dex --autostart --environment i3
 
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
 # they are included here as an example. Modify as you see fit.
@@ -32,10 +47,13 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
-exec --no-startup-id nm-applet
+# exec --no-startup-id nm-applet
+
+# NOTE: to remove title bars 
+default_border pixel 1  
 
 # Use pactl to adjust volume in PulseAudio.
-set $refresh_i3status killall -SIGUSR1 i3status
+set $refresh_i3status exec pkill -SIGRTMIN+10 i3blocks
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
@@ -49,13 +67,13 @@ floating_modifier $mod
 tiling_drag modifier titlebar
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec kitty
 
 # kill focused window
-bindsym $mod+Shift+q kill
+bindsym $mod+Shift+w kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec --no-startup-id dmenu_run
+bindsym $altkey+$mod+d exec --no-startup-id dmenu_run
 # A more modern dmenu replacement is rofi:
 # bindcode $mod+40 exec "rofi -modi drun,run -show drun"
 # There also is i3-dmenu-desktop which only displays applications shipping a
@@ -63,10 +81,10 @@ bindsym $mod+d exec --no-startup-id dmenu_run
 # bindcode $mod+40 exec --no-startup-id i3-dmenu-desktop
 
 # change focus
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+l focus up
-bindsym $mod+semicolon focus right
+bindsym $mod+n focus left
+bindsym $mod+e focus down
+bindsym $mod+i focus up
+bindsym $mod+o focus right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -75,30 +93,30 @@ bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
 # move focused window
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+colon move right
+bindsym $mod+Control+n move left
+bindsym $mod+Control+e move down
+bindsym $mod+Control+i move up
+bindsym $mod+Control+o move right
 
 # alternatively, you can use the cursor keys:
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
+bindsym $mod+Control+Left move left
+bindsym $mod+Control+Down move down
+bindsym $mod+Control+Up move up
+bindsym $mod+Control+Right move right
 
 # split in horizontal orientation
-bindsym $mod+h split h
+bindsym $altkey+$mod+h split h
 
 # split in vertical orientation
-bindsym $mod+v split v
+bindsym $altkey+$mod+v split v
 
 # enter fullscreen mode for the focused container
-bindsym $mod+f fullscreen toggle
+bindsym $altkey+$mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
+bindsym $altkey+$mod+s layout stacking
+bindsym $altkey+$mod+w layout tabbed
+bindsym $altkey+$mod+e layout toggle split
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
@@ -107,47 +125,110 @@ bindsym $mod+Shift+space floating toggle
 bindsym $mod+space focus mode_toggle
 
 # focus the parent container
-bindsym $mod+a focus parent
+bindsym $altkey+$mod+a focus parent
 
 # focus the child container
 #bindsym $mod+d focus child
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 "1"
-set $ws2 "2"
-set $ws3 "3"
-set $ws4 "4"
-set $ws5 "5"
-set $ws6 "6"
-set $ws7 "7"
-set $ws8 "8"
-set $ws9 "9"
-set $ws10 "10"
 
-# switch to workspace
-bindsym $mod+1 workspace number $ws1
-bindsym $mod+2 workspace number $ws2
-bindsym $mod+3 workspace number $ws3
-bindsym $mod+4 workspace number $ws4
-bindsym $mod+5 workspace number $ws5
-bindsym $mod+6 workspace number $ws6
-bindsym $mod+7 workspace number $ws7
-bindsym $mod+8 workspace number $ws8
-bindsym $mod+9 workspace number $ws9
-bindsym $mod+0 workspace number $ws10
+set $ws_a "1:a"
+set $ws_r "2:r"
+set $ws_s "3:s"
+set $ws_t "4:t"
+set $ws_g "5:g"
+set $ws_q "6:q"
+set $ws_w "7:w"
+set $ws_f "8:f"
+set $ws_p "9:p"
+set $ws_b "10:b"
+set $ws_j "11:j"
+set $ws_l "12:l"
+set $ws_u "13:u"
+set $ws_y "14:y"
+set $ws_m "15:m" 
+set $ws_z "16:z"
+set $ws_x "17:x"
+set $ws_c "18:c"
+set $ws_d "19:d"
+set $ws_v "20:v"
+set $ws_k "21:k"
+set $ws_h "22:h"  
+
+workspace $ws_a output DisplayPort-0
+workspace $ws_r output DisplayPort-0
+workspace $ws_s output DisplayPort-0
+workspace $ws_t output DisplayPort-0
+workspace $ws_g output DisplayPort-0
+workspace $ws_q output DisplayPort-0
+workspace $ws_w output DisplayPort-0
+workspace $ws_f output DisplayPort-0
+workspace $ws_p output DisplayPort-0
+workspace $ws_b output DisplayPort-0
+workspace $ws_j output DisplayPort-0
+workspace $ws_l output DisplayPort-0
+workspace $ws_u output DisplayPort-0
+workspace $ws_y output DisplayPort-0
+workspace $ws_m output DisplayPort-0
+workspace $ws_z output HDMI-A-0
+workspace $ws_x output HDMI-A-0
+workspace $ws_c output HDMI-A-0
+workspace $ws_d output HDMI-A-0
+workspace $ws_v output HDMI-A-0
+workspace $ws_k output HDMI-A-0
+workspace $ws_h output HDMI-A-0
+
+
+#switch to workspace
+bindsym $mod+a workspace $ws_a
+bindsym $mod+r workspace $ws_r
+bindsym $mod+s workspace $ws_s
+bindsym $mod+t workspace $ws_t
+bindsym $mod+g workspace $ws_g
+bindsym $mod+q workspace $ws_q
+bindsym $mod+w workspace $ws_w
+bindsym $mod+f workspace $ws_f
+bindsym $mod+p workspace $ws_p
+bindsym $mod+b workspace $ws_b
+bindsym $mod+j workspace $ws_j
+bindsym $mod+l workspace $ws_l
+bindsym $mod+u workspace $ws_u
+bindsym $mod+y workspace $ws_y
+bindsym $mod+m workspace $ws_m
+bindsym $mod+z workspace $ws_z
+bindsym $mod+x workspace $ws_x
+bindsym $mod+c workspace $ws_c
+bindsym $mod+d workspace $ws_d
+bindsym $mod+v workspace $ws_v
+bindsym $mod+k workspace $ws_k
+bindsym $mod+h workspace $ws_h
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace number $ws1
-bindsym $mod+Shift+2 move container to workspace number $ws2
-bindsym $mod+Shift+3 move container to workspace number $ws3
-bindsym $mod+Shift+4 move container to workspace number $ws4
-bindsym $mod+Shift+5 move container to workspace number $ws5
-bindsym $mod+Shift+6 move container to workspace number $ws6
-bindsym $mod+Shift+7 move container to workspace number $ws7
-bindsym $mod+Shift+8 move container to workspace number $ws8
-bindsym $mod+Shift+9 move container to workspace number $ws9
-bindsym $mod+Shift+0 move container to workspace number $ws10
+bindsym $mod+Control+a move container to workspace $ws_a
+bindsym $mod+Control+r move container to workspace $ws_r
+bindsym $mod+Control+s move container to workspace $ws_s
+bindsym $mod+Control+t move container to workspace $ws_t
+bindsym $mod+Control+g move container to workspace $ws_g
+bindsym $mod+Control+q move container to workspace $ws_q
+bindsym $mod+Control+w move container to workspace $ws_w
+bindsym $mod+Control+f move container to workspace $ws_f
+bindsym $mod+Control+p move container to workspace $ws_p
+bindsym $mod+Control+b move container to workspace $ws_b
+bindsym $mod+Control+j move container to workspace $ws_j
+bindsym $mod+Control+l move container to workspace $ws_l
+bindsym $mod+Control+u move container to workspace $ws_u
+bindsym $mod+Control+y move container to workspace $ws_y
+bindsym $mod+Control+m move container to workspace $ws_m
+
+bindsym $mod+Control+z move container to workspace $ws_z
+bindsym $mod+Control+x move container to workspace $ws_x
+bindsym $mod+Control+c move container to workspace $ws_c
+bindsym $mod+Control+d move container to workspace $ws_d
+bindsym $mod+Control+v move container to workspace $ws_v
+bindsym $mod+Control+k move container to workspace $ws_k
+bindsym $mod+Control+h move container to workspace $ws_h
+
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -181,10 +262,24 @@ mode "resize" {
         bindsym $mod+r mode "default"
 }
 
-bindsym $mod+r mode "resize"
+bindsym $altkey+$mod+r mode "resize"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        status_command i3status
+      position top 
+      strip_workspace_numbers yes 
+      status_command SCRIPT_DIR=~/.config/i3blocks/scripts/ i3blocks
+      tray_output primary
 }
+
+assign [class="^TelegramDesktop$"] → $ws_a 
+assign [class="^Mattermost$"] → $ws_r  
+assign [class="^qutebrowser$"] → $ws_s  
+
+assign [class="^2GIS$"] → $ws_d
+
+exec --no-startup-id i3-msg 'workspace $ws_a; exec telegram-desktop'
+exec --no-startup-id i3-msg 'workspace $ws_r; exec mattermost-desktop'
+exec --no-startup-id i3-msg 'workspace $ws_s; exec qutebrowser'
+exec --no-startup-id i3-msg 'workspace $ws_t; exec kitty' 
