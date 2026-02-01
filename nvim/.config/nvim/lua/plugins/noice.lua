@@ -51,6 +51,10 @@ return {
 			require("noice").redirect(vim.fn.getcmdline())
 		end, { desc = "Redirect Cmdline" })
 
+    vim.keymap.set("n", "<leader>m", function()
+      require("noice").cmd("all")
+    end, { desc = "Messages" }) 
+
 		-- NOTE: not needed for now since messages are shown in the bottom right corner
 		-- vim.keymap.set({ "n", "v", "x", "s", "i", "c", "o", "l" }, "<M-n>", function()
 		-- 	require("noice").cmd("dismiss")
