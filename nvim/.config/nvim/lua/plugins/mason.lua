@@ -40,6 +40,7 @@ return {
 				"lua_ls",
 				"bashls",
 				"clangd",
+				"qmlls",
 			},
 			-- auto-install configured servers (with lspconfig)
 			automatic_installation = true, -- not the same as ensure_installed
