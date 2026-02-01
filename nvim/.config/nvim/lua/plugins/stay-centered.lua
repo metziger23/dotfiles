@@ -1,5 +1,5 @@
 return {
-	"arnamak/stay-centered.nvim",
+	"metziger23/stay-centered.nvim",
 	lazy = false,
 	-- enabled = false,
 	config = function()
