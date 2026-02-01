@@ -17,6 +17,7 @@ return {
 				"markdown",
 				"qmljs",
 				"qmldir",
+				"javascript",
 				"just",
 				"json",
 				"python",
