@@ -35,11 +35,9 @@ markup=none
 # The second parameter overrides the mixer selection
 # See the script for details.
 
-[xkb_layout]
-# NOTE: use my version and not the one in $SCRIPT_DIR
-command=$SCRIPT_DIR/../xkb_layout
-interval=persist
-
+[kbdd_layout]
+command=$SCRIPT_DIR/kbdd_layout/kbdd_layout
+interval=persist 
 
 [volume]
 #label=♪
