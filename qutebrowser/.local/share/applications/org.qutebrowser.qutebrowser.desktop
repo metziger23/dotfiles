@@ -42,10 +42,10 @@ GenericName[uk]=Навігатор Тенет瀏覽器
 Comment=A keyboard-driven, vim-like browser based on Python and Qt
 Comment[de]=Ein Tastatur-gesteuerter, vim-ähnlicher Browser basierend auf Python und Qt
 Comment[it]= Un browser web vim-like utilizzabile da tastiera basato su Python e Qt
-Icon=/home/mikhail/qutebrowser/qutebrowser/icons/qutebrowser-256x256.png
+Icon=/home/mikhail/.nix-profile/lib/python3.13/site-packages/qutebrowser/icons/qutebrowser-256x256.png
 Type=Application
 Categories=Network;WebBrowser;
-Exec=/home/mikhail/.local/bin/qutebrowser --untrusted-args %u
+Exec=/home/mikhail/.nix-profile/bin/qutebrowser --untrusted-args %u
 Terminal=false
 StartupNotify=true
 MimeType=text/html;text/xml;application/xhtml+xml;application/xml;application/rdf+xml;image/gif;image/webp;image/jpeg;image/png;x-scheme-handler/http;x-scheme-handler/https;x-scheme-handler/qute;
@@ -102,7 +102,7 @@ Name[th]=หน้าต่างใหม่
 Name[tr]=Yeni Pencere
 Name[uk]=Нове вікно
 Name[vi]=Cửa sổ Mới
-Exec=/home/mikhail/.local/bin/qutebrowser
+Exec=/home/mikhail/.nix-profile/bin/qutebrowser
 
 [Desktop Action preferences]
 Name=Preferences
@@ -175,5 +175,5 @@ Name[vi]=Tùy thích
 Name[zh_CN]=首选项
 Name[zh_HK]=偏好設定
 Name[zh_TW]=偏好設定
-Exec=/home/mikhail/.local/bin/qutebrowser "qute://settings"
+Exec=/home/mikhail/.nix-profile/bin/qutebrowser "qute://settings"
 
