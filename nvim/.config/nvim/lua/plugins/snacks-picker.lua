@@ -67,7 +67,8 @@ local arrow_keymaps_for_pinning = {
 }
 
 return {
-	"folke/snacks.nvim",
+	"metziger23/snacks.nvim",
+	branch = "fix-snacks-picker-insert",
 	opts = {
 		picker = {
 			-- NOTE: to be able to reuse window opened from oil

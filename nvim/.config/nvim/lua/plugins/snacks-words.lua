@@ -1,5 +1,6 @@
 return {
-	"folke/snacks.nvim",
+	"metziger23/snacks.nvim",
+	branch = "fix-snacks-picker-insert",
 	opts = {
 		words = {},
 	},

@@ -63,7 +63,7 @@ return {
 
 		-- "ibhagwan/fzf-lua", -- Optional: If you want to use the `:Debugprint search` command with fzf-lua
 		-- "nvim-telescope/telescope.nvim", -- Optional: If you want to use the `:Debugprint search` command with telescope.nvim
-		"folke/snacks.nvim", -- Optional: If you want to use the `:Debugprint search` command with snacks.nvim
+		{ "metziger23/snacks.nvim", branch = "fix-snacks-picker-insert" }, -- Optional: If you want to use the `:Debugprint search` command with snacks.nvim
 	},
 
 	lazy = false, -- Required to make line highlighting work before debugprint is first used

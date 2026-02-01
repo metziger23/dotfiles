@@ -24,7 +24,7 @@ return {
 		{ "antosha417/nvim-lsp-file-operations", config = true },
 		"mason.nvim",
 		"williamboman/mason-lspconfig.nvim",
-		"folke/snacks.nvim",
+		{ "metziger23/snacks.nvim", branch = "fix-snacks-picker-insert" },
 	},
 	config = function()
 		-- NOTE: gives deprecation warning and probably not needed

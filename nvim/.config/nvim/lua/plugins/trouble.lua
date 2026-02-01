@@ -3,7 +3,8 @@ return {
 	cmd = { "Trouble" },
 	opts = { use_diagnostic_signs = true },
 	specs = {
-		"folke/snacks.nvim",
+		"metziger23/snacks.nvim",
+		branch = "fix-snacks-picker-insert",
 		opts = function(_, opts)
 			return vim.tbl_deep_extend("force", opts or {}, {
 				picker = {

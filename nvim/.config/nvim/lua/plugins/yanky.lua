@@ -3,7 +3,7 @@ return {
 	enabled = false,
 	dependencies = {
 		{ "kkharji/sqlite.lua" },
-		{ "folke/snacks.nvim" },
+		{ { "metziger23/snacks.nvim", branch = "fix-snacks-picker-insert" } },
 	},
 	keys = {
 		{
