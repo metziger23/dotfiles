@@ -40,8 +40,8 @@ local function put_linewise_with_filter(regname, pastecmd)
 	local reg_type = vim.fn.getregtype(regname)
 	local reg_content = vim.fn.getreg(regname)
 	reg_content = reg_content:gsub("\n+$", "")
-	reg_content = reg_content:gsub("%s*$", " ")
-	reg_content = reg_content:gsub("^%s*", " ")
+	-- reg_content = reg_content:gsub("%s*$", " ")
+	-- reg_content = reg_content:gsub("^%s*", " ")
 	vim.fn.setreg(regname, reg_content, "l") -- NOTE: "l" for linewise
 	vim.cmd('normal "' .. regname .. pastecmd)
 	vim.cmd("silent '[,']normal! ==") -- NOTE: filtering
