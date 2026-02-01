@@ -51,6 +51,8 @@ local qt_like = {
 	right_var = ";",
 }
 
+local search_helper_tag = "N1ZpIq"
+
 return {
 	"andrewferrier/debugprint.nvim", -- opts = {},
 
@@ -75,7 +77,7 @@ return {
 			local default_result_number = tonumber(default_result:match("%[(%d+)%]"))
 			---@diagnostic disable-next-line: param-type-mismatch
 			local color_number = math.fmod(default_result_number, #colors) + 1
-			return "N1ZpIq " .. colors[color_number]
+			return search_helper_tag .. " " .. colors[color_number]
 		end
 
 		require("debugprint").setup({
@@ -116,5 +118,7 @@ return {
 				["qml"] = js_like,
 			},
 		})
+
+		vim.fn.setreg("n", search_helper_tag)
 	end,
 }
