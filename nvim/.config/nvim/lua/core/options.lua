@@ -60,5 +60,10 @@ opt.langmap = ru_upper .. ";" .. en_upper .. "," .. ru_lower .. ";" .. en_lower
 
 opt.exrc = true
 
--- TODO: try increasing to 1000000 when moving to 0.12
-opt.scrollback = 100000
+local version = vim.version()
+
+if version.major == 0 and version.minor >= 12 then
+  opt.scrollback = 1000000
+else
+  opt.scrollback = 100000
+end
