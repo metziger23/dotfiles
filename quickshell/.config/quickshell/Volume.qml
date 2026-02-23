@@ -8,7 +8,8 @@ import QtQuick.Controls
 StyledText {
     id: root
 
-    property var sink: Pipewire.defaultAudioSink
+    readonly property PwNode sink: Pipewire.defaultAudioSink
+    readonly property PwNode source: Pipewire.defaultAudioSource
 
     color: Colors.yellow
     text: {
@@ -17,14 +18,11 @@ StyledText {
                 "muted" : `${Math.round(sink.audio.volume * 100)}%`)
         }
 
-        return "";
+        return "vol: --%";
     }
 
-    PwObjectTracker { 
-        objects: [Pipewire.defaultAudioSink]
-        onObjectsChanged: {
-            sink = Pipewire.defaultAudioSink
-        }
+    PwObjectTracker {
+        objects: [root.sink, root.source]
     }
 
     MouseArea {
