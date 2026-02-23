@@ -17,11 +17,31 @@ ShellRoot {
     signal updateSubmap(string data)
 
     Variants {
+        id: variants
+
+        readonly property string primaryScreenName: {
+            let largestScreenName = "";
+            let largestScreenSize = 0;
+            for (let i = 0; i < model.length; ++i) {
+                const screen = model[i];
+                const size = screen.width * screen.height;
+                if (size > largestScreenSize) {
+                    largestScreenSize = size;
+                    largestScreenName = screen.name;
+                }
+            }
+            return largestScreenName;
+        }
+
         model: Quickshell.screens
 
         PanelWindow {
             id: panelWindow
-            property var modelData
+
+            required property ShellScreen modelData
+            readonly property bool isPrimaryScreen:
+                screen.name === variants.primaryScreenName
+
             screen: modelData
 
             anchors {
@@ -75,6 +95,7 @@ ShellRoot {
                 anchors.right: parent.right
                 anchors.rightMargin: 10
                 height: parent.height
+                visible: isPrimaryScreen
                 spacing: 10
 
                 KeyboardLayout {
