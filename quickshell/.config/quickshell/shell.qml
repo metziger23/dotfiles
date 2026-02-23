@@ -98,6 +98,19 @@ ShellRoot {
                 visible: isPrimaryScreen
                 spacing: 10
 
+                Vpn {
+                    id: vpn
+
+                    Connections {
+                        target: timer
+                        function onTriggered() { vpn.setRunning(); }
+                    }
+                }
+
+                Separator {
+                    visible: vpn.visible
+                }
+
                 KeyboardLayout {
                     id: keyboardLayout
 
