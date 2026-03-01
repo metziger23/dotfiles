@@ -55,6 +55,7 @@ local search_helper_tag = "N1ZpIq"
 
 return {
 	"andrewferrier/debugprint.nvim", -- opts = {},
+   enabled = false,
 
 	dependencies = {
 		-- "echasnovski/mini.nvim", -- Optional: Needed for line highlighting (full mini.nvim plugin)

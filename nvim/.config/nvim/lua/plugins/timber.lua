@@ -37,6 +37,8 @@ local colors = {
 }
 -- stylua: ignore end
 
+local search_helper_tag = "N1ZpIq"
+
 return {
 	"metziger23/timber.nvim",
 	branch = "colored_tag",
@@ -173,7 +175,7 @@ return {
 
 					vim.cmd("wshada")
 
-					return string.format("N1ZpIq " .. color .. ": %s", ctx.log_position)
+					return string.format(search_helper_tag .. " " .. color .. ": %s", ctx.log_position)
 				end,
 				line_text = function(_)
 					return vim.trim(vim.fn.getline(".")):gsub('"', ""):sub(1, 50)
@@ -196,5 +198,15 @@ return {
 		vim.keymap.set({ "n", "v" }, "gli", function()
 			require("timber.actions").insert_log({ position = "above" })
 		end, { desc = "Insert log statement above" })
+
+    vim.keymap.set("n", "glt", function()
+		return require("timber.actions").insert_log({ position = "below", operator = true })
+    end, { expr = true, desc = "Insert log below operator"  })
+
+    vim.keymap.set("n", "gla", function()
+      return require("timber.actions").insert_log({ position = "above", operator = true })
+    end, { expr = true, desc = "Insert log above operator"  })
+
+    vim.fn.setreg("n", search_helper_tag)
 	end,
 }
