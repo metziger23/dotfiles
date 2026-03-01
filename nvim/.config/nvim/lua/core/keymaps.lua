@@ -36,33 +36,33 @@ vim.api.nvim_del_keymap("n", "grt")
 vim.keymap.set("x", "z/", "<C-\\><C-n>`</\\%V", { desc = "Search forward within visual selection" })
 vim.keymap.set("x", "z?", "<C-\\><C-n>`>?\\%V", { desc = "Search backward within visual selection" })
 
-local function put_linewise_with_filter(regname, pastecmd)
-	local reg_type = vim.fn.getregtype(regname)
-	local reg_content = vim.fn.getreg(regname)
-	reg_content = reg_content:gsub("\n+$", "")
-	-- reg_content = reg_content:gsub("%s*$", " ")
-	-- reg_content = reg_content:gsub("^%s*", " ")
-	vim.fn.setreg(regname, reg_content, "l") -- NOTE: "l" for linewise
-	vim.cmd('normal "' .. regname .. pastecmd)
-	vim.cmd("silent '[,']normal! ==") -- NOTE: filtering
-	vim.fn.setreg(regname, reg_content, reg_type)
-end
-
-vim.api.nvim_set_keymap("n", "<leader>P", "Put linewise before the cursor", {
-	noremap = true,
-	silent = true,
-	callback = function()
-		put_linewise_with_filter(vim.v.register, "P")
-	end,
-})
-
-vim.api.nvim_set_keymap("n", "<leader>p", "Put linewise after the cursor", {
-	noremap = true,
-	silent = true,
-	callback = function()
-		put_linewise_with_filter(vim.v.register, "p")
-	end,
-})
+-- local function put_linewise_with_filter(regname, pastecmd)
+-- 	local reg_type = vim.fn.getregtype(regname)
+-- 	local reg_content = vim.fn.getreg(regname)
+-- 	reg_content = reg_content:gsub("\n+$", "")
+-- 	-- reg_content = reg_content:gsub("%s*$", " ")
+-- 	-- reg_content = reg_content:gsub("^%s*", " ")
+-- 	vim.fn.setreg(regname, reg_content, "l") -- NOTE: "l" for linewise
+-- 	vim.cmd('normal "' .. regname .. pastecmd)
+-- 	vim.cmd("silent '[,']normal! ==") -- NOTE: filtering
+-- 	vim.fn.setreg(regname, reg_content, reg_type)
+-- end
+--
+-- vim.api.nvim_set_keymap("n", "<leader>P", "Put linewise before the cursor", {
+-- 	noremap = true,
+-- 	silent = true,
+-- 	callback = function()
+-- 		put_linewise_with_filter(vim.v.register, "P")
+-- 	end,
+-- })
+--
+-- vim.api.nvim_set_keymap("n", "<leader>p", "Put linewise after the cursor", {
+-- 	noremap = true,
+-- 	silent = true,
+-- 	callback = function()
+-- 		put_linewise_with_filter(vim.v.register, "p")
+-- 	end,
+-- })
 
 vim.keymap.set("n", "<leader>qn",
   "<cmd>mksession! /tmp/nvim-session.vim | restart source /tmp/nvim-session.vim<cr>",
