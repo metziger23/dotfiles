@@ -19,7 +19,7 @@ return {
 				close_on_exit = false,
 				quit_on_exit = "never",
 				hidden = true,
-				direction = "float",
+				direction = "horizontal",
 				open_on_start = false,
 				on_create = function(term)
 					local toggle_desc = "Toggleterm: Toggle Overseer"
@@ -33,6 +33,8 @@ return {
 							term:toggle()
 						end, on_open_keymap_opts)
 						vim.cmd("set number")
+            local lines_count = math.floor(vim.o.lines * 0.7)
+            vim.cmd("resize " .. lines_count)
 					end
 					vim.keymap.set("n", toggle_keymap, function()
 						term:toggle()
