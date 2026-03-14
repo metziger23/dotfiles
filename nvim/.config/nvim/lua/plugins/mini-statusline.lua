@@ -93,9 +93,14 @@ return {
 							require("noice").api.status.mode.has,
 							mode_hl
 						),
+						get_noice_status(
+							require("noice").api.status.search.get,
+							require("noice").api.status.search.has,
+							mode_hl
+						),
 						-- { hl = "MiniStatuslineFilename", strings = { get_cwd() } },
 						{ hl = "MiniStatuslineFileinfo", strings = { fileinfo } },
-						{ hl = mode_hl, strings = { search, location } },
+						{ hl = mode_hl, strings = { --[[ search, ]] location } },
 					})
 				end,
 			},
