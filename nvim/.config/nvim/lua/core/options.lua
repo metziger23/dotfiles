@@ -67,3 +67,5 @@ if version.major == 0 and version.minor >= 12 then
 else
   opt.scrollback = 100000
 end
+
+vim.opt.winborder = "rounded"
