@@ -8,7 +8,7 @@ local function single_hydra_setup(modes, desc, prev_keymap, next_keymap, prev_fu
 		name = "Go to next/previous " .. desc,
 		mode = modes,
 		config = {
-			hint = { type = "window" },
+			hint = false,
 			color = "pink",
 			buffer = opts and opts.buffer or nil,
 		},
