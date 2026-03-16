@@ -11,9 +11,9 @@ StyledText {
 
     color: Colors.blue
     text: {
-        if (currentLayout === "us_metziger") {
+        if (currentLayout === "us" || currentLayout === "us_metziger") {
             return "us";
-        } else if (currentLayout === "ru_metziger") {
+        } else if (currentLayout === "ru" || currentLayout === "ru_metziger") {
             return "ru";
         }
         return "";
