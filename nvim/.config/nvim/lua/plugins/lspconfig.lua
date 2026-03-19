@@ -27,6 +27,23 @@ return {
 		{ "metziger23/snacks.nvim", branch = "fix-snacks-picker-insert" },
 	},
 	config = function()
+		vim.lsp.start = (function()
+			local old_lsp_start = vim.lsp.start
+			return function(...)
+				local opt = select(2, ...)
+				if opt and opt.bufnr then
+					if
+						not vim.api.nvim_buf_is_valid(opt.bufnr)
+						or vim.b[opt.bufnr].fugitive_type
+						or vim.startswith(vim.api.nvim_buf_get_name(opt.bufnr), "fugitive://")
+					then
+						return
+					end
+				end
+				old_lsp_start(...)
+			end
+		end)()
+
 		-- NOTE: gives deprecation warning and probably not needed
 		-- Decorate floating windows
 		-- vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
