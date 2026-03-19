@@ -18,6 +18,7 @@ return {
 			"json",
 			"python",
 			"make",
+			"cmake",
 		}
 		require("nvim-treesitter").install(parsers)
 
