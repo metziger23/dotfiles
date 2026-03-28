@@ -69,3 +69,5 @@ else
 end
 
 vim.opt.winborder = "rounded"
+
+vim.opt.list = true
