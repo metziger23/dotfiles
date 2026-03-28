@@ -33,7 +33,7 @@ return {
 							term:toggle()
 						end, on_open_keymap_opts)
 						vim.cmd("set number")
-            local lines_count = math.floor(vim.o.lines * 0.7)
+            local lines_count = math.floor(vim.o.lines * 0.9)
             vim.cmd("resize " .. lines_count)
 					end
 					vim.keymap.set("n", toggle_keymap, function()
