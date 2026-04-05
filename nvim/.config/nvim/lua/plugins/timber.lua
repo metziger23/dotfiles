@@ -41,6 +41,7 @@ local search_helper_tag = "N1ZpIq"
 
 return {
 	"metziger23/timber.nvim",
+  enabled = false,
 	branch = "colored_tag",
 	version = "*", -- Use for stability; omit to use `main` branch for the latest features
 	event = "VeryLazy",

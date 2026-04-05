@@ -38,14 +38,14 @@ local colors = {
 -- stylua: ignore end
 
 local js_like = {
-	left = 'console.log("',
+	left = 'console.info("',
 	right = '")',
 	mid_var = '", ',
 	right_var = ")",
 }
 
 local qt_like = {
-	left = 'qDebug() << "',
+	left = 'qInfo() << "',
 	right = '";',
 	mid_var = '" << ',
 	right_var = ";",
@@ -55,7 +55,7 @@ local search_helper_tag = "N1ZpIq"
 
 return {
 	"andrewferrier/debugprint.nvim", -- opts = {},
-   enabled = false,
+	enabled = true,
 
 	dependencies = {
 		-- "echasnovski/mini.nvim", -- Optional: Needed for line highlighting (full mini.nvim plugin)
@@ -86,28 +86,28 @@ return {
 			print_tag = "",
 			keymaps = {
 				normal = {
-					plain_below = "<M-n>p",
-					plain_above = "<M-n>P",
-					variable_below = "<M-n>v",
-					variable_above = "<M-n>V",
-					variable_below_alwaysprompt = "",
-					variable_above_alwaysprompt = "",
-					surround_plain = "<M-n>sp",
-					surround_variable = "<M-n>sv",
-					surround_variable_alwaysprompt = "",
-					textobj_below = "<M-n>o",
-					textobj_above = "<M-n>O",
-					textobj_surround = "<M-n>so",
-					toggle_comment_debug_prints = "",
-					delete_debug_prints = "",
+					plain_below = "gls",
+					plain_above = "glr",
+					variable_below = "gle",
+					variable_above = "gli",
+					variable_below_alwaysprompt = "glf",
+					variable_above_alwaysprompt = "glw",
+					surround_plain = "gla",
+					surround_variable = "glc",
+					surround_variable_alwaysprompt = "glx",
+					textobj_below = "glu",
+					textobj_above = "gly",
+					textobj_surround = "glo",
+					toggle_comment_debug_prints = "gl<BS>",
+					delete_debug_prints = "gl<Del>",
 				},
 				insert = {
-					plain = "<M-n>p",
-					variable = "<M-n>v",
+					plain = "<C-G>e",
+					variable = "<C-G>i",
 				},
 				visual = {
-					variable_below = "<M-n>v",
-					variable_above = "<M-n>V",
+					variable_below = "gle",
+					variable_above = "gli",
 				},
 			},
 			filetypes = {
