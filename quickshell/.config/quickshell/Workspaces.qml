@@ -45,12 +45,15 @@ Row {
                 }
 
                 StyledText {
+                    property bool wasActive: false
+
                     height: parent.height
                     color: {
                         if (modelData.active) {
+                            wasActive = true;
                             return Colors.mauve;
                         }
-                        if (modelData.urgent) {
+                        if (modelData.urgent && wasActive) {
                             return Colors.red;
                         }
                         return Colors.rosewater;
@@ -58,8 +61,8 @@ Row {
                     text: modelData.name
                     style: mouseArea.containsMouse ? Text.Sunken : Text.Normal
                     styleColor: color
-                    underlineRectVisible: modelData.active 
-                        || modelData.urgent || mouseArea.containsMouse
+                    underlineRectVisible: wasActive &&
+                        (modelData.active || modelData.urgent || mouseArea.containsMouse)
                 }
 
                 MouseArea {
