@@ -27,6 +27,21 @@ local function get_last_task()
 	end
 end
 
+local function sigkill_job(jobstart_strategy)
+	if jobstart_strategy.job_id and jobstart_strategy.job_id > 0 then
+		local pid = vim.fn.jobpid(jobstart_strategy.job_id)
+		if pid and pid > 0 then
+			-- immediate kill
+			vim.uv.kill(pid, "sigkill")
+		else
+			-- fallback if pid is not available
+			vim.fn.jobstop(jobstart_strategy.job_id)
+		end
+
+		jobstart_strategy.job_id = nil
+	end
+end
+
 return {
 	"stevearc/overseer.nvim",
 	dependencies = { "kkharji/sqlite.lua" },
@@ -94,44 +109,20 @@ return {
 
 		local jobstart_strategy = require("overseer.strategy.jobstart")
 		function jobstart_strategy:sigkill()
-			if self.job_id and self.job_id > 0 then
-				local pid = vim.fn.jobpid(self.job_id)
-				if pid and pid > 0 then
-					-- immediate kill
-					vim.uv.kill(pid, "sigkill")
-				else
-					-- fallback if pid is not available
-					vim.fn.jobstop(self.job_id)
-				end
-
-				self.job_id = nil
-			end
+			sigkill_job(self)
 		end
 
 		function jobstart_strategy:vim_leave_pre_sigkill()
 			vim.api.nvim_create_autocmd("VimLeavePre", {
 				desc = "Clean up running overseer tasks on exit",
 				callback = function()
-					-- TODO: code duplication
-					if self.job_id and self.job_id > 0 then
-						local pid = vim.fn.jobpid(self.job_id)
-						if pid and pid > 0 then
-							-- immediate kill
-							vim.uv.kill(pid, "sigkill")
-						else
-							-- fallback if pid is not available
-							vim.fn.jobstop(self.job_id)
-						end
-
-						self.job_id = nil
-					end
+					sigkill_job(self)
 				end,
 			})
 		end
 
 		overseer.add_template_hook({}, function(task_defn, util)
-			-- TODO: rename sigkill_on_dispose
-			util.add_component(task_defn, { "mynamespace.sigkill_on_dispose" })
+			util.add_component(task_defn, { "mynamespace.sigkill_job" })
 		end)
 
 		overseer.add_template_hook({ module = "^make$" }, function(task_defn, util)
