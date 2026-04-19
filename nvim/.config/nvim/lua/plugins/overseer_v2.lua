@@ -21,7 +21,7 @@ local function get_last_task()
 		sort = task_list.default_sort,
 	})
 	if vim.tbl_isempty(tasks) then
-		vim.notify("No tasks found", vim.log.levels.WARN)
+		return nil
 	else
 		return tasks[1]
 	end
@@ -29,6 +29,7 @@ end
 
 return {
 	"stevearc/overseer.nvim",
+	dependencies = { "kkharji/sqlite.lua" },
 	keys = {
 		{ "<leader>or", "<cmd>OverseerRun<CR>", mode = "n", desc = "Overseer Run" },
 		{ "<leader>ob", "<cmd>OverseerToggle bottom<CR>", mode = "n", desc = "Overseer Toggle bottom" },
@@ -91,7 +92,7 @@ return {
 			},
 		})
 
-    -- TODO: sigkill not working when neovim get closed and there are hanging tasks
+		-- TODO: sigkill not working when neovim get closed and there are hanging tasks
 		local jobstart_strategy = require("overseer.strategy.jobstart")
 		function jobstart_strategy:sigkill()
 			if self.job_id and self.job_id > 0 then
@@ -112,17 +113,37 @@ return {
 			util.add_component(task_defn, { "mynamespace.sigkill_on_dispose" })
 		end)
 
+		overseer.add_template_hook({ module = "^make$" }, function(task_defn, util)
+			util.add_component(task_defn, { "mynamespace.save_to_db" })
+		end)
+
+    -- TODO: port [w ]w and [e ]e from toggleterm
 		vim.api.nvim_create_user_command("OverseerRestartLast", function()
 			local last_task = get_last_task()
 			if not last_task then
+				local tasks = require("../utils/overseer_sqlite_tasks")
+				local cwd = vim.fn.getcwd()
+				local taskName = tasks.getName(cwd)
+				if taskName == nil then
+					vim.notify("Last task not found", vim.log.levels.WARN)
+					return
+				end
+
+				overseer.run_task({ name = taskName, autostart = false, search_params = { dir = cwd } }, function(task)
+					task.metadata["disable_saving_to_db"] = true
+					task:start()
+				end)
 				return
 			end
+
 			overseer.run_action(last_task, "restart")
 		end, {})
+
 		vim.api.nvim_create_user_command("OverseerToggleLast", function()
 			local last_task = get_last_task()
-      -- TODO: close task if not found and split is open
+			-- TODO: close task if not found and split is open
 			if not last_task then
+				vim.notify("No tasks found", vim.log.levels.WARN)
 				return
 			end
 
