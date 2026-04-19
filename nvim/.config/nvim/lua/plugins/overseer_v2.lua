@@ -92,7 +92,6 @@ return {
 			},
 		})
 
-		-- TODO: sigkill not working when neovim get closed and there are hanging tasks
 		local jobstart_strategy = require("overseer.strategy.jobstart")
 		function jobstart_strategy:sigkill()
 			if self.job_id and self.job_id > 0 then
@@ -109,7 +108,29 @@ return {
 			end
 		end
 
+		function jobstart_strategy:vim_leave_pre_sigkill()
+			vim.api.nvim_create_autocmd("VimLeavePre", {
+				desc = "Clean up running overseer tasks on exit",
+				callback = function()
+					-- TODO: code duplication
+					if self.job_id and self.job_id > 0 then
+						local pid = vim.fn.jobpid(self.job_id)
+						if pid and pid > 0 then
+							-- immediate kill
+							vim.uv.kill(pid, "sigkill")
+						else
+							-- fallback if pid is not available
+							vim.fn.jobstop(self.job_id)
+						end
+
+						self.job_id = nil
+					end
+				end,
+			})
+		end
+
 		overseer.add_template_hook({}, function(task_defn, util)
+			-- TODO: rename sigkill_on_dispose
 			util.add_component(task_defn, { "mynamespace.sigkill_on_dispose" })
 		end)
 
@@ -117,7 +138,7 @@ return {
 			util.add_component(task_defn, { "mynamespace.save_to_db" })
 		end)
 
-    -- TODO: port [w ]w and [e ]e from toggleterm
+		-- TODO: port [w ]w and [e ]e from toggleterm
 		vim.api.nvim_create_user_command("OverseerRestartLast", function()
 			local last_task = get_last_task()
 			if not last_task then
