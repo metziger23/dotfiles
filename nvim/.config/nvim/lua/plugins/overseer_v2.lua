@@ -8,7 +8,6 @@ local function remove_component(components_table, component)
 end
 
 local function get_last_task()
-	-- TODO: last task should persist after restart
 	local overseer = require("overseer")
 	local task_list = require("overseer.task_list")
 	local tasks = overseer.list_tasks({
@@ -42,6 +41,44 @@ local function sigkill_job(jobstart_strategy)
 	end
 end
 
+local function toggle_task_output_bottom(bufnr)
+	local overseer_util = require("overseer.util")
+
+	if not bufnr then
+		return
+	end
+
+	local winid = nil
+	for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+		if vim.api.nvim_win_get_buf(win) == bufnr then
+			winid = win
+		end
+	end
+
+	if winid then
+		vim.api.nvim_win_close(winid, false)
+	else
+		-- If we're currently in the task list or any other fixed-width side panel,
+		-- open a split in the nearest other window
+		if vim.wo.winfixwidth then
+			for _, win in ipairs(overseer_util.get_fixed_wins()) do
+				if not vim.wo[win].winfixwidth then
+					overseer_util.go_win_no_au(win)
+					break
+				end
+			end
+		end
+		-- TODO: split works incorrect if there's already vertical split
+		-- vim.cmd.split()
+    vim.cmd("botright new")
+		vim.api.nvim_win_set_buf(0, bufnr)
+		vim.api.nvim_set_option_value("relativenumber", false, { scope = "local", win = 0 })
+		local target = math.floor(vim.o.lines * 0.9)
+		vim.api.nvim_win_set_height(0, target)
+		-- overseer_util.scroll_to_end(0)
+	end
+end
+
 return {
 	"stevearc/overseer.nvim",
 	dependencies = { "kkharji/sqlite.lua" },
@@ -58,7 +95,7 @@ return {
 		remove_component(default_components, "on_complete_dispose")
 
 		local overseer = require("overseer")
-		local overseer_util = require("overseer.util")
+		local last_task_bufnr = nil
 		overseer.setup({
 			component_aliases = { default = default_components },
 			actions = {
@@ -68,39 +105,8 @@ return {
 						return task:get_bufnr() ~= nil
 					end,
 					run = function(task)
-						local bufnr = task:get_bufnr()
-						if not bufnr then
-							return
-						end
-
-						local winid = nil
-						for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
-							if vim.api.nvim_win_get_buf(win) == bufnr then
-								winid = win
-							end
-						end
-
-						if winid then
-							vim.api.nvim_win_close(winid, false)
-						else
-							-- If we're currently in the task list or any other fixed-width side panel,
-							-- open a split in the nearest other window
-							if vim.wo.winfixwidth then
-								for _, win in ipairs(overseer_util.get_fixed_wins()) do
-									if not vim.wo[win].winfixwidth then
-										overseer_util.go_win_no_au(win)
-										break
-									end
-								end
-							end
-							-- TODO: split works incorrect if there's already vertical split
-							vim.cmd.split()
-							vim.api.nvim_win_set_buf(0, bufnr)
-							vim.api.nvim_set_option_value("relativenumber", false, { scope = "local", win = 0 })
-							local target = math.floor(vim.o.lines * 0.9)
-							vim.api.nvim_win_set_height(0, target)
-							-- overseer_util.scroll_to_end(0)
-						end
+						last_task_bufnr = task:get_bufnr()
+						toggle_task_output_bottom(last_task_bufnr)
 					end,
 					watch = false,
 				},
@@ -153,9 +159,13 @@ return {
 
 		vim.api.nvim_create_user_command("OverseerToggleLast", function()
 			local last_task = get_last_task()
-			-- TODO: close task if not found and split is open
 			if not last_task then
-				vim.notify("No tasks found", vim.log.levels.WARN)
+				if type(last_task_bufnr) == "number" and vim.api.nvim_buf_is_valid(last_task_bufnr) then
+					toggle_task_output_bottom(last_task_bufnr)
+				else
+					last_task_bufnr = nil
+					vim.notify("No tasks found", vim.log.levels.WARN)
+				end
 				return
 			end
 
