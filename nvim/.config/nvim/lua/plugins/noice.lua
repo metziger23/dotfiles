@@ -51,7 +51,7 @@ return {
 			require("noice").redirect(vim.fn.getcmdline())
 		end, { desc = "Redirect Cmdline" })
 
-    vim.keymap.set("n", "<leader>m", function()
+    vim.keymap.set("n", "g<", function()
       require("noice").cmd("all")
     end, { desc = "Messages" }) 
 
