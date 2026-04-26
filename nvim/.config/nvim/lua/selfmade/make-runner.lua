@@ -128,7 +128,7 @@ end, {
 	end,
 })
 
-vim.api.nvim_create_user_command("MakeSelectTask", function()
+vim.api.nvim_create_user_command("MakeSelectTaskToExecute", function()
 	local parser = require("selfmade.make-tasks-parser")
 	local tasks = parser.get_make_tasks()
 	if not tasks then
@@ -136,7 +136,7 @@ vim.api.nvim_create_user_command("MakeSelectTask", function()
 		return
 	end
 	vim.ui.select(tasks, {
-		prompt = "Select task:",
+		prompt = "Select task to execute:",
 		format_item = function(item)
 			return item
 		end,
@@ -172,7 +172,7 @@ vim.api.nvim_create_user_command("MakeToggleCurrentTask", function()
 			vim.api.nvim_win_close(win_id, false)
 		end
 	else
-    -- FIXME: code duplication
+		-- FIXME: code duplication
 		vim.cmd("botright split")
 		vim.api.nvim_win_set_buf(vim.api.nvim_get_current_win(), current_task.buf_id)
 		require("selfmade.make-runner-sqlite-tasks").push({ name = current_task.cmd, cwd = current_task.cwd })
@@ -191,6 +191,28 @@ end, {
 	desc = "Restart current task",
 })
 
-vim.keymap.set("n", "<leader>me", "<cmd>MakeSelectTask<CR>", { desc = "Make: select task to execute" })
+vim.api.nvim_create_user_command("MakeSelectCurrentTask", function()
+	if #existing_tasks == 0 then
+		vim.notify("No existing tasks", vim.log.levels.WARN)
+		return
+	end
+
+	vim.ui.select(existing_tasks, {
+		prompt = "Select current task:",
+		format_item = function(task)
+			return task.cmd
+		end,
+	}, function(choice)
+		if choice then
+			current_task = choice
+			require("selfmade.make-runner-sqlite-tasks").push({ name = current_task.cmd, cwd = current_task.cwd })
+		end
+	end)
+end, {
+	desc = "Select current task",
+})
+
+vim.keymap.set("n", "<leader>me", "<cmd>MakeSelectTaskToExecute<CR>", { desc = "Make: select task to execute" })
+vim.keymap.set("n", "<leader>mc", "<cmd>MakeSelectCurrentTask<CR>", { desc = "Make: select current task" })
 vim.keymap.set("n", "<A-r>", "<cmd>MakeToggleCurrentTask<CR>", { desc = "Make: Toggle current task" })
 vim.keymap.set("n", "<A-l>", "<cmd>MakeRestartCurrentTask<CR>", { desc = "Make: Restart current task" })
