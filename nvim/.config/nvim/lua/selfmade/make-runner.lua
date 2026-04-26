@@ -1,5 +1,4 @@
 local existing_tasks = {}
--- TODO:
 local current_task = {}
 
 ---@diagnostic disable-next-line: unused-function
@@ -30,12 +29,30 @@ local function find_existing_task(task)
 	end
 end
 
+-- TODO: try to push to sqlite last tasks async using wrap
 local function set_buffer_options(buf_id)
 	vim.api.nvim_set_option_value("filetype", "make-runner", { buf = buf_id })
 	local win_ids = win_ids_for_buf_id(buf_id)
 	for _, win_id in ipairs(win_ids) do
 		vim.api.nvim_set_option_value("number", true, { scope = "local", win = win_id })
 	end
+end
+
+local function get_current_or_last_task()
+	if #current_task > 0 then
+		return current_task
+	end
+	require("lazy").load({ plugins = { "sqlite.lua" } })
+	local cwd = vim.fn.getcwd()
+	local task_cmd = require("selfmade.make-runner-sqlite-tasks").getName(cwd)
+	if not task_cmd or task_cmd == "" then
+		vim.notify("No tasks in sqlite database for cwd", vim.log.levels.WARN)
+		return
+	end
+
+	current_task.cwd = cwd
+	current_task.cmd = task_cmd
+	return current_task
 end
 
 local function execute(cmd)
@@ -55,18 +72,22 @@ local function execute(cmd)
 	if #win_ids > 0 then
 		for _, win_id in ipairs(win_ids) do
 			if not current_task.buf_id then
+				-- FIXME: code duplication
 				vim.api.nvim_win_call(win_id, function()
 					vim.cmd("edit term://" .. escaped_cmd(cmd))
 				end)
 				current_task.buf_id = vim.api.nvim_win_get_buf(win_id)
+				require("selfmade.make-runner-sqlite-tasks").push({ name = current_task.cmd, cwd = current_task.cwd })
 				set_buffer_options(current_task.buf_id)
 			else
 				vim.api.nvim_win_set_buf(win_id, current_task.buf_id)
 			end
 		end
 	else
+		-- FIXME: code duplication
 		vim.cmd("botright split term://" .. escaped_cmd(cmd))
 		current_task.buf_id = vim.api.nvim_get_current_buf()
+		require("selfmade.make-runner-sqlite-tasks").push({ name = current_task.cmd, cwd = current_task.cwd })
 		set_buffer_options(current_task.buf_id)
 	end
 
@@ -124,6 +145,52 @@ vim.api.nvim_create_user_command("MakeSelectTask", function()
 			execute(choice)
 		end
 	end)
-end, {})
+end, {
+	desc = "Select task from Makefile using vim.ui.select",
+})
+
+vim.api.nvim_create_user_command("MakeToggleCurrentTask", function()
+	local task = get_current_or_last_task()
+
+	if not task then
+		vim.notify("No tasks", vim.log.levels.WARN)
+		return
+	end
+
+	if not task.buf_id or not vim.api.nvim_buf_is_valid(task.buf_id) then
+		vim.notify("Current task buffer id is not valid", vim.log.levels.WARN)
+		return
+	end
+
+	if not task or not task.buf_id or not vim.api.nvim_buf_is_valid(task.buf_id) then
+		return
+	end
+
+	local win_ids = win_ids_for_buf_id(task.buf_id)
+	if #win_ids > 0 then
+		for _, win_id in ipairs(win_ids) do
+			vim.api.nvim_win_close(win_id, false)
+		end
+	else
+    -- FIXME: code duplication
+		vim.cmd("botright split")
+		vim.api.nvim_win_set_buf(vim.api.nvim_get_current_win(), current_task.buf_id)
+		require("selfmade.make-runner-sqlite-tasks").push({ name = current_task.cmd, cwd = current_task.cwd })
+		set_buffer_options(current_task.buf_id)
+	end
+end, {
+	desc = "Toggle current task",
+})
+
+vim.api.nvim_create_user_command("MakeRestartCurrentTask", function()
+	local task = get_current_or_last_task()
+	if task and task.cmd then
+		execute(task.cmd)
+	end
+end, {
+	desc = "Restart current task",
+})
 
 vim.keymap.set("n", "<leader>me", "<cmd>MakeSelectTask<CR>", { desc = "Make: select task to execute" })
+vim.keymap.set("n", "<A-r>", "<cmd>MakeToggleCurrentTask<CR>", { desc = "Make: Toggle current task" })
+vim.keymap.set("n", "<A-l>", "<cmd>MakeRestartCurrentTask<CR>", { desc = "Make: Restart current task" })
