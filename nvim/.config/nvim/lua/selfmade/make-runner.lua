@@ -101,7 +101,7 @@ local function execute(cmd)
 		buffer = current_task.buf_id,
 		once = true,
 		callback = function()
-			local buf_id = vim.fn.expand("<abuf>")
+			local buf_id = tonumber(vim.fn.expand("<abuf>"))
 			for i = #existing_tasks, 1, -1 do
 				if buf_id == existing_tasks[i].buf_id then
 					table.remove(existing_tasks, i)
