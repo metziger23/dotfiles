@@ -1,7 +1,7 @@
 local hydra_utils = require("../utils/hydra_utils")
 
 return {
-	"sindrets/diffview.nvim", -- optional - Diff integration
+	"dlyongemallo/diffview.nvim", -- optional - Diff integration
 	dependencies = { "nvim-tree/nvim-web-devicons" },
 	cmd = {
 		"DiffviewClose",

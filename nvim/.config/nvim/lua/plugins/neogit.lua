@@ -10,7 +10,7 @@ return {
 	},
 	dependencies = {
 		"nvim-lua/plenary.nvim", -- required
-		"sindrets/diffview.nvim", -- optional - Diff integration
+		"dlyongemallo/diffview.nvim", -- optional - Diff integration
 	},
 	keys = {
 		{ "<leader>g", "<cmd>Neogit<cr>", desc = "Neogit" },
