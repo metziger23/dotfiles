@@ -4,7 +4,7 @@ end
 
 return {
 	"NeogitOrg/neogit",
-	-- enabled = false,
+	enabled = false,
 	cmd = {
 		"Neogit" --[[ , "Neogit cwd", "Neogit kind", "Neogit commit" ]],
 	},
