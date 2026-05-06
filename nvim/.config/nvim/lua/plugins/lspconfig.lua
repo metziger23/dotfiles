@@ -100,8 +100,9 @@ return {
 				keymap.set("n", "gr", function()
 					picker.lsp_references({ jump = { reuse_win = false } })
 				end, opts)
-				opts.desc = "Goto Line Diagnostics"
-				keymap.set("n", "gl", vim.diagnostic.open_float, opts)
+        -- NOTE: not needed since the default built-in mapping for this is <C-W>d or <C-W><C-D>. 
+				-- opts.desc = "Goto Line Diagnostics"
+				-- keymap.set("n", "gl", vim.diagnostic.open_float, opts)
 
 				opts.desc = "Lsp Implementations"
 				keymap.set("n", "li", picker.lsp_implementations, opts)
