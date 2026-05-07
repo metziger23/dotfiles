@@ -93,9 +93,8 @@ local function execute(cmd)
 
 	if existing_task then
 		existing_task.buf_id = current_task.buf_id
-	else
-		table.insert(existing_tasks, current_task)
 	end
+  table.insert(existing_tasks, current_task)
 
 	vim.api.nvim_create_autocmd("BufWipeout", {
 		buffer = current_task.buf_id,
