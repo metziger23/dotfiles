@@ -29,7 +29,6 @@ local function find_existing_task(task)
 	end
 end
 
--- TODO: try to push to sqlite last tasks async using wrap
 local function set_buffer_options(buf_id)
 	vim.api.nvim_set_option_value("filetype", "make-runner", { buf = buf_id })
 	local win_ids = win_ids_for_buf_id(buf_id)
@@ -55,6 +54,13 @@ local function get_current_or_last_task()
 	return current_task
 end
 
+local function push_current_task_to_db()
+	require("selfmade.make-runner-sqlite-tasks").push({
+		name = current_task.cmd,
+		cwd = current_task.cwd,
+	})
+end
+
 local function execute(cmd)
 	current_task = {
 		cmd = cmd,
@@ -72,22 +78,20 @@ local function execute(cmd)
 	if #win_ids > 0 then
 		for _, win_id in ipairs(win_ids) do
 			if not current_task.buf_id then
-				-- FIXME: code duplication
 				vim.api.nvim_win_call(win_id, function()
 					vim.cmd("edit term://" .. escaped_cmd(cmd))
 				end)
 				current_task.buf_id = vim.api.nvim_win_get_buf(win_id)
-				require("selfmade.make-runner-sqlite-tasks").push({ name = current_task.cmd, cwd = current_task.cwd })
+				push_current_task_to_db()
 				set_buffer_options(current_task.buf_id)
 			else
 				vim.api.nvim_win_set_buf(win_id, current_task.buf_id)
 			end
 		end
 	else
-		-- FIXME: code duplication
 		vim.cmd("botright split term://" .. escaped_cmd(cmd))
 		current_task.buf_id = vim.api.nvim_get_current_buf()
-		require("selfmade.make-runner-sqlite-tasks").push({ name = current_task.cmd, cwd = current_task.cwd })
+		push_current_task_to_db()
 		set_buffer_options(current_task.buf_id)
 	end
 
@@ -171,10 +175,9 @@ vim.api.nvim_create_user_command("MakeToggleCurrentTask", function()
 			vim.api.nvim_win_close(win_id, false)
 		end
 	else
-		-- FIXME: code duplication
 		vim.cmd("botright split")
 		vim.api.nvim_win_set_buf(vim.api.nvim_get_current_win(), current_task.buf_id)
-		require("selfmade.make-runner-sqlite-tasks").push({ name = current_task.cmd, cwd = current_task.cwd })
+		push_current_task_to_db()
 		set_buffer_options(current_task.buf_id)
 	end
 end, {
@@ -204,7 +207,7 @@ vim.api.nvim_create_user_command("MakeSelectCurrentTask", function()
 	}, function(choice)
 		if choice then
 			current_task = choice
-			require("selfmade.make-runner-sqlite-tasks").push({ name = current_task.cmd, cwd = current_task.cwd })
+			push_current_task_to_db()
 		end
 	end)
 end, {
