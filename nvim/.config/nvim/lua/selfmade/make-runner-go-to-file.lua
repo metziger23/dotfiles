@@ -11,6 +11,10 @@ local function get_path_and_lnum()
 	return cfile, nil
 end
 
+local function strip_file_prefix(path)
+	return (path or ""):gsub("^file://", "")
+end
+
 function M.go_to_file()
 	-- TODO: go to my mega tag N1ZpIq
 
@@ -20,8 +24,9 @@ function M.go_to_file()
 
 	-- TODO: support multiline paths
 
-  -- TODO: support paths like this file:///home/mikhail
+  -- TODO: support .qml:97:5: column like this
 	local path, lnum = get_path_and_lnum()
+	path = strip_file_prefix(path)
 	local go_to_line = ""
 	if lnum then
 		go_to_line = "+" .. lnum .. " "

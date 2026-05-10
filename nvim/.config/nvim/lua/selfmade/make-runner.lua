@@ -1,3 +1,4 @@
+-- TODO: fix yanking with yG terminating the app
 local existing_tasks = {}
 local current_task = {}
 
