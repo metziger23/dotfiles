@@ -29,17 +29,6 @@ local function find_existing_task(task)
 	end
 end
 
-local function get_path_and_lnum()
-	local cWORD = vim.fn.expand("<cWORD>")
-	local path, lnum = cWORD:match("^(.+):(%d+)")
-	if path and lnum then
-		return path, lnum
-	end
-
-	local cfile = vim.fn.expand("<cfile>")
-	return cfile, nil
-end
-
 local function set_buffer_options(buf_id)
 	vim.api.nvim_set_option_value("filetype", "make-runner", { buf = buf_id })
 	local win_ids = win_ids_for_buf_id(buf_id)
@@ -48,46 +37,7 @@ local function set_buffer_options(buf_id)
 	end
 
 	local opts = { buffer = buf_id, silent = true, noremap = true }
-  -- TODO: move to a separate file
-	vim.keymap.set("n", "<CR>", function()
-    -- TODO: go to my mega tag N1ZpIq
-
-    -- TODO: don't open if another window is of filetype make-runner
-
-    -- TODO: setup previous window selector like in snacks picker
-
-    -- TODO: support multile paths
-		local path, lnum = get_path_and_lnum()
-		local go_to_line = ""
-		if lnum then
-			go_to_line = "+" .. lnum .. " "
-		end
-		path = vim.fn.expand(path)
-
-		if vim.uv.fs_stat(path) then
-			vim.cmd("wincmd p")
-			vim.cmd.edit(go_to_line .. vim.fn.fnameescape(path))
-			return
-		end
-
-		local res = vim.system({ "rg", "--files", "--glob", "**/" .. path }, { text = true }):wait()
-		if res.code == 0 and res.stdout then
-      local lines = vim.split(vim.trim(res.stdout or ""), "\n", { plain = true })
-      local first_line = lines[1]
-			vim.cmd("wincmd p")
-			vim.cmd.find(go_to_line .. vim.fn.fnameescape(vim.trim(first_line)))
-			return
-		end
-
-		res = vim.system({ "fd", "--type", "d", "--glob", "**/" .. path }, { text = true }):wait()
-		if res.stdout and res.stdout ~= "" then
-      local lines = vim.split(vim.trim(res.stdout or ""), "\n", { plain = true })
-      local first_line = lines[1]
-			vim.cmd("wincmd p")
-			vim.cmd.find(go_to_line .. vim.fn.fnameescape(vim.trim(first_line)))
-			return
-		end
-	end, opts)
+	vim.keymap.set("n", "<CR>", require("selfmade.make-runner-go-to-file").go_to_file, opts)
 end
 
 local function get_current_or_last_task()
