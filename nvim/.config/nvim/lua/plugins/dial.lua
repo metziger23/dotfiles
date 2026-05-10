@@ -14,6 +14,7 @@ return {
 		-- stylua: ignore end
 	},
 	opts = function()
+    -- TODO: support incrementing/decrementing my super tag N1ZpIq
 		local augend = require("dial.augend")
 
 		local logical_alias = augend.constant.new({
