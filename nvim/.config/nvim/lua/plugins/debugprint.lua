@@ -1,42 +1,3 @@
- -- stylua: ignore start
-local colors = {
-"red", "green", "blue", "orange", "purple", "teal", "pink", "lime",
-"white", "navy", "olive", "silver", "gray", "gold", "cyan", "magenta",
-"brown", "darkgreen", "skyblue", "indigo", "coral", "yellow", "violet", "firebrick",
-"royalblue", "sienna", "tomato", "slateblue",
-"lightgrey", "lavenderblush", "deeppink", "seashell",
-"lightsalmon", "lightgreen", "deepskyblue", "mistyrose",
-"dimgray", "navajowhite", "peru", "darkgrey",
-"steelblue", "orangered", "mediumslateblue", "blueviolet",
-"cornflowerblue", "beige", "goldenrod", "rosybrown",
-"darkblue", "aliceblue", "mediumblue", "dodgerblue",
-"limegreen", "lightsteelblue", "lightslategray", "seagreen",
-"mediumvioletred", "slategrey", "darkslategrey", "turquoise",
-"paleturquoise", "lightgoldenrodyellow", "darkseagreen", "lightcyan",
-"lightcoral", "mediumseagreen", "palegoldenrod", "palegreen",
-"darkslateblue", "moccasin", "forestgreen", "darkkhaki",
-"chartreuse", "floralwhite", "snow", "fuchsia",
-"orchid", "darkorchid", "darkred", "darksalmon",
-"crimson", "palevioletred", "lightseagreen", "ivory",
-"powderblue", "aquamarine", "darkturquoise", "lavender",
-"azure", "mediumturquoise", "lightgray", "transparent",
-"gainsboro", "olivedrab", "papayawhip", "midnightblue",
-"yellowgreen", "slategray", "grey", "wheat",
-"darkgoldenrod", "lawngreen", "lightslategrey", "burlywood",
-"aqua", "saddlebrown", "oldlace", "lightskyblue",
-"dimgrey", "darkorange", "lightblue", "khaki",
-"mediumpurple", "linen", "mediumorchid", "indianred",
-"maroon", "darkgray", "hotpink", "cadetblue",
-"darkslategray", "plum", "mediumspringgreen", "thistle",
-"mintcream", "darkmagenta", "lemonchiffon", "bisque",
-"antiquewhite", "whitesmoke", "lightpink", "darkcyan",
-"tan", "blanchedalmond", "honeydew", "salmon",
-"lightyellow", "springgreen", "cornsilk", "sandybrown",
-"mediumaquamarine", "darkviolet", "darkolivegreen", "peachpuff",
-"greenyellow", "ghostwhite", "chocolate",
-}
--- stylua: ignore end
-
 local js_like = {
 	left = 'console.info("',
 	right = '")',
@@ -50,8 +11,6 @@ local qt_like = {
 	mid_var = '" << ',
 	right_var = ";",
 }
-
-local search_helper_tag = "N1ZpIq"
 
 return {
 	"andrewferrier/debugprint.nvim", -- opts = {},
@@ -70,6 +29,7 @@ return {
 	lazy = false, -- Required to make line highlighting work before debugprint is first used
 	version = "*", -- Remove if you DON'T want to use the stable version
 	config = function()
+		local tag = require("../selfmade/search-helper-tag")
 		local counter = require("debugprint.counter")
 		local default_display_counter = counter.default_display_counter
 
@@ -77,8 +37,8 @@ return {
 			local default_result = default_display_counter()
 			local default_result_number = tonumber(default_result:match("%[(%d+)%]"))
 			---@diagnostic disable-next-line: param-type-mismatch
-			local color_number = math.fmod(default_result_number, #colors) + 1
-			return search_helper_tag .. " " .. colors[color_number]
+			local color_number = math.fmod(default_result_number, #tag.colors) + 1
+			return tag.search_helper_tag .. " " .. tag.colors[color_number]
 		end
 
 		require("debugprint").setup({
@@ -120,6 +80,6 @@ return {
 			},
 		})
 
-		vim.fn.setreg("n", search_helper_tag)
+		vim.fn.setreg("n", tag.search_helper_tag)
 	end,
 }
