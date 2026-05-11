@@ -1,14 +1,19 @@
 local M = {}
 
-local function get_path_and_lnum()
+local function get_path_and_position()
 	local cWORD = vim.fn.expand("<cWORD>")
-	local path, lnum = cWORD:match("^(.+):(%d+)")
+	local path, lnum, cnum = cWORD:match("^(.-):(%d+):(%d+)")
+	if path and lnum and cnum then
+		return path, lnum, cnum
+	end
+
+	path, lnum = cWORD:match("^(.+):(%d+)")
 	if path and lnum then
-		return path, lnum
+		return path, lnum, nil
 	end
 
 	local cfile = vim.fn.expand("<cfile>")
-	return cfile, nil
+	return cfile, nil, nil
 end
 
 local function strip_file_prefix(path)
@@ -24,12 +29,13 @@ function M.go_to_file()
 
 	-- TODO: support multiline paths
 
-  -- TODO: support .qml:97:5: column like this
-	local path, lnum = get_path_and_lnum()
+	local path, lnum, cnum = get_path_and_position()
 	path = strip_file_prefix(path)
 	local go_to_line = ""
-	if lnum then
-		go_to_line = "+" .. lnum .. " "
+	if lnum and cnum then
+		go_to_line = ([[+call\ cursor(%d,%d) ]]):format(tonumber(lnum), tonumber(cnum))
+	elseif lnum then
+		go_to_line = ("+%d "):format(tonumber(lnum))
 	end
 	path = vim.fn.expand(path)
 
