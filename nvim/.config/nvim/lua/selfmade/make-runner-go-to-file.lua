@@ -8,13 +8,12 @@ local function get_start_end_indices(text)
 	local end_idx = nil
 	while true do
 		start_idx, end_idx = line:find(text, match_number, true)
+		if not start_idx or not end_idx then
+			break
+		end
 		start_idx = start_idx - 1
 		end_idx = end_idx - 1
 		if start_idx <= col and col <= end_idx then
-			break
-		end
-
-		if not start_idx or not end_idx then
 			break
 		end
 
@@ -80,6 +79,42 @@ local function get_multiline_text(text)
 	return text
 end
 
+local function get_search_helper_tag_under_cursor()
+	local text = vim.fn.expand("<cword>")
+	if not text or text == "" then
+		return
+	end
+	local start_idx, end_idx = get_start_end_indices(text)
+	if not start_idx or not end_idx then
+		return
+	end
+	start_idx = start_idx + 1
+	end_idx = end_idx + 1
+
+	local tag = require("selfmade.search-helper-tag")
+	local line = vim.api.nvim_get_current_line()
+	if text == tag.search_helper_tag then
+		local right = line:sub(end_idx + 1)
+		local next_word = vim.fn.matchstr(vim.trim(right), [[\k\+]])
+		if not next_word then
+			return
+		end
+
+		if vim.tbl_contains(tag.colors, next_word) then
+			return text .. " " .. next_word
+		end
+	elseif vim.tbl_contains(tag.colors, text) then
+		local left = line:sub(1, start_idx - 1)
+		local prev_word = vim.fn.matchstr(vim.trim(left), [[\k\+$]])
+		if not prev_word then
+			return
+		end
+		if prev_word == tag.search_helper_tag then
+			return prev_word .. " " .. text
+		end
+	end
+end
+
 local function get_path_and_position()
 	local text = get_multiline_text(vim.fn.expand("<cWORD>"))
 	local path, lnum, cnum = text:match("^(.-):(%d+):(%d+)")
@@ -100,12 +135,46 @@ local function strip_file_prefix(path)
 	return (path or ""):gsub("^file://", "")
 end
 
+local function go_to_search_helper_tag()
+	local color_tag = get_search_helper_tag_under_cursor()
+	if color_tag then
+		local res = vim.system({
+			"rg",
+			"--no-heading",
+			"--color",
+			"never",
+			"-n",
+			"--column",
+			"-m",
+			"1",
+			color_tag,
+		}, { text = true }):wait()
+		if res.code == 0 and res.stdout then
+			local line = (res.stdout or ""):match("([^\n]+)")
+			if not line or line == "" then
+				return
+			end
+
+			local path, lnum, cnum = line:match("^(.+):(%d+):(%d+):")
+			if path and lnum and cnum then
+				local go_to_line = ([[+call\ cursor(%d,%d) ]]):format(tonumber(lnum), tonumber(cnum))
+				vim.cmd("wincmd p")
+				vim.cmd.find(go_to_line .. vim.fn.fnameescape(vim.trim(path)))
+			end
+		end
+	end
+end
+
 function M.go_to_file()
 	-- TODO: go to my mega tag
 
 	-- TODO: don't open if another window is of filetype make-runner
 
 	-- TODO: setup previous window selector like in snacks picker
+
+	if go_to_search_helper_tag() then
+		return
+	end
 
 	local path, lnum, cnum = get_path_and_position()
 	path = strip_file_prefix(path)
