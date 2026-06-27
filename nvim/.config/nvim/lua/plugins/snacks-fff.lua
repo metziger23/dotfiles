@@ -23,5 +23,12 @@ return {
     vim.keymap.set("n", "<BS><leader>", function()
       require("snacks-fff").live_grep({ grep_modes = { "regex", "fuzzy", "plain" } })
     end, { desc = "Live grep" })
+
+    vim.keymap.set({ "n", "x" }, "<BS>w", function()
+		require("snacks-fff").live_grep({
+			query = vim.fn.expand("<cword>"),
+			grep_modes = { "regex", "fuzzy", "plain" },
+		})
+    end, { desc = "Live grep" })
   end
 }

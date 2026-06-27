@@ -103,7 +103,7 @@ return {
 	   { "<BS>gs", function() require("snacks").picker.git_status() end, desc = "Git Status", mode = { "n", "x" }  },
 	   -- { "<BS><leader>", function() require("snacks").picker.grep() end, desc = "Grep", mode = { "n", "x" }  },
 	   { "<BS>,", function() require("snacks").picker.grep_buffers() end, desc = "Grep Buffers", mode = { "n", "x" }  },
-	   { "<BS>w", function() require("snacks").picker.grep_word() end, desc = "Grep Word", mode = { "n", "x" } },
+	   -- { "<BS>w", function() require("snacks").picker.grep_word() end, desc = "Grep Word", mode = { "n", "x" } },
 	   { "<BS>p", function() require("snacks").picker.help() end, desc = "Help", mode = { "n", "x" }  },
 	   { "<BS>j", function() require("snacks").picker.jumps() end, desc = "Jumps", mode = { "n", "x" }  },
 	   { "<BS>k", function() require("snacks").picker.keymaps() end, desc = "Keymaps", mode = { "n", "x" }  },
