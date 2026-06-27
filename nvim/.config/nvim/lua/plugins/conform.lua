@@ -14,10 +14,10 @@ return {
 						url = "https://doc.qt.io/qt-6//qtqml-tooling-qmlformat.html",
 						description = "qmlformat is a tool that automatically formats QML files in accordance with the QML Coding Conventions.",
 					},
-					command = "/home/mikhail/.nix-profile/bin/qmlformat",
+					command = "qmlformat",
 					args = {
 						"--force",
-            "--inplace",
+						"--inplace",
 						"$FILENAME",
 					},
 				},
