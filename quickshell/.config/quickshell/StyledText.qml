@@ -7,7 +7,7 @@ Text {
     property alias underlineRectVisible: underlineRect.visible
     font.pixelSize: 14
     font.bold: true
-    font.family: "Fira Code"
+    font.family: "JetBrainsMono Nerd Font"
     verticalAlignment: Text.AlignVCenter
     color: "white"
     leftPadding: 8
