@@ -29,6 +29,27 @@ local function setup_words_keymaps()
 	})
 end
 
+local function fullscreen_current_float()
+	local win = vim.api.nvim_get_current_win()
+
+	local cfg = vim.api.nvim_win_get_config(win)
+	if cfg.relative == "" then
+		error("Текущее окно не floating window")
+	end
+
+	local ui = vim.api.nvim_list_uis()[1]
+	vim.api.nvim_win_set_config(
+		win,
+		vim.tbl_extend("force", cfg, {
+			relative = "editor",
+			row = 0,
+			col = 0,
+			width = ui.width,
+			height = ui.height,
+		})
+	)
+end
+
 return {
 	"dmtrKovalenko/fff.nvim",
 	enabled = true,
@@ -38,6 +59,16 @@ return {
 	end,
 	init = function()
 		setup_words_keymaps()
+		vim.api.nvim_create_autocmd("FileType", {
+			pattern = "fff*",
+			callback = function(ev)
+				vim.keymap.set({ "n", "i" }, "<M-m>", fullscreen_current_float, {
+					buffer = ev.buf,
+					silent = true,
+					desc = "fullscreen_current_float",
+				})
+			end,
+		})
 	end,
 	-- for nixos:
 	-- build = "nix run .#release",
@@ -62,41 +93,42 @@ return {
 	lazy = false, -- the plugin lazy-initialises itself
 	keys = {
 		{
-			"<BS>f",
+			"<leader><leader>",
 			function()
 				setup_words()
 				require("fff").find_files()
 			end,
 			desc = "FFFind files",
 		},
-		{
-			"<BS><tab>",
-			function()
-				setup_words()
-				require("fff").find_files()
-			end,
-			desc = "FFFind files",
-		},
+		-- {
+		-- 	"<BS><tab>",
+		-- 	function()
+		-- 		setup_words()
+		-- 		require("fff").find_files()
+		-- 	end,
+		-- 	desc = "FFFind files",
+		-- },
 		-- {
 		-- 	"<BS><leader>",
 		-- 	function()
-		-- 		require("fff").live_grep()
+		-- 		require("fff").live_grep({ grep_modes = { "regex", "fuzzy", "plain" } })
 		-- 	end,
 		-- 	desc = "LiFFFe grep",
 		-- },
-		{
-			"<BS><leader>",
-			function()
-				require("fff").live_grep({ grep = { modes = { "regex", "fuzzy", "plain" } } })
-			end,
-			desc = "Live fffuzy grep",
-		},
+		-- -- {
+		-- -- 	"<BS><leader>",
+		-- -- 	function()
+		-- -- 		require("fff").live_grep({ grep = { modes = { "regex", "fuzzy", "plain" } } })
+		-- -- 	end,
+		-- -- 	desc = "Live fffuzy grep",
+		-- -- },
 		-- {
 		-- 	"<BS>w",
 		-- 	function()
-		-- 		require("fff").live_grep({ query = vim.fn.expand("<cword>") })
+		-- 		require("fff").live_grep_under_cursor()
 		-- 	end,
 		-- 	desc = "Search current word",
+		-- 	mode = { "n", "x" },
 		-- },
 	},
 }
