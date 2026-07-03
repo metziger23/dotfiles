@@ -70,4 +70,7 @@ end
 
 vim.opt.winborder = "rounded"
 
-vim.opt.list = true
+-- vim.opt.list = true
+
+vim.opt.grepprg = "rg --vimgrep"
+vim.opt.grepformat = "%f:%l:%c:%m"

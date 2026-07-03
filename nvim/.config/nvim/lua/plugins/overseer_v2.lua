@@ -83,11 +83,11 @@ return {
 	"stevearc/overseer.nvim",
 	dependencies = { "kkharji/sqlite.lua" },
 	keys = {
-		{ "<leader>or", "<cmd>OverseerRun<CR>", mode = "n", desc = "Overseer Run" },
-		{ "<leader>ob", "<cmd>OverseerToggle bottom<CR>", mode = "n", desc = "Overseer Toggle bottom" },
-		{ "<leader>oa", "<cmd>OverseerTaskAction<CR>", mode = "n", desc = "Overseer Task Action" },
-		{ "<A-r>", "<cmd>OverseerToggleLast<CR>", mode = "n", desc = "Overseer Toggle last task output" },
-		{ "<A-l>", "<cmd>OverseerRestartLast<CR>", mode = "n", desc = "Overseer Restart Last Task" },
+		-- { "<leader>or", "<cmd>OverseerRun<CR>", mode = "n", desc = "Overseer Run" },
+		-- { "<leader>ob", "<cmd>OverseerToggle bottom<CR>", mode = "n", desc = "Overseer Toggle bottom" },
+		-- { "<leader>oa", "<cmd>OverseerTaskAction<CR>", mode = "n", desc = "Overseer Task Action" },
+		-- { "<A-r>", "<cmd>OverseerToggleLast<CR>", mode = "n", desc = "Overseer Toggle last task output" },
+		-- { "<A-l>", "<cmd>OverseerRestartLast<CR>", mode = "n", desc = "Overseer Restart Last Task" },
 	},
 	config = function()
 		local default_components = require("overseer.config").component_aliases.default
