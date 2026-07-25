@@ -4,7 +4,7 @@
   lib,
   ...
 }: let
-  btop_color_theme = "catppuccin_black";
+  btopColorTheme = "catppuccin_black";
   nvimConfigDir = "${config.home.homeDirectory}/.dotfiles/nvim/.config/nvim";
 in {
   home.username = "mikhail";
@@ -66,19 +66,19 @@ in {
 	  recursive = true;
   };
 
+  xdg.configFile."btop/themes/${btopColorTheme}.theme".source =
+    ./btop/themes/${btopColorTheme}.theme;
+
   programs.btop = {
     enable = true;
 
     settings = {
       vim_keys = true;
 
-      color_theme = "${btop_color_theme}.theme";
-      theme_background = "${btop_color_theme}.theme";
+      color_theme = "${btopColorTheme}.theme";
+      theme_background = "${btopColorTheme}.theme";
     };
   };
-
-  xdg.configFile."btop/themes/${btop_color_theme}.theme".source =
-    ./btop/themes/${btop_color_theme}.theme;
 
   programs.zoxide.enable = true;
 
