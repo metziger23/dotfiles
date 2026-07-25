@@ -37,10 +37,10 @@ return {
 			automatic_enable = false,
 			-- list of servers for mason to install
 			ensure_installed = {
-				"lua_ls",
-				"bashls",
-				"clangd",
-				"qmlls", -- NOTE: on ubuntu 24.04 requires sudo apt install unixodbc-dev
+				-- "lua_ls",
+				-- "bashls",
+				-- "clangd",
+				-- "qmlls", -- NOTE: on ubuntu 24.04 requires sudo apt install unixodbc-dev
 			},
 			-- auto-install configured servers (with lspconfig)
 			automatic_installation = true, -- not the same as ensure_installed
@@ -48,8 +48,8 @@ return {
 
 		mason_tool_installer.setup({
 			ensure_installed = {
-				"stylua", -- lua formatter
-				"clang-format",
+				-- "stylua", -- lua formatter
+				-- "clang-format",
 			},
 		})
 	end,

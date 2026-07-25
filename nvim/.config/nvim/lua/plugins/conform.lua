@@ -7,6 +7,8 @@ return {
 				c = { "clang-format" },
 				cpp = { "clang-format" },
 				qml = { "qmlformat" },
+				nix = { "alejandra" },
+				just = { "just" },
 			},
 			formatters = {
 				qmlformat = {
@@ -20,6 +22,11 @@ return {
 						"--inplace",
 						"$FILENAME",
 					},
+				},
+				just = {
+					command = "just",
+					args = { "--fmt", "--unstable", "--justfile", "-" },
+					stdin = true,
 				},
 			},
 		})

@@ -100,7 +100,7 @@ return {
 				keymap.set("n", "gr", function()
 					picker.lsp_references({ jump = { reuse_win = false } })
 				end, opts)
-        -- NOTE: not needed since the default built-in mapping for this is <C-W>d or <C-W><C-D>. 
+				-- NOTE: not needed since the default built-in mapping for this is <C-W>d or <C-W><C-D>.
 				-- opts.desc = "Goto Line Diagnostics"
 				-- keymap.set("n", "gl", vim.diagnostic.open_float, opts)
 
@@ -201,6 +201,7 @@ return {
 				"-j=32",
 				-- "--compile-commands-dir=" .. vim.fn.getcwd(),
 				"--compile-commands-dir=.",
+				"--query-driver=/usr/bin/clang++,/usr/bin/clang,/usr/bin/g++,/usr/bin/gcc,/usr/bin/*-g++,/usr/bin/*-gcc",
 			},
 			root_dir = "compile_commands.json",
 			init_options = {
@@ -280,5 +281,21 @@ return {
 			cmd_env = { fish_lsp_show_client_popups = false },
 		})
 		vim.lsp.enable("fish_lsp")
+
+		vim.lsp.enable("nixd")
+
+		vim.lsp.config("just", {
+			init_options = {
+				formatting = {
+					indentation = "\t",
+				},
+				rules = {
+					["unused-variables"] = "off",
+					["unused-parameters"] = { level = "warning" },
+				},
+			},
+		})
+
+		vim.lsp.enable("just")
 	end,
 }
