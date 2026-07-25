@@ -6,6 +6,7 @@
 }: let
   btopColorTheme = "catppuccin_black";
   nvimConfigDir = "${config.home.homeDirectory}/.dotfiles/nvim/.config/nvim";
+  fishConfigDir = "${config.home.homeDirectory}/.dotfiles/fish/.config/fish";
 in {
   home.username = "mikhail";
   home.homeDirectory = "/home/mikhail";
@@ -82,12 +83,9 @@ in {
 
   programs.zoxide.enable = true;
 
-  programs.fish = {
-    enable = true;
-
-    interactiveShellInit = ''
-      source ${config.home.homeDirectory}/.dotfiles/fish/.config/fish/interactiveShellInit.fish
-    '';
+  xdg.configFile."fish" = {
+    source = config.lib.file.mkOutOfStoreSymlink fishConfigDir;
+    recursive = true;
   };
 
   programs.home-manager.enable = true;
