@@ -1,9 +1,11 @@
 {
   config,
   pkgs,
+  lib,
   ...
 }: let
   btop_color_theme = "catppuccin_black";
+  nvimConfigDir = "${config.home.homeDirectory}/.dotfiles/nvim/.config/nvim";
 in {
   home.username = "mikhail";
   home.homeDirectory = "/home/mikhail";
@@ -58,6 +60,11 @@ in {
     wl-clipboard
     gcc
   ];
+
+  xdg.configFile."nvim" = {
+	  source = config.lib.file.mkOutOfStoreSymlink nvimConfigDir;
+	  recursive = true;
+  };
 
   programs.btop = {
     enable = true;
