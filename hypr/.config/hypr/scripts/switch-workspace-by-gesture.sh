@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 direction="$1"
 name="$(hyprctl activeworkspace -j | jq -r '.name')"
