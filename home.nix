@@ -1,20 +1,30 @@
 {
   config,
   pkgs,
-  lib,
   ...
 }: let
   btopColorTheme = "catppuccin_black";
-  nvimConfigDir = "${config.home.homeDirectory}/.dotfiles/nvim/.config/nvim";
-  fishConfigDir = "${config.home.homeDirectory}/.dotfiles/fish/.config/fish";
-in {
-  xdg.configFile."nvim" = {
-    source = config.lib.file.mkOutOfStoreSymlink nvimConfigDir;
-    recursive = true;
+  dotfiles = "${config.home.homeDirectory}/dotfiles";
+  createSymlink = path: config.lib.file.mkOutOfStoreSymlink path;
+  configs = {
+    "btop/themes/${btopColorTheme}.theme" = "btop/themes/${btopColorTheme}.theme";
+    dunst = "dunst";
+    fish = "fish";
+    hypr = "hypr";
+    kitty = "kitty";
+    lazygit = "lazygit";
+    nvim = "nvim";
+    quickshell = "quickshell";
+    rofi = "rofi";
   };
-
-  xdg.configFile."btop/themes/${btopColorTheme}.theme".source =
-    ./btop/themes/${btopColorTheme}.theme;
+in {
+  xdg.configFile =
+    builtins.mapAttrs
+    (name: subpath: {
+      source = createSymlink "${dotfiles}/${subpath}";
+      recursive = true;
+    })
+    configs;
 
   programs.btop = {
     enable = true;
@@ -28,11 +38,6 @@ in {
   };
 
   programs.zoxide.enable = true;
-
-  xdg.configFile."fish" = {
-    source = config.lib.file.mkOutOfStoreSymlink fishConfigDir;
-    recursive = true;
-  };
 
   programs.git = {
     enable = true;
