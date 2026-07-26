@@ -8,6 +8,61 @@
   nvimConfigDir = "${config.home.homeDirectory}/.dotfiles/nvim/.config/nvim";
   fishConfigDir = "${config.home.homeDirectory}/.dotfiles/fish/.config/fish";
 in {
+  xdg.configFile."nvim" = {
+    source = config.lib.file.mkOutOfStoreSymlink nvimConfigDir;
+    recursive = true;
+  };
+
+  xdg.configFile."btop/themes/${btopColorTheme}.theme".source =
+    ./btop/themes/${btopColorTheme}.theme;
+
+  programs.btop = {
+    enable = true;
+
+    settings = {
+      vim_keys = true;
+
+      color_theme = "${btopColorTheme}.theme";
+      theme_background = "${btopColorTheme}.theme";
+    };
+  };
+
+  programs.zoxide.enable = true;
+
+  xdg.configFile."fish" = {
+    source = config.lib.file.mkOutOfStoreSymlink fishConfigDir;
+    recursive = true;
+  };
+
+  programs.git = {
+    enable = true;
+    includes = [
+      {path = "${config.home.homeDirectory}/.config/git/private";}
+    ];
+    settings = {
+      core = {
+        pager = "delta";
+        editor = "nvim -c 'startinsert'";
+      };
+
+      commit.verbose = true;
+
+      interactive.diffFilter = "delta --color-only";
+
+      delta = {
+        navigate = true;
+        dark = true;
+      };
+
+      merge.conflictstyle = "zdiff3";
+      diff.colorMoved = "default";
+
+      credential.helper = "store";
+    };
+  };
+
+  programs.home-manager.enable = true;
+
   home.username = "mikhail";
   home.homeDirectory = "/home/mikhail";
   home.stateVersion = "26.05";
@@ -61,32 +116,4 @@ in {
     wl-clipboard
     gcc
   ];
-
-  xdg.configFile."nvim" = {
-    source = config.lib.file.mkOutOfStoreSymlink nvimConfigDir;
-    recursive = true;
-  };
-
-  xdg.configFile."btop/themes/${btopColorTheme}.theme".source =
-    ./btop/themes/${btopColorTheme}.theme;
-
-  programs.btop = {
-    enable = true;
-
-    settings = {
-      vim_keys = true;
-
-      color_theme = "${btopColorTheme}.theme";
-      theme_background = "${btopColorTheme}.theme";
-    };
-  };
-
-  programs.zoxide.enable = true;
-
-  xdg.configFile."fish" = {
-    source = config.lib.file.mkOutOfStoreSymlink fishConfigDir;
-    recursive = true;
-  };
-
-  programs.home-manager.enable = true;
 }
