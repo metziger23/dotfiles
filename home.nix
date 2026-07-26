@@ -1,22 +1,24 @@
 {
   config,
   pkgs,
+  lib,
   ...
 }: let
   btopColorTheme = "catppuccin_black";
   dotfiles = "${config.home.homeDirectory}/dotfiles";
   createSymlink = path: config.lib.file.mkOutOfStoreSymlink path;
-  configs = {
-    "btop/themes/${btopColorTheme}.theme" = "btop/themes/${btopColorTheme}.theme";
-    dunst = "dunst";
-    fish = "fish";
-    hypr = "hypr";
-    kitty = "kitty";
-    lazygit = "lazygit";
-    nvim = "nvim";
-    quickshell = "quickshell";
-    rofi = "rofi";
-  };
+  names = [
+    "btop/themes/${btopColorTheme}.theme"
+    "dunst"
+    "fish"
+    "hypr"
+    "kitty"
+    "lazygit"
+    "nvim"
+    "quickshell"
+    "rofi"
+  ];
+  configs = lib.genAttrs names (n: n);
 in {
   xdg.configFile =
     builtins.mapAttrs
