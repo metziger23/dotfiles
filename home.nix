@@ -70,11 +70,26 @@ in {
 
   programs.home-manager.enable = true;
 
+  nixpkgs.config.permittedInsecurePackages = [
+    "electron-39.8.10"
+  ];
+
   home.username = "mikhail";
   home.homeDirectory = "/home/mikhail";
   home.stateVersion = "26.05";
 
   home.packages = with pkgs; [
+    localsend
+    quickshell
+    telegram-desktop
+    mattermost-desktop
+    dunst
+    libnotify
+    firefox
+    kitty
+    rofi
+    bitwarden-desktop
+    haruna
     just-lsp
     just
     process-compose
