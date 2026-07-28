@@ -79,6 +79,7 @@ in {
   home.stateVersion = "26.05";
 
   home.packages = with pkgs; [
+    appimage-run
     localsend
     quickshell
     telegram-desktop
