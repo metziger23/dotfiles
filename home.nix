@@ -10,7 +10,6 @@
   names = [
     "btop/themes/${btopColorTheme}.theme"
     "dunst"
-    "fish"
     "hypr"
     "kitty"
     "lazygit"
@@ -37,6 +36,13 @@ in {
       color_theme = "${btopColorTheme}.theme";
       theme_background = "${btopColorTheme}.theme";
     };
+  };
+
+  programs.fish = {
+    enable = true;
+    shellInit = ''
+      source "${dotfiles}/fish/hmShellInit.fish"
+    '';
   };
 
   programs.zoxide.enable = true;
