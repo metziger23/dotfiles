@@ -45,6 +45,11 @@ in {
     '';
   };
 
+  # NOTE: needed for https://github.com/kkharji/sqlite.lua
+  home.sessionVariables = {
+    LIBSQLITE = "${pkgs.sqlite.out}/lib/libsqlite3.so";
+  };
+
   programs.zoxide.enable = true;
 
   programs.git = {
@@ -85,6 +90,7 @@ in {
   home.stateVersion = "26.05";
 
   home.packages = with pkgs; [
+    sqlite
     appimage-run
     localsend
     quickshell
