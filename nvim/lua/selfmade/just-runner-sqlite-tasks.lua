@@ -1,4 +1,4 @@
-local storage_path = vim.fn.stdpath("data") .. "/databases/make-runner-sqlite-tasks.db"
+local storage_path = vim.fn.stdpath("data") .. "/databases/just-runner-sqlite-tasks.db"
 vim.fn.mkdir(string.match(storage_path, "(.*[/\\])"), "p")
 
 local sqlite = require("sqlite")

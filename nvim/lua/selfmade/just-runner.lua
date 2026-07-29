@@ -18,7 +18,7 @@ local function win_ids_for_buf_id(bufnr)
 end
 
 local function escaped_cmd(cmd)
-	local term_command = "make " .. vim.fn.shellescape(cmd, true)
+	local term_command = "just " .. vim.fn.shellescape(cmd, true)
 	return vim.fn.fnameescape(term_command)
 end
 
@@ -31,14 +31,14 @@ local function find_existing_task(task)
 end
 
 local function set_buffer_options(buf_id)
-	vim.api.nvim_set_option_value("filetype", "make-runner", { buf = buf_id })
+	vim.api.nvim_set_option_value("filetype", "just-runner", { buf = buf_id })
 	local win_ids = win_ids_for_buf_id(buf_id)
 	for _, win_id in ipairs(win_ids) do
 		vim.api.nvim_set_option_value("number", true, { scope = "local", win = win_id })
 	end
 
 	local opts = { buffer = buf_id, silent = true, noremap = true }
-	vim.keymap.set("n", "<CR>", require("selfmade.make-runner-go-to-file").go_to_file, opts)
+	vim.keymap.set("n", "<CR>", require("selfmade.just-runner-go-to-file").go_to_file, opts)
 end
 
 local function get_current_or_last_task()
@@ -47,7 +47,7 @@ local function get_current_or_last_task()
 	end
 	require("lazy").load({ plugins = { "sqlite.lua" } })
 	local cwd = vim.fn.getcwd()
-	local task_cmd = require("selfmade.make-runner-sqlite-tasks").getName(cwd)
+	local task_cmd = require("selfmade.just-runner-sqlite-tasks").getName(cwd)
 	if not task_cmd or task_cmd == "" then
 		vim.notify("No tasks in sqlite database for cwd", vim.log.levels.WARN)
 		return
@@ -59,7 +59,7 @@ local function get_current_or_last_task()
 end
 
 local function push_current_task_to_db()
-	require("selfmade.make-runner-sqlite-tasks").push({
+	require("selfmade.just-runner-sqlite-tasks").push({
 		name = current_task.cmd,
 		cwd = current_task.cwd,
 	})
@@ -118,26 +118,30 @@ local function execute(cmd)
 	})
 end
 
-vim.api.nvim_create_user_command("Make", function(args)
+vim.api.nvim_create_user_command("Just", function(args)
 	local fargs = args.fargs
 	if #fargs ~= 1 then
-		vim.notify("Make accepts only one argument", vim.log.levels.ERROR)
+		vim.notify("just accepts only one argument", vim.log.levels.ERROR)
 	end
 
 	local arg = fargs[1]
 	execute(arg)
 end, {
 	nargs = "*",
-	desc = "Execute a task from Makefile",
+	desc = "Execute a task from justfile",
 	complete = function(_, _, _)
-		local parser = require("selfmade.make-tasks-parser")
-		return parser.get_make_tasks()
+		-- local parser = require("selfmade.just-tasks-parser")
+    local parser = require("selfmade.just-tasks-parser")
+		-- return parser.get_just_tasks()
+    return parser.get_just_tasks()
 	end,
 })
 
-vim.api.nvim_create_user_command("MakeSelectTaskToExecute", function()
-	local parser = require("selfmade.make-tasks-parser")
-	local tasks = parser.get_make_tasks()
+vim.api.nvim_create_user_command("JustSelectTaskToExecute", function()
+	-- local parser = require("selfmade.just-tasks-parser")
+	local parser = require("selfmade.just-tasks-parser")
+	-- local tasks = parser.get_just_tasks()
+	local tasks = parser.get_just_tasks()
 	if not tasks then
 		vim.notify("No tasks", vim.log.levels.WARN)
 		return
@@ -153,10 +157,10 @@ vim.api.nvim_create_user_command("MakeSelectTaskToExecute", function()
 		end
 	end)
 end, {
-	desc = "Select task from Makefile using vim.ui.select",
+	desc = "Select task from justfile using vim.ui.select",
 })
 
-vim.api.nvim_create_user_command("MakeToggleCurrentTask", function()
+vim.api.nvim_create_user_command("JustToggleCurrentTask", function()
 	local task = get_current_or_last_task()
 
 	if not task then
@@ -188,7 +192,7 @@ end, {
 	desc = "Toggle current task",
 })
 
-vim.api.nvim_create_user_command("MakeRestartCurrentTask", function()
+vim.api.nvim_create_user_command("JustRestartCurrentTask", function()
 	local task = get_current_or_last_task()
 	if task and task.cmd then
 		execute(task.cmd)
@@ -197,7 +201,7 @@ end, {
 	desc = "Restart current task",
 })
 
-vim.api.nvim_create_user_command("MakeSelectCurrentTask", function()
+vim.api.nvim_create_user_command("JustSelectCurrentTask", function()
 	if #existing_tasks == 0 then
 		vim.notify("No existing tasks", vim.log.levels.WARN)
 		return
@@ -218,7 +222,7 @@ end, {
 	desc = "Select current task",
 })
 
-vim.keymap.set("n", "<leader>me", "<cmd>MakeSelectTaskToExecute<CR>", { desc = "Make: select task to execute" })
-vim.keymap.set("n", "<leader>mc", "<cmd>MakeSelectCurrentTask<CR>", { desc = "Make: select current task" })
-vim.keymap.set("n", "<A-r>", "<cmd>MakeToggleCurrentTask<CR>", { desc = "Make: Toggle current task" })
-vim.keymap.set("n", "<A-l>", "<cmd>MakeRestartCurrentTask<CR>", { desc = "Make: Restart current task" })
+vim.keymap.set("n", "<leader>me", "<cmd>JustSelectTaskToExecute<CR>", { desc = "just: select task to execute" })
+vim.keymap.set("n", "<leader>mc", "<cmd>JustSelectCurrentTask<CR>", { desc = "just: select current task" })
+vim.keymap.set("n", "<A-r>", "<cmd>JustToggleCurrentTask<CR>", { desc = "just: Toggle current task" })
+vim.keymap.set("n", "<A-l>", "<cmd>JustRestartCurrentTask<CR>", { desc = "just: Restart current task" })

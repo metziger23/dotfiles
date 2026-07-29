@@ -168,7 +168,7 @@ end
 function M.go_to_file()
 	-- TODO: go to my mega tag
 
-	-- TODO: don't open if another window is of filetype make-runner
+	-- TODO: don't open if another window is of filetype just-runner
 
 	-- TODO: setup previous window selector like in snacks picker
 
