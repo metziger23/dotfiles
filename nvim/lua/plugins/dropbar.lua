@@ -62,5 +62,25 @@ return {
 		vim.keymap.set("n", "<Leader>;", dropbar_api.pick, { desc = "Pick symbols in winbar" })
 		vim.keymap.set("n", "[;", dropbar_api.goto_context_start, { desc = "Go to start of current context" })
 		vim.keymap.set("n", "];", dropbar_api.select_next_context, { desc = "Select next context" })
+
+		vim.api.nvim_create_autocmd("BufWritePost", {
+			group = vim.api.nvim_create_augroup("DropbarOnSave", { clear = true }),
+			pattern = "*",
+			callback = function()
+				local ok_utils, utils = pcall(require, "dropbar.utils")
+				if not ok_utils or not utils or not utils.bar then
+					return
+				end
+
+				local bar = utils.bar.get_current()
+				if not bar then
+					return
+				end
+
+				vim.schedule(function()
+					bar:update()
+				end)
+			end,
+		})
 	end,
 }
