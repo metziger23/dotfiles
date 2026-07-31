@@ -90,6 +90,9 @@ in {
   home.stateVersion = "26.05";
 
   home.packages = with pkgs; [
+    opencode
+    android-tools # NOTE: for adb
+    go # NOTE: for harrisoncramer/gitlab.nvim
     sqlite
     appimage-run
     localsend
