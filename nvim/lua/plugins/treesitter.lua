@@ -22,6 +22,7 @@ return {
 			"kitty",
 			"nix",
 			"kotlin",
+			"java",
 		}
 		require("nvim-treesitter").install(parsers)
 
