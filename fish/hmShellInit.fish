@@ -21,6 +21,7 @@ if status is-interactive
 
   abbr -a lg lazygit
   abbr -a n nvim
+  abbr -a j just
 
   set -x BAT_THEME "Catppuccin Mocha"
   set -x EDITOR nvim
