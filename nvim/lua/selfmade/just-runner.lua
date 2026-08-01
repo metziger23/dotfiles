@@ -2,6 +2,35 @@
 local existing_tasks = {}
 local current_task = {}
 
+local function get_tasks_sorted_by_recency()
+	local parser = require("selfmade.just-tasks-parser")
+	local tasks = parser.get_just_tasks()
+	if tasks == nil then
+		return nil
+	end
+
+	local task_cmds = require("selfmade.just-runner-sqlite-tasks").getNames(vim.fn.getcwd())
+	if task_cmds == nil then
+		return tasks
+	end
+
+	for _, task_cmd in ipairs(task_cmds) do
+		local found = false
+		for i = #tasks, 1, -1 do
+			if tasks[i] == task_cmd then
+				found = true
+				table.remove(tasks, i)
+				break
+			end
+		end
+		if found then
+			table.insert(tasks, 1, task_cmd)
+		end
+	end
+
+	return tasks
+end
+
 ---@diagnostic disable-next-line: unused-function
 local function win_ids_for_buf_id(bufnr)
 	if not vim.api.nvim_buf_is_valid(bufnr) then
@@ -130,14 +159,12 @@ end, {
 	nargs = "*",
 	desc = "Execute a task from justfile",
 	complete = function(_, _, _)
-		local parser = require("selfmade.just-tasks-parser")
-		return parser.get_just_tasks()
+		return get_tasks_sorted_by_recency()
 	end,
 })
 
 vim.api.nvim_create_user_command("JustSelectTaskToExecute", function()
-	local parser = require("selfmade.just-tasks-parser")
-	local tasks = parser.get_just_tasks()
+	local tasks = get_tasks_sorted_by_recency()
 	if not tasks then
 		vim.notify("No tasks", vim.log.levels.WARN)
 		return
@@ -219,6 +246,7 @@ end, {
 })
 
 vim.keymap.set("n", "<leader>me", "<cmd>JustSelectTaskToExecute<CR>", { desc = "just: select task to execute" })
+vim.keymap.set("n", "r<BS>e", "<cmd>JustSelectTaskToExecute<CR>", { desc = "just: select task to execute" })
 vim.keymap.set("n", "<leader>mc", "<cmd>JustSelectCurrentTask<CR>", { desc = "just: select current task" })
 vim.keymap.set("n", "<A-r>", "<cmd>JustToggleCurrentTask<CR>", { desc = "just: Toggle current task" })
 vim.keymap.set("n", "<A-l>", "<cmd>JustRestartCurrentTask<CR>", { desc = "just: Restart current task" })
