@@ -47,19 +47,19 @@ local function get_current_or_last_task()
 	end
 	require("lazy").load({ plugins = { "sqlite.lua" } })
 	local cwd = vim.fn.getcwd()
-	local task_cmd = require("selfmade.just-runner-sqlite-tasks-old").getName(cwd)
-	if not task_cmd or task_cmd == "" then
+	local task_cmds = require("selfmade.just-runner-sqlite-tasks").getNames(cwd)
+	if task_cmds == nil then
 		vim.notify("No tasks in sqlite database for cwd", vim.log.levels.WARN)
 		return
 	end
 
 	current_task.cwd = cwd
-	current_task.cmd = task_cmd
+	current_task.cmd = task_cmds[#task_cmds]
 	return current_task
 end
 
 local function push_current_task_to_db()
-	require("selfmade.just-runner-sqlite-tasks-old").push({
+	require("selfmade.just-runner-sqlite-tasks").push({
 		name = current_task.cmd,
 		cwd = current_task.cwd,
 	})
@@ -131,9 +131,9 @@ end, {
 	desc = "Execute a task from justfile",
 	complete = function(_, _, _)
 		-- local parser = require("selfmade.just-tasks-parser")
-    local parser = require("selfmade.just-tasks-parser")
+		local parser = require("selfmade.just-tasks-parser")
 		-- return parser.get_just_tasks()
-    return parser.get_just_tasks()
+		return parser.get_just_tasks()
 	end,
 })
 
