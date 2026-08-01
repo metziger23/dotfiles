@@ -130,17 +130,13 @@ end, {
 	nargs = "*",
 	desc = "Execute a task from justfile",
 	complete = function(_, _, _)
-		-- local parser = require("selfmade.just-tasks-parser")
 		local parser = require("selfmade.just-tasks-parser")
-		-- return parser.get_just_tasks()
 		return parser.get_just_tasks()
 	end,
 })
 
 vim.api.nvim_create_user_command("JustSelectTaskToExecute", function()
-	-- local parser = require("selfmade.just-tasks-parser")
 	local parser = require("selfmade.just-tasks-parser")
-	-- local tasks = parser.get_just_tasks()
 	local tasks = parser.get_just_tasks()
 	if not tasks then
 		vim.notify("No tasks", vim.log.levels.WARN)
