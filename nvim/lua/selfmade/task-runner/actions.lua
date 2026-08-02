@@ -22,13 +22,6 @@ local function task_runner_win_ids()
 	return result
 end
 
-local function close_all_task_runner_windows()
-	local windows = task_runner_win_ids()
-	for _, win_id in ipairs(windows) do
-		vim.api.nvim_win_close(win_id, false)
-	end
-end
-
 local function win_ids_for_buf_id(bufnr)
 	if not vim.api.nvim_buf_is_valid(bufnr) then
 		return {}
@@ -71,11 +64,32 @@ local function set_buffer_options(buf_id)
 	vim.keymap.set("n", "<CR>", require("selfmade.task-runner.file-navigator").go_to_file, opts)
 end
 
-function M.run_task(cmd, working_dir)
-	close_all_task_runner_windows()
+local function execute_task(cmd, working_dir)
+	local task_buf_id = nil
+	local win_ids = task_runner_win_ids()
+	if #win_ids > 0 then
+		for _, win_id in ipairs(win_ids) do
+			if task_buf_id then
+				vim.api.nvim_win_set_buf(win_id, task_buf_id)
+			else
+				vim.api.nvim_win_call(win_id, function()
+					vim.cmd("edit term://" .. escaped_cmd(cmd))
+				end)
+				task_buf_id = vim.api.nvim_win_get_buf(win_id)
+			end
+		end
+	else
+		vim.cmd("botright split term://" .. escaped_cmd(cmd))
+		task_buf_id = vim.api.nvim_get_current_buf()
+	end
 
-	vim.cmd("botright split term://" .. escaped_cmd(cmd))
-	set_buffer_options(vim.api.nvim_get_current_buf())
+	return task_buf_id
+end
+
+function M.run_task(cmd, working_dir)
+	local task_buf_id = execute_task(cmd, working_dir)
+
+	set_buffer_options(task_buf_id)
 
 	push_current_task_to_db(cmd, working_dir)
 
@@ -84,12 +98,12 @@ function M.run_task(cmd, working_dir)
 	if state.cur_task_idx then
 		local buf_id = state.existing_tasks[state.cur_task_idx].buf_id
 		require("snacks").bufdelete.delete({ buf = buf_id, force = true, wipe = true })
-		state.existing_tasks[state.cur_task_idx].buf_id = vim.api.nvim_get_current_buf()
+		state.existing_tasks[state.cur_task_idx].buf_id = task_buf_id
 	else
 		table.insert(state.existing_tasks, {
 			cmd = cmd,
 			working_dir = working_dir,
-			buf_id = vim.api.nvim_get_current_buf(),
+			buf_id = task_buf_id,
 		})
 		state.cur_task_idx = #state.existing_tasks
 	end
