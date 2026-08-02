@@ -1,6 +1,6 @@
 local M = {}
 
-local state = require("selfmade.task-runner.state")
+local state = require("selfmade.just-runner.state")
 
 local function escaped_cmd(cmd)
 	local term_command = "just " .. vim.fn.shellescape(cmd, true)
@@ -14,7 +14,7 @@ local function task_runner_win_ids()
 		local buf = vim.api.nvim_win_get_buf(win)
 		local ft = vim.bo[buf].filetype
 
-		if ft == "task-runner" then
+		if ft == "just-runner" then
 			table.insert(result, win)
 		end
 	end
@@ -46,14 +46,14 @@ local function find_existing_task_idx(cmd, working_dir)
 end
 
 local function push_current_task_to_db(cmd, working_dir)
-	require("selfmade.task-runner.sqlite-task-store").push({
+	require("selfmade.just-runner.sqlite-task-store").push({
 		name = cmd,
 		working_dir = working_dir,
 	})
 end
 
 local function set_buffer_options(buf_id)
-	vim.api.nvim_set_option_value("filetype", "task-runner", { buf = buf_id })
+	vim.api.nvim_set_option_value("filetype", "just-runner", { buf = buf_id })
 	vim.api.nvim_set_option_value("buflisted", false, { buf = buf_id })
 	local win_ids = win_ids_for_buf_id(buf_id)
 	for _, win_id in ipairs(win_ids) do
@@ -61,7 +61,7 @@ local function set_buffer_options(buf_id)
 	end
 
 	local opts = { buffer = buf_id, silent = true, noremap = true }
-	vim.keymap.set("n", "<CR>", require("selfmade.task-runner.file-navigator").go_to_file, opts)
+	vim.keymap.set("n", "<CR>", require("selfmade.just-runner.file-navigator").go_to_file, opts)
 end
 
 local function execute_task(cmd, working_dir)

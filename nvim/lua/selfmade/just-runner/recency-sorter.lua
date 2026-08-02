@@ -1,13 +1,13 @@
 local M = {}
 
 function M.get_sorted_tasks()
-	local parser = require("selfmade.task-runner.parser")
+	local parser = require("selfmade.just-runner.parser")
 	local tasks = parser.get_just_tasks()
 	if tasks == nil then
 		return nil
 	end
 
-	local task_cmds = require("selfmade.task-runner.sqlite-task-store").getNames(vim.fn.getcwd())
+	local task_cmds = require("selfmade.just-runner.sqlite-task-store").getNames(vim.fn.getcwd())
 	if task_cmds == nil then
 		return tasks
 	end
