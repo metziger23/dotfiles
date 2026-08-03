@@ -65,6 +65,44 @@ end, {
 	desc = "Restart current or last task",
 })
 
-vim.keymap.set("n", "<leader>,", "<cmd>JustSelectTaskToRun<CR>", { desc = "just: select task to run" })
-vim.keymap.set("n", "<M-r>", "<cmd>JustToggleCurrentTaskWindow<CR>", { desc = "just: Toggle current task wondow" })
-vim.keymap.set("n", "<M-l>", "<cmd>JustRestartCurrentOrLastTask<CR>", { desc = "just: Toggle current task wondow" })
+vim.api.nvim_create_user_command("JustSetPreviousTaskAsCurrent", function()
+	if state.cur_task_idx == nil or (state.cur_task_idx - 1) < 1 then
+		vim.notify("No previous task to set as current", vim.log.levels.WARN)
+		return
+	end
+	require("selfmade.just-runner.actions").select_task(state.cur_task_idx - 1)
+end, {
+	desc = "Set previous task as current",
+})
+
+vim.api.nvim_create_user_command("JustSetNextTaskAsCurrent", function()
+	if state.cur_task_idx == nil or (state.cur_task_idx + 1) > #state.existing_tasks then
+		vim.notify("No next task to set as current", vim.log.levels.WARN)
+		return
+	end
+	require("selfmade.just-runner.actions").select_task(state.cur_task_idx + 1)
+end, {
+	desc = "Set next task as current",
+})
+
+local opts = {}
+
+opts.desc = "just: select task to run"
+vim.keymap.set("n", "<leader>,", "<cmd>JustSelectTaskToRun<CR>", opts)
+
+opts.desc = "just: Toggle current task window"
+vim.keymap.set("n", "<M-r>", "<cmd>JustToggleCurrentTaskWindow<CR>", opts)
+
+opts.desc = "just: Toggle current task window"
+vim.keymap.set("n", "<M-l>", "<cmd>JustRestartCurrentOrLastTask<CR>", opts)
+
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "just-runner",
+	callback = function()
+		opts.desc = "just: Set previous task as current"
+		vim.keymap.set("n", "<M-Left>", "<cmd>JustSetPreviousTaskAsCurrent<CR>", opts)
+
+		opts.desc = "just: Set next task as current"
+		vim.keymap.set("n", "<M-Right>", "<cmd>JustSetNextTaskAsCurrent<CR>", opts)
+	end,
+})

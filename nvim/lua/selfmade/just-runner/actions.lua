@@ -131,4 +131,17 @@ function M.toggle_current_task_window()
 	end
 end
 
+function M.select_task(idx)
+	state.cur_task_idx = idx
+
+	local win_ids = task_runner_win_ids()
+	local buf_id = state.existing_tasks[state.cur_task_idx].buf_id
+
+	for _, win_id in ipairs(win_ids) do
+		vim.api.nvim_win_set_buf(win_id, buf_id)
+	end
+
+	vim.notify("task " .. state.cur_task_idx .. " of " .. #state.existing_tasks)
+end
+
 return M
