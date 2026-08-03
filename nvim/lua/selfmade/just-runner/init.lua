@@ -47,5 +47,24 @@ end, {
 	desc = "Toggle current task",
 })
 
+vim.api.nvim_create_user_command("JustRestartCurrentOrLastTask", function()
+	if state.cur_task_idx then
+		local cur_task = state.existing_tasks[state.cur_task_idx]
+		require("selfmade.just-runner.actions").run_task(cur_task.cmd, cur_task.working_dir)
+		return
+	end
+
+	local tasks = require("selfmade.just-runner.recency-sorter").get_sorted_tasks()
+	if tasks == nil or #tasks == 0 then
+		vim.notify("No current or last task", vim.log.levels.WARN)
+		return
+	end
+
+	require("selfmade.just-runner.actions").run_task(tasks[1], vim.fn.getcwd())
+end, {
+	desc = "Restart current or last task",
+})
+
 vim.keymap.set("n", "<leader>,", "<cmd>JustSelectTaskToRun<CR>", { desc = "just: select task to run" })
 vim.keymap.set("n", "<M-r>", "<cmd>JustToggleCurrentTaskWindow<CR>", { desc = "just: Toggle current task wondow" })
+vim.keymap.set("n", "<M-l>", "<cmd>JustRestartCurrentOrLastTask<CR>", { desc = "just: Toggle current task wondow" })
