@@ -1,3 +1,5 @@
+local state = require("selfmade.just-runner.state")
+
 vim.api.nvim_create_user_command("Just", function(args)
 	local fargs = args.fargs
 	if #fargs ~= 1 then
@@ -34,4 +36,16 @@ end, {
 	desc = "Select task from justfile using vim.ui.select",
 })
 
+vim.api.nvim_create_user_command("JustToggleCurrentTaskWindow", function()
+	if state.cur_task_idx == nil then
+		vim.notify("No current task to toggle window", vim.log.levels.WARN)
+		return
+	end
+
+	require("selfmade.just-runner.actions").toggle_current_task_window()
+end, {
+	desc = "Toggle current task",
+})
+
 vim.keymap.set("n", "<leader>,", "<cmd>JustSelectTaskToRun<CR>", { desc = "just: select task to run" })
+vim.keymap.set("n", "<M-r>", "<cmd>JustToggleCurrentTaskWindow<CR>", { desc = "just: Toggle current task wondow" })

@@ -109,4 +109,26 @@ function M.run_task(cmd, working_dir)
 	end
 end
 
+local function open_current_task_window()
+	vim.cmd("botright split")
+	local buf_id = state.existing_tasks[state.cur_task_idx].buf_id
+	vim.api.nvim_win_set_buf(vim.api.nvim_get_current_win(), buf_id)
+	set_buffer_options(buf_id)
+end
+
+local function close_current_task_window(win_ids)
+	for _, win_id in ipairs(win_ids) do
+		vim.api.nvim_win_close(win_id, false)
+	end
+end
+
+function M.toggle_current_task_window()
+	local win_ids = task_runner_win_ids()
+	if #win_ids > 0 then
+		close_current_task_window(win_ids)
+	else
+		open_current_task_window()
+	end
+end
+
 return M
