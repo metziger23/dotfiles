@@ -1,3 +1,2 @@
-require("selfmade.make-runner")
-require("selfmade.make-tasks-parser")
+require("selfmade.just-runner")
 require("selfmade.search-helper-tag")
