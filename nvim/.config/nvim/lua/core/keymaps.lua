@@ -12,6 +12,8 @@ vim.keymap.set("n", "<C-w><S-Down>", "<C-w><S-j>", { desc = "Rotate current wind
 vim.keymap.set("n", "<C-w><S-Up>", "<C-w><S-k>", { desc = "Rotate current window up" })
 vim.keymap.set("n", "<C-w><S-Right>", "<C-w><S-l>", { desc = "Rotate current window right" })
 
+vim.keymap.set("n", "<leader>o", "<C-w>o", { desc = "Close other windows" })
+
 vim.keymap.set("n", "<M-s>", "<cmd>w<CR>", { desc = "Save current buffer" })
 vim.keymap.set("n", "<M-C-s>", "<cmd>wa<CR>", { desc = "Save all buffers" })
 vim.keymap.set("n", "<M-e>", "<cmd>q<CR>", { desc = "Exit current buffer" })

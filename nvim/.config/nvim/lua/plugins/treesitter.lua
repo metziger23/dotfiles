@@ -21,6 +21,7 @@ return {
 			"cmake",
 			"kitty",
 			"kotlin",
+			"java",
 		}
 		require("nvim-treesitter").install(parsers)
 
