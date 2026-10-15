@@ -257,6 +257,9 @@ return {
 
 		vim.lsp.config("qmlls", {
 			-- cmd = { vim.env.QT_BIN_DIR ~= nil and vim.fs.joinpath(vim.env.QT_BIN_DIR, "qmlls") or "qmlls" },
+			on_attach = function(client, _)
+				client.server_capabilities.semanticTokensProvider = nil
+			end,
 			filetypes = { "qmljs", "qml" },
 			handlers = {
 				["textDocument/publishDiagnostics"] = function(err, method, params, client_id)
