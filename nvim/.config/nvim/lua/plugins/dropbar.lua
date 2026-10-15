@@ -66,20 +66,18 @@ return {
 		vim.api.nvim_create_autocmd("BufWritePost", {
 			group = vim.api.nvim_create_augroup("DropbarOnSave", { clear = true }),
 			pattern = "*",
-			callback = function()
+			callback = function(ev)
 				local ok_utils, utils = pcall(require, "dropbar.utils")
 				if not ok_utils or not utils or not utils.bar then
 					return
 				end
 
-				local bar = utils.bar.get_current()
-				if not bar then
-					return
+				local bars = utils.bar.get({ buf = ev.buf })
+				for _, bar in pairs(bars) do
+					vim.schedule(function()
+						bar:update()
+					end)
 				end
-
-				vim.schedule(function()
-					bar:update()
-				end)
 			end,
 		})
 	end,
