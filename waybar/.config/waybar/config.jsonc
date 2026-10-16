@@ -20,8 +20,6 @@
       "custom/sep",
       "pulseaudio",
       "custom/sep",
-      "custom/vpn",
-      "custom/sep",
       "cpu",
       "custom/sep",
       "memory",
@@ -98,12 +96,6 @@
       "ignored-sinks": [
         "Easy Effects Sink"
       ]
-    },
-    "custom/vpn": {
-      "exec": "~/.config/waybar/scripts/vpn_status.sh",
-      "interval": 1,
-      "return-type": "json",
-      "format": "{text}"
     }
   },
   {

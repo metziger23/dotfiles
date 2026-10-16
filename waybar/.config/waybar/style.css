@@ -75,7 +75,6 @@ window#waybar {
 #network,
 #language,
 #pulseaudio,
-#custom-vpn,
 #tray {
     padding: 0 8px;
     color: @white;
@@ -125,8 +124,3 @@ window#waybar {
   color: @yellow;
   border-bottom: 4px solid @yellow;
 }  
-
-#custom-vpn {
-  color: @lavender;
-  border-bottom: 4px solid @lavender; 
-}
