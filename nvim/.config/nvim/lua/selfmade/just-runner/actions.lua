@@ -62,6 +62,7 @@ local function set_buffer_options(buf_id)
 
 	local opts = { buffer = buf_id, silent = true, noremap = true }
 	vim.keymap.set("n", "<CR>", require("selfmade.just-runner.file-navigator").go_to_file, opts)
+	vim.cmd("ColorizerAttachToBuffer")
 end
 
 local function execute_task(cmd, working_dir)
