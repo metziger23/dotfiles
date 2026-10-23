@@ -98,7 +98,8 @@ vim.keymap.set("n", "<M-l>", "<cmd>JustRestartCurrentOrLastTask<CR>", opts)
 
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = "just-runner",
-	callback = function()
+	callback = function(ev)
+		opts.buffer = ev.buf
 		opts.desc = "just: Set previous task as current"
 		vim.keymap.set("n", "<M-Left>", "<cmd>JustSetPreviousTaskAsCurrent<CR>", opts)
 
@@ -106,4 +107,3 @@ vim.api.nvim_create_autocmd("FileType", {
 		vim.keymap.set("n", "<M-Right>", "<cmd>JustSetNextTaskAsCurrent<CR>", opts)
 	end,
 })
-
