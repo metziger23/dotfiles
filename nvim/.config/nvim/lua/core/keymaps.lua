@@ -70,3 +70,6 @@ vim.keymap.set("n", "<leader>qn",
   "<cmd>mksession! /tmp/nvim-session.vim | restart source /tmp/nvim-session.vim<cr>",
   { desc = "Restart neovim"}
 )
+
+vim.keymap.set("n", "<leader>e", "<cmd>e<CR>", { desc = "Reload buffer" })
+vim.keymap.set("n", "<leader>E", "<cmd>e!<CR>", { desc = "Force reload buffer"})
